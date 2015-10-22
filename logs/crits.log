@@ -1,0 +1,592 @@
+INFO 2015-09-27 22:59:30,325 crits.services.handlers Enabling: taxii_service
+INFO 2015-09-27 23:02:53,835 crits.services.handlers Enabling triage: taxii_service
+INFO 2015-10-05 10:53:01,286 crits.services.handlers Enabling: virustotal_lookup
+INFO 2015-10-05 10:53:02,564 crits.services.handlers Enabling triage: virustotal_lookup
+INFO 2015-10-05 11:02:40,660 crits.services.handlers Running virustotal_lookup on 560415ae8c5de81e5669f19c, execute=process
+INFO 2015-10-05 23:03:40,451 crits.services.handlers Running virustotal_lookup on 56133a0c8c5de826604d87fe, execute=process
+INFO 2015-10-06 04:47:11,310 crits.services.handlers Running virustotal_lookup on 56133a0c8c5de826604d87fe, execute=process
+DEBUG 2015-10-06 05:53:05,989 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 05:53:05,989 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 05:53:05,995 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 05:53:05,995 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 05:53:07,433 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 05:53:07,433 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 05:53:07,439 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 05:53:07,439 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:04:56,274 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:04:56,274 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:04:56,280 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:04:56,280 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:04:57,692 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:04:57,692 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:04:57,699 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:04:57,699 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:07:06,505 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:07:06,505 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:07:06,511 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:07:06,511 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:07:07,909 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:07:07,909 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:07:07,915 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:07:07,915 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:10:10,163 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:10:10,163 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:10:10,169 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:10:10,169 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:10:11,691 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:10:11,691 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:10:11,697 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:10:11,697 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:12:38,287 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:12:38,287 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:12:38,293 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:12:38,294 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:12:39,715 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:12:39,715 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:12:39,722 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:12:39,722 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:18:18,783 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:18:18,783 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:18:18,789 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:18:18,789 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:18:20,357 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:18:20,357 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:18:20,363 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:18:20,363 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:20:37,939 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:20:37,939 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:20:37,946 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:20:37,946 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:20:39,340 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:20:39,340 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:20:39,346 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:20:39,346 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:21:48,770 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:21:48,770 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:21:48,778 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:21:48,778 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:21:50,165 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:21:50,165 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:21:50,172 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:21:50,172 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:22:31,763 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:22:31,763 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:22:31,769 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:22:31,769 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:22:33,232 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:22:33,232 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:22:33,238 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:22:33,238 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:25:42,178 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:25:42,178 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:25:42,184 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:25:42,184 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:25:43,572 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:25:43,572 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:25:43,579 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:25:43,579 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:27:09,760 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:27:09,760 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:27:09,766 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:27:09,766 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:27:11,248 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:27:11,248 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:27:11,254 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:27:11,254 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:28:53,054 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:28:53,054 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:28:53,060 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:28:53,060 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:28:54,464 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:28:54,464 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:28:54,470 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:28:54,470 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:30:44,161 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:30:44,161 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:30:44,167 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:30:44,167 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:30:45,679 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:30:45,679 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:30:45,685 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:30:45,685 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:34:57,178 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:34:57,178 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:34:57,184 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:34:57,184 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:34:58,595 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:34:58,595 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:34:58,601 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:34:58,601 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:37:53,622 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:37:53,622 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:37:53,628 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:37:53,628 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:37:55,042 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:37:55,043 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:37:55,051 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:37:55,051 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:40:28,909 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:40:28,909 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:40:28,915 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:40:28,915 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:40:30,351 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:40:30,351 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:40:30,358 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:40:30,358 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:44:48,763 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:44:48,763 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:44:48,770 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:44:48,770 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:44:50,246 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:44:50,246 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:44:50,252 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:44:50,252 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:46:11,699 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:46:11,699 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:46:11,705 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:46:11,705 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:46:13,209 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:46:13,209 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:46:13,215 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:46:13,215 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:47:33,806 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:47:33,806 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:47:33,812 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:47:33,812 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:47:44,048 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:47:44,048 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:47:44,055 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:47:44,055 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:47:45,547 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:47:45,547 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:47:45,552 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:47:45,552 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:51:05,448 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:51:05,448 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:51:05,454 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:51:05,454 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:51:06,889 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:51:06,889 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:51:06,896 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:51:06,896 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:54:41,554 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:54:41,554 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:54:41,560 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:54:41,560 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:54:43,109 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:54:43,109 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:54:43,116 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:54:43,116 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:55:43,698 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:55:43,698 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:55:43,705 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:55:43,705 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 06:55:45,165 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 06:55:45,165 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 06:55:45,171 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 06:55:45,171 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 07:39:16,050 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 07:39:16,050 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 07:39:16,057 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 07:39:16,058 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 07:39:17,547 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 07:39:17,547 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 07:39:17,553 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 07:39:17,553 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 07:41:48,524 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 07:41:48,524 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 07:41:48,530 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 07:41:48,530 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 07:41:50,035 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 07:41:50,036 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 07:41:50,042 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 07:41:50,042 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 07:45:20,339 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 07:45:20,339 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 07:45:20,345 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 07:45:20,345 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 07:45:21,758 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 07:45:21,759 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 07:45:21,765 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 07:45:21,765 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 09:48:39,968 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 09:48:39,968 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 09:48:40,061 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 09:48:40,061 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 09:48:41,466 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 09:48:41,466 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 09:48:41,472 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 09:48:41,472 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:01:25,993 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:01:25,994 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:01:25,999 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:01:25,999 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:01:27,382 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:01:27,382 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:01:27,388 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:01:27,388 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:06:42,947 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:06:42,947 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:06:42,954 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:06:42,954 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:06:44,358 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:06:44,358 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:06:44,364 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:06:44,364 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:16:20,100 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:16:20,100 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:16:20,107 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:16:20,107 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:16:21,548 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:16:21,548 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:16:21,554 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:16:21,554 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:17:34,483 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:17:34,483 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:17:34,492 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:17:34,492 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:17:36,003 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:17:36,003 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:17:36,010 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:17:36,011 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:19:22,268 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:19:22,269 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:19:22,275 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:19:22,275 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:19:23,737 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:19:23,737 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:19:23,743 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:19:23,743 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:21:18,487 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:21:18,487 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:21:18,494 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:21:18,494 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:21:19,976 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:21:19,977 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:21:19,983 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:21:19,983 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:22:21,282 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:22:21,282 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:22:21,288 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:22:21,288 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:22:22,743 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:22:22,743 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:22:22,749 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:22:22,749 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:24:26,927 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:24:26,927 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:24:26,933 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:24:26,933 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:24:28,430 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:24:28,430 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:24:28,437 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:24:28,437 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:25:45,859 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:25:45,859 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:25:45,870 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:25:45,870 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:25:47,276 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:25:47,276 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:25:47,282 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:25:47,282 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:26:48,797 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:26:48,797 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:26:48,803 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:26:48,803 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:26:50,211 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:26:50,211 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:26:50,217 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:26:50,217 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:41:10,367 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:41:10,367 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:41:10,373 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:41:10,373 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 10:41:11,755 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 10:41:11,755 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 10:41:11,761 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 10:41:11,761 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 13:36:24,174 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 13:36:24,238 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 13:36:24,755 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 13:36:24,756 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-06 13:36:26,116 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-06 13:36:26,117 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-06 13:36:26,123 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-06 13:36:26,123 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-07 10:55:15,494 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-07 10:55:15,512 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-07 10:55:15,910 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-07 10:55:15,910 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-07 10:55:15,915 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-07 10:55:15,915 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-07 10:55:17,377 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-07 10:55:17,377 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-07 10:55:17,383 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-07 10:55:17,384 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-07 10:55:17,386 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-07 10:55:17,386 crits.services.core Registering Service relationships_service
+INFO 2015-10-07 10:56:24,822 crits.services.handlers Enabling: relationships_service
+INFO 2015-10-07 10:56:26,086 crits.services.handlers Enabling triage: relationships_service
+DEBUG 2015-10-07 11:00:48,877 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-07 11:00:48,877 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-07 11:00:48,883 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-07 11:00:48,883 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-07 11:00:48,885 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-07 11:00:48,885 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-07 11:00:48,887 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-07 11:00:48,887 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-07 11:00:50,272 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-07 11:00:50,272 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-07 11:00:50,279 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-07 11:00:50,279 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-07 11:00:50,281 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-07 11:00:50,281 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-07 11:00:50,283 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-07 11:00:50,283 crits.services.core Registering Service relationships_service
+INFO 2015-10-07 11:01:05,086 crits.services.handlers Enabling: timeline_service
+INFO 2015-10-07 11:01:06,249 crits.services.handlers Enabling triage: timeline_service
+DEBUG 2015-10-07 14:21:40,435 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-07 14:21:40,473 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-07 14:21:40,881 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-07 14:21:40,881 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-07 14:21:40,882 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-07 14:21:40,882 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-07 14:21:40,884 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-07 14:21:40,884 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-07 14:21:43,305 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-07 14:21:43,305 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-07 14:21:43,312 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-07 14:21:43,312 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-07 14:21:43,313 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-07 14:21:43,313 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-07 14:21:43,315 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-07 14:21:43,315 crits.services.core Registering Service relationships_service
+ERROR 2015-10-07 14:52:51,080 crits.indicators.handlers Could not extract type/value pair of input fieldtype: Nonevalue: Noneindicator_relationships: [{'campaign': [], 'locations': [], 'actions': [], 'threat_type': u'Unknown', 'id': ObjectId('5612bfe7bafc2465945dbe1c'), 'impact': SON([('rating', u'unknown')]), 'confidence': SON([('rating', u'unknown')]), 'rel_confidence': u'unknown', 'screenshots': [], 'schema_version': 3, 'source': [], 'type': u'Indicator', 'releasability': [], 'status': u'New', 'relationships': [], 'bucket_list': [], 'relationship': u'Related_To', 'objects': [], 'attack_type': u'Unknown', 'date': datetime.datetime(2015, 10, 5, 14, 22, 31, 350000), 'analyst': u'dullemj1', 'rel_reason': u'N/A', 'tickets': [], 'ind_type': u'C2 URL', 'sectors': [], 'created': datetime.datetime(2015, 10, 7, 14, 52, 49, 926465), 'ind_value': u'www.ifdcsanluis.edu.ar/123/1111.exe', 'relationship_date': datetime.datetime(2015, 10, 5, 14, 22, 31, 350000), 'modified': datetime.datetime(2015, 10, 7, 14, 52, 49, 926487), 'value': ObjectId('5612bfe7bafc2465945dbe1c'), 'activity': [], '_id': ObjectId('5612bfe7bafc2465945dbe1c')}]
+DEBUG 2015-10-08 03:05:46,022 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:05:46,049 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:05:46,560 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:05:46,560 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:05:46,561 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:05:46,561 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:05:46,564 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:05:46,564 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 03:05:48,993 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:05:48,993 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:05:48,999 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:05:48,999 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:05:49,000 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:05:49,001 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:05:49,002 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:05:49,002 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 03:40:37,528 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:40:37,528 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:40:37,536 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:40:37,536 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:40:37,538 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:40:37,538 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:40:37,541 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:40:37,541 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 03:40:40,065 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:40:40,065 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:40:40,074 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:40:40,074 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:40:40,076 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:40:40,076 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:40:40,078 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:40:40,078 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 03:49:41,653 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:49:41,653 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:49:41,662 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:49:41,662 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:49:41,664 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:49:41,664 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:49:41,666 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:49:41,666 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 03:49:44,177 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:49:44,177 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:49:44,186 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:49:44,186 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:49:44,188 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:49:44,188 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:49:44,191 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:49:44,191 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 03:58:36,999 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:58:36,999 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:58:37,007 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:58:37,007 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:58:37,009 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:58:37,009 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:58:37,011 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:58:37,011 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 03:58:39,549 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 03:58:39,549 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 03:58:39,558 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 03:58:39,558 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 03:58:39,560 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 03:58:39,560 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 03:58:39,562 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 03:58:39,562 crits.services.core Registering Service relationships_service
+INFO 2015-10-08 04:46:18,087 crits.services.handlers Running virustotal_lookup on 56162d5a8c5de829dd783218, execute=process
+DEBUG 2015-10-08 04:46:18,087 crits.services.handlers Adding task eed41861-706b-4fb7-8809-8e30ae77430e {Service: virustotal_lookup, Id: 56162d5a8c5de829dd783218}
+INFO 2015-10-08 04:46:18,160 crits.services.handlers Running virustotal_lookup on 56162d5a8c5de829dd783218, execute=process
+DEBUG 2015-10-08 04:46:18,160 crits.services.handlers Adding task ac11f03c-5538-4b88-9ff9-5c1aeac010b5 {Service: virustotal_lookup, Id: 56162d5a8c5de829dd783218}
+DEBUG 2015-10-08 04:46:23,924 crits.services.core Finished analysis ac11f03c-5538-4b88-9ff9-5c1aeac010b5
+DEBUG 2015-10-08 04:46:23,929 crits.services.core Finished analysis eed41861-706b-4fb7-8809-8e30ae77430e
+DEBUG 2015-10-08 04:55:59,004 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 04:55:59,004 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 04:55:59,015 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 04:55:59,016 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 04:55:59,019 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 04:55:59,019 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 04:55:59,024 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 04:55:59,024 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 04:56:01,488 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 04:56:01,488 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 04:56:01,496 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 04:56:01,496 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 04:56:01,498 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 04:56:01,498 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 04:56:01,500 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 04:56:01,500 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 04:59:34,779 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 04:59:34,779 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 04:59:34,788 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 04:59:34,788 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 04:59:34,789 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 04:59:34,789 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 04:59:34,792 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 04:59:34,792 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 04:59:37,318 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 04:59:37,318 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 04:59:37,327 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 04:59:37,327 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 04:59:37,328 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 04:59:37,328 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 04:59:37,330 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 04:59:37,330 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 05:00:44,422 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 05:00:44,422 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 05:00:44,430 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 05:00:44,430 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 05:00:44,432 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 05:00:44,432 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 05:00:44,434 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 05:00:44,434 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 05:00:47,000 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 05:00:47,000 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 05:00:47,009 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 05:00:47,010 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 05:00:47,011 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 05:00:47,011 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 05:00:47,014 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 05:00:47,014 crits.services.core Registering Service relationships_service
+INFO 2015-10-08 05:15:21,859 crits.services.handlers Running virustotal_lookup on 561634298c5de8318f3d1c44, execute=process
+DEBUG 2015-10-08 05:15:21,859 crits.services.handlers Adding task dcf3bd35-ab68-43b0-b10b-97d0e68d8734 {Service: virustotal_lookup, Id: 561634298c5de8318f3d1c44}
+INFO 2015-10-08 05:15:21,892 crits.services.handlers Running virustotal_lookup on 561634298c5de8318f3d1c44, execute=process
+DEBUG 2015-10-08 05:15:21,892 crits.services.handlers Adding task 78cfd12d-3329-4d55-876c-60827004868e {Service: virustotal_lookup, Id: 561634298c5de8318f3d1c44}
+DEBUG 2015-10-08 05:15:22,349 crits.services.core Finished analysis dcf3bd35-ab68-43b0-b10b-97d0e68d8734
+DEBUG 2015-10-08 05:15:22,653 crits.services.core Finished analysis 78cfd12d-3329-4d55-876c-60827004868e
+DEBUG 2015-10-08 05:56:31,926 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 05:56:31,926 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 05:56:31,935 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 05:56:31,935 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 05:56:31,937 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 05:56:31,937 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 05:56:31,939 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 05:56:31,939 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 05:56:34,491 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 05:56:34,491 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 05:56:34,500 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 05:56:34,500 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 05:56:34,502 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 05:56:34,502 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 05:56:34,505 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 05:56:34,505 crits.services.core Registering Service relationships_service
+INFO 2015-10-08 06:17:02,199 crits.services.handlers Running virustotal_lookup on 5616429e8c5de8368c910772, execute=process
+DEBUG 2015-10-08 06:17:02,200 crits.services.handlers Adding task 9341f8fe-2b1b-44ad-b72a-b887bfc95c4a {Service: virustotal_lookup, Id: 5616429e8c5de8368c910772}
+INFO 2015-10-08 06:17:02,229 crits.services.handlers Running virustotal_lookup on 5616429e8c5de8368c910772, execute=process
+DEBUG 2015-10-08 06:17:02,230 crits.services.handlers Adding task 35e11805-5713-4aab-8b39-2b8fd338bb74 {Service: virustotal_lookup, Id: 5616429e8c5de8368c910772}
+DEBUG 2015-10-08 06:17:02,588 crits.services.core Finished analysis 9341f8fe-2b1b-44ad-b72a-b887bfc95c4a
+DEBUG 2015-10-08 06:17:02,902 crits.services.core Finished analysis 35e11805-5713-4aab-8b39-2b8fd338bb74
+INFO 2015-10-08 06:21:37,498 crits.services.handlers Running virustotal_lookup on 561643b18c5de8368c910780, execute=process
+DEBUG 2015-10-08 06:21:37,498 crits.services.handlers Adding task 3a04d012-3486-4b50-a701-69b5c050581e {Service: virustotal_lookup, Id: 561643b18c5de8368c910780}
+INFO 2015-10-08 06:21:37,526 crits.services.handlers Running virustotal_lookup on 561643b18c5de8368c910780, execute=process
+DEBUG 2015-10-08 06:21:37,527 crits.services.handlers Adding task 13574ef5-e912-4702-aab6-c1e6f957cb9b {Service: virustotal_lookup, Id: 561643b18c5de8368c910780}
+DEBUG 2015-10-08 06:21:38,010 crits.services.core Finished analysis 3a04d012-3486-4b50-a701-69b5c050581e
+DEBUG 2015-10-08 06:21:38,109 crits.services.core Finished analysis 13574ef5-e912-4702-aab6-c1e6f957cb9b
+DEBUG 2015-10-08 08:06:56,954 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 08:06:56,954 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 08:06:57,152 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 08:06:57,152 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 08:06:57,154 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 08:06:57,154 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 08:06:57,157 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 08:06:57,157 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 08:06:59,712 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 08:06:59,712 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 08:06:59,721 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 08:06:59,721 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 08:06:59,722 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 08:06:59,722 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 08:06:59,724 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 08:06:59,724 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 08:39:02,619 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 08:39:02,619 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 08:39:02,630 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 08:39:02,630 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 08:39:02,632 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 08:39:02,632 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 08:39:02,635 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 08:39:02,635 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 08:39:05,073 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 08:39:05,073 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 08:39:05,081 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 08:39:05,081 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 08:39:05,083 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 08:39:05,083 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 08:39:05,085 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 08:39:05,085 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 09:30:40,279 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 09:30:40,279 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 09:30:40,287 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 09:30:40,287 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 09:30:40,289 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 09:30:40,289 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 09:30:40,290 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 09:30:40,290 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-08 09:30:42,721 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-08 09:30:42,721 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-08 09:30:42,730 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-08 09:30:42,730 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-08 09:30:42,731 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-08 09:30:42,732 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-08 09:30:42,734 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-08 09:30:42,734 crits.services.core Registering Service relationships_service
+INFO 2015-10-08 11:10:56,141 crits.services.handlers Running virustotal_lookup on 561687808c5de860b477edbc, execute=process
+DEBUG 2015-10-08 11:10:56,141 crits.services.handlers Adding task c86911b0-2d35-4157-9ee5-862a0a0459d0 {Service: virustotal_lookup, Id: 561687808c5de860b477edbc}
+INFO 2015-10-08 11:10:56,246 crits.services.handlers Running virustotal_lookup on 561687808c5de860b477edbc, execute=process
+DEBUG 2015-10-08 11:10:56,247 crits.services.handlers Adding task 427e06ec-73f7-4ba6-8a63-00764550f223 {Service: virustotal_lookup, Id: 561687808c5de860b477edbc}
+DEBUG 2015-10-08 11:10:57,044 crits.services.core Finished analysis 427e06ec-73f7-4ba6-8a63-00764550f223
+DEBUG 2015-10-08 11:10:57,252 crits.services.core Finished analysis c86911b0-2d35-4157-9ee5-862a0a0459d0
+INFO 2015-10-08 11:15:54,977 crits.services.handlers Running virustotal_lookup on 561688aa8c5de860b477edc9, execute=process
+DEBUG 2015-10-08 11:15:54,978 crits.services.handlers Adding task 7a8cb448-054d-40de-8a8a-3e1495425e1d {Service: virustotal_lookup, Id: 561688aa8c5de860b477edc9}
+INFO 2015-10-08 11:15:55,004 crits.services.handlers Running virustotal_lookup on 561688aa8c5de860b477edc9, execute=process
+DEBUG 2015-10-08 11:15:55,005 crits.services.handlers Adding task 48f223b3-b68a-4df6-a5ee-f5cd86198daa {Service: virustotal_lookup, Id: 561688aa8c5de860b477edc9}
+DEBUG 2015-10-08 11:15:55,291 crits.services.core Finished analysis 7a8cb448-054d-40de-8a8a-3e1495425e1d
+DEBUG 2015-10-08 11:15:55,574 crits.services.core Finished analysis 48f223b3-b68a-4df6-a5ee-f5cd86198daa
+DEBUG 2015-10-12 08:31:28,286 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-12 08:31:28,309 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-12 08:31:28,689 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-12 08:31:28,690 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-12 08:31:28,692 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-12 08:31:28,693 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-12 08:31:28,695 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-12 08:31:28,695 crits.services.core Registering Service relationships_service
+DEBUG 2015-10-12 08:31:31,058 crits.services.core Found service subclass: taxii_service version 2.0.1
+DEBUG 2015-10-12 08:31:31,058 crits.services.core Registering Service taxii_service
+DEBUG 2015-10-12 08:31:31,065 crits.services.core Found service subclass: timeline_service version 0.0.1
+DEBUG 2015-10-12 08:31:31,065 crits.services.core Registering Service timeline_service
+DEBUG 2015-10-12 08:31:31,066 crits.services.core Found service subclass: virustotal_lookup version 3.1.0
+DEBUG 2015-10-12 08:31:31,067 crits.services.core Registering Service virustotal_lookup
+DEBUG 2015-10-12 08:31:31,069 crits.services.core Found service subclass: relationships_service version 0.0.2
+DEBUG 2015-10-12 08:31:31,069 crits.services.core Registering Service relationships_service
