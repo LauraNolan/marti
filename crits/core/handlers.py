@@ -979,19 +979,23 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                     json_docs.append(obj.to_json())
                 except:
                     pass
+    zip_count = len(to_zip)
     if rst_fmt == 'docx':
-        #MD: TODO figure out how to manage the docx download
+        #MD: TODO figure out how to manage the docx download without saving file
         import docx
         import json
+        tmp_path = '/tmp/del_me.docx'
         doc = docx.Document()
-        j = json.loads(json_docs[2:-2])
+        j = json.loads(json_docs[0])
         doc.add_paragraph(json.dumps(j,sort_keys=True, indent=4,separators=(',',': ')))
+        doc.save(tmp_path)
+        doc_data = open(tmp_path,'rb').read()
+        os.remove(tmp_path)
         result['success'] = True
-        result['data'] = doc
+        result['data'] = doc_data
         result['filename'] = "crits.docx"
         result['mimetype'] = 'application/vnd.openxmlformats-officedocument.wordprocessingm1.document'
-    zip_count = len(to_zip)
-    if zip_count <= 0:
+    elif zip_count <= 0:
         result['success'] = True
         result['data'] = json_docs
         result['filename'] = "crits.json"
