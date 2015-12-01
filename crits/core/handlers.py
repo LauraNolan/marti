@@ -904,6 +904,62 @@ def modify_bucket_list(itype, oid, tags, analyst):
     except ValidationError:
         pass
 
+def write_INTSUM(j):
+    """
+    Given a json representation of a CRITs object, write a custom
+    INTSUM report.
+
+    :param j: json represenation of a CRITs object
+    :type j: json
+    """
+    def docx_write(doc,x=None,y=None):
+        if type(y) == "list":
+            y = ",".join(y)
+        if x and y:
+            doc.add_paragraph("{0}:  {1}".format(x,y))
+        elif not x and not y:
+            #Print blank line
+            doc.add_paragraph("")
+        else:
+            pass #Do not print empty objects
+    import docx
+    tmp_path = '/tmp/del_me.docx'
+    doc = docx.Document()
+    doc.add_heading("INTELLIGENCE SUMMARY [INTSUM]",0)
+    if "filename" in j.keys():
+        j_type = "sample"
+        #doc.add_paragraph("FILENAME:  ",j["filename"])
+        docx_write(doc,"FILENAME",j["filename"])
+        docx_write(doc,"OTHER FILENAMES",j['filenames'])
+        docx_write(doc,"CREATED",j["created"])
+        #doc.add_paragraph("FILETYPE:  ",j["filetype"])
+        docx_write(doc,"FILETYPE",j["filetype"])
+        docx_write(doc,"FILE SIZE IN BYTES",j["size"])
+        #doc.add_paragraph("MD5:  ",j["md5"])
+        docx_write(doc,"MD5",j["md5"])
+        docx_write(doc,"SHA1",j["sha1"])
+        docx_write(doc,"SHA256",j["sha256"])
+        docx_write(doc,"SSDEEP",j["ssdeep"])
+        #doc.add_paragraph("CREATED:  ",j["created"])
+        docx_write(doc,"MIMETYPE",j["mimetype"])
+        docx_write(doc)
+        docx_write(doc,"PART OF CAMPAIGN",j["campaign"])
+        docx_write(doc,"SECTORS TARGETED",j["sectors"])
+        docx_write(doc,"BUCKET LIST",j["bucket_list"])
+        docx_write(doc)
+        doc.add_heading("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES",1)
+        for source in j['source']:
+            doc.add_paragraph("SAMPLE WAS SEEN AT {0}".format(source['name']))
+            for instance in source['instances']:
+                doc.add_paragraph("\tANALYST {0} DISCOVERED ON {1}".format(instance['analyst'],instance['date']))
+                if instance['method']:
+                    doc.add_paragraph("\t\tMETHOD OF DISCOVERY: {0}".format(instance['method']))
+                if instance['reference']:
+                    doc.add_paragraph("\t\tREFERENCE OF DISCOVERY: {0}".format(instance['reference']))
+        docx_write(doc)
+    doc.save(tmp_path)
+    #doc.add_paragraph(json.dumps(j,sort_keys=True, indent=4,separators=(',',': ')))
+
 def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                             bin_fmt, object_types, objs, sources,
                             make_zip=True):
@@ -982,18 +1038,15 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
     zip_count = len(to_zip)
     if rst_fmt == 'docx':
         #MD: TODO figure out how to manage the docx download without saving file
-        import docx
         import json
         tmp_path = '/tmp/del_me.docx'
-        doc = docx.Document()
         j = json.loads(json_docs[0])
-        doc.add_paragraph(json.dumps(j,sort_keys=True, indent=4,separators=(',',': ')))
-        doc.save(tmp_path)
+        write_INTSUM(j)
         doc_data = open(tmp_path,'rb').read()
         os.remove(tmp_path)
         result['success'] = True
         result['data'] = doc_data
-        result['filename'] = "crits.docx"
+        result['filename'] = "INTSUM.docx"
         result['mimetype'] = 'application/vnd.openxmlformats-officedocument.wordprocessingm1.document'
     elif zip_count <= 0:
         result['success'] = True
