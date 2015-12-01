@@ -933,15 +933,16 @@ def write_INTSUM(j):
                 if instance['reference']:
                     doc.add_paragraph("\t\tREFERENCE OF DISCOVERY: {0}".format(instance['reference']))
     def add_comments(doc,obj_id,obj_type):
-        doc.add_heading("ANALYST COMMENTS",2)
         from crits.comments.handlers import get_comments
         comments = get_comments(obj_id,obj_type)
-        i = 0
-        #comment_pattern = r"'comment', u'([\w\s]+)'\)"
-        for comment in comments:
-            doc.add_paragraph("ANALYST {0} MADE THE FOLLOWING COMMENT AT {1}".format(comment.analyst,comment.date))
-            docx_write(doc,"\tCOMMENT #"+str(i),comment.comment)
-            i += 1
+        if comments:
+            doc.add_heading("ANALYST COMMENTS",2)
+            i = 0
+            #comment_pattern = r"'comment', u'([\w\s]+)'\)"
+            for comment in comments:
+                doc.add_paragraph("ANALYST {0} MADE THE FOLLOWING COMMENT AT {1}".format(comment.analyst,comment.date))
+                docx_write(doc,"\tCOMMENT #"+str(i),comment.comment)
+                i += 1
 
     import docx
     docx.text.run.Font.size = docx.shared.Pt(12)
@@ -974,9 +975,7 @@ def write_INTSUM(j):
         docx_write(doc)
         doc.add_heading("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES",2)
         add_sources(doc,j['source'])
-
         add_comments(doc,j["_id"],j_type)
-
     elif "from" in j.keys():
         j_type = "Email"
         doc.add_heading("EMAIL",1)
@@ -991,6 +990,21 @@ def write_INTSUM(j):
         docx_write(doc,"ORIGINATING IP",j["originating_ip"])
         docx_write(doc,"X ORIGINATING IP",j["x_originating_ip"])
         docx_write(doc,"HELO",j["helo"])
+        docx_write(doc,"BUCKET LIST",j["bucket_list"])
+        docx_write(doc,"RELEASABILITY",j["releasability"])
+        docx_write(doc)
+        add_sources(doc,j['source'])
+        add_comments(doc,j["_id"],j_type)
+    elif "type" in j.keys():
+        j_type = "Indicator"
+        doc.add_heading("INDICATOR",1)
+        docx_write(doc,"TYPE",j["type"])
+        docx_write(doc,"VALUE",j["value"])
+        docx_write(doc,"DATE",j["created"])
+        docx_write(doc,"THREAT TYPE",j["threat_type"])
+        docx_write(doc,"ATTACK TYPE",j["attack_type"])
+        docx_write(doc,"IMPACT",j["impact"])
+        docx_write(doc,"CONFIDENCE",j["confidence"])
         docx_write(doc,"BUCKET LIST",j["bucket_list"])
         docx_write(doc,"RELEASABILITY",j["releasability"])
         docx_write(doc)
