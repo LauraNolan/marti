@@ -913,8 +913,9 @@ def write_INTSUM(j):
     :type j: json
     """
     def docx_write(doc,x=None,y=None):
-        if type(y) == "list":
-            y = ",".join(y)
+        print type(y)
+        if isinstance(y,list):
+            y = ", ".join(y)
         if x and y:
             doc.add_paragraph("{0}:  {1}".format(x,y))
         elif not x and not y:
@@ -938,7 +939,7 @@ def write_INTSUM(j):
     doc.add_heading("INTELLIGENCE SUMMARY [INTSUM]",0)
     docx.text.run.Font.size = docx.shared.Pt(12)
     if "filename" in j.keys():
-        j_type = "sample"
+        j_type = "Sample"
         doc.add_heading("FILE SAMPLE",1)
         #doc.add_paragraph("FILENAME:  ",j["filename"])
         docx_write(doc,"FILENAME",j["filename"])
@@ -962,8 +963,18 @@ def write_INTSUM(j):
         docx_write(doc)
         doc.add_heading("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES",2)
         add_sources(doc,j['source'])
+        doc.add_heading("ANALYST COMMENTS",2)
+        from crits.comments.handlers import get_comments
+        comments = get_comments(j['_id'],j_type)
+        i = 0
+        #comment_pattern = r"'comment', u'([\w\s]+)'\)"
+        for comment in comments:
+            doc.add_paragraph("ANALYST {0} MADE THE FOLLOWING COMMENT AT {1}".format(comment.analyst,comment.date))
+            docx_write(doc,"\tCOMMENT #"+str(i),comment.comment)
+            i += 1
+
     elif "from" in j.keys():
-        j_type = "email"
+        j_type = "Email"
         doc.add_heading("EMAIL",1)
         docx_write(doc,"TO",j["to"])
         docx_write(doc,"FROM",j["from"])
