@@ -922,12 +922,24 @@ def write_INTSUM(j):
             doc.add_paragraph("")
         else:
             pass #Do not print empty objects
+    def add_sources(doc,sources):
+        for source in sources:
+            doc.add_paragraph("SAMPLE WAS SEEN AT {0}".format(source['name']))
+            for instance in source['instances']:
+                doc.add_paragraph("\tANALYST {0} DISCOVERED ON {1}".format(instance['analyst'],instance['date']))
+                if instance['method']:
+                    doc.add_paragraph("\t\tMETHOD OF DISCOVERY: {0}".format(instance['method']))
+                if instance['reference']:
+                    doc.add_paragraph("\t\tREFERENCE OF DISCOVERY: {0}".format(instance['reference']))
     import docx
+    docx.text.run.Font.size = docx.shared.Pt(12)
     tmp_path = '/tmp/del_me.docx'
     doc = docx.Document()
     doc.add_heading("INTELLIGENCE SUMMARY [INTSUM]",0)
+    docx.text.run.Font.size = docx.shared.Pt(12)
     if "filename" in j.keys():
         j_type = "sample"
+        doc.add_heading("FILE SAMPLE",1)
         #doc.add_paragraph("FILENAME:  ",j["filename"])
         docx_write(doc,"FILENAME",j["filename"])
         docx_write(doc,"OTHER FILENAMES",j['filenames'])
@@ -946,17 +958,29 @@ def write_INTSUM(j):
         docx_write(doc,"PART OF CAMPAIGN",j["campaign"])
         docx_write(doc,"SECTORS TARGETED",j["sectors"])
         docx_write(doc,"BUCKET LIST",j["bucket_list"])
+        docx_write(doc,"RELEASABILITY",j["releasability"])
         docx_write(doc)
-        doc.add_heading("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES",1)
-        for source in j['source']:
-            doc.add_paragraph("SAMPLE WAS SEEN AT {0}".format(source['name']))
-            for instance in source['instances']:
-                doc.add_paragraph("\tANALYST {0} DISCOVERED ON {1}".format(instance['analyst'],instance['date']))
-                if instance['method']:
-                    doc.add_paragraph("\t\tMETHOD OF DISCOVERY: {0}".format(instance['method']))
-                if instance['reference']:
-                    doc.add_paragraph("\t\tREFERENCE OF DISCOVERY: {0}".format(instance['reference']))
+        doc.add_heading("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES",2)
+        add_sources(doc,j['source'])
+    elif "from" in j.keys():
+        j_type = "email"
+        doc.add_heading("EMAIL",1)
+        docx_write(doc,"TO",j["to"])
+        docx_write(doc,"FROM",j["from"])
+        docx_write(doc,"DATE",j["isodate"])
+        docx_write(doc,"SUBJECT",j["subject"])
         docx_write(doc)
+        docx_write(doc,"X-MAILER",j["x_mailer"])
+        docx_write(doc,"MESSAGE ID",j["message_id"])
+        docx_write(doc,"REPLY TO",j["reply_to"])
+        docx_write(doc,"ORIGINATING IP",j["originating_ip"])
+        docx_write(doc,"X ORIGINATING IP",j["x_originating_ip"])
+        docx_write(doc,"HELO",j["helo"])
+        docx_write(doc,"BUCKET LIST",j["bucket_list"])
+        docx_write(doc,"RELEASABILITY",j["releasability"])
+        docx_write(doc)
+        add_sources(doc,j['source'])
+    docx_write(doc)
     doc.save(tmp_path)
     #doc.add_paragraph(json.dumps(j,sort_keys=True, indent=4,separators=(',',': ')))
 
