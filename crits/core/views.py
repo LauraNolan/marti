@@ -346,7 +346,7 @@ If you are already setup with TOTP, please enter your PIN + Key above."""
         else:
             logger.warn("REMOTE_USER enabled, but no user passed.")
             message = 'REMOTE_USER not provided. Please notify an admin.'
-            return render_to_response('login.html',
+            return render_to_response('marti-login.html',
                                       {'next': url,
                                        'theme': 'default',
                                        'login': False,
@@ -391,7 +391,7 @@ If you are already setup with TOTP, please enter your PIN + Key above."""
         return HttpResponse(json.dumps(resp), mimetype="application/json")
 
     # Display template for authentication
-    return render_to_response('login.html',
+    return render_to_response('marti-login.html',
                               {'next': url,
                                'theme': 'default',
                                'login': login,
@@ -425,7 +425,7 @@ def reset_password(request):
                                    new_p_c=new_p_c,
                                    analyst=analyst)
 
-    return render_to_response('login.html',
+    return render_to_response('marti-login.html',
                               {'reset': True},
                               RequestContext(request))
 
