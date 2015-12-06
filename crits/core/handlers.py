@@ -915,7 +915,7 @@ def write_INTSUM(j):
     def docx_write(doc,x=None,y=None):
         print type(y)
         if isinstance(y,list):
-            y = ", ".join(y)
+            y = ", ".join(str(y))
         if x and y:
             doc.add_paragraph("{0}:  {1}".format(x,y))
         elif not x and not y:
@@ -987,7 +987,8 @@ def write_INTSUM(j):
         docx_write(doc,"X-MAILER",j["x_mailer"])
         docx_write(doc,"MESSAGE ID",j["message_id"])
         docx_write(doc,"REPLY TO",j["reply_to"])
-        docx_write(doc,"ORIGINATING IP",j["originating_ip"])
+        if 'originating_ip' in j:
+            docx_write(doc,"ORIGINATING IP",j["originating_ip"])
         docx_write(doc,"X ORIGINATING IP",j["x_originating_ip"])
         docx_write(doc,"HELO",j["helo"])
         docx_write(doc,"BUCKET LIST",j["bucket_list"])
