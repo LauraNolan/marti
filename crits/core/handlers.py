@@ -919,11 +919,11 @@ def write_INTSUM(j):
                 y = ", ".join(y)
             except TypeError:
                 print y
-                insts = y[0]
-                if "analyst" in insts.keys() and "name" in insts.keys():
-                    doc.add_paragraph("RELEASABILITY: analyst {0} added releasability to {1}".format(insts['analyst'], insts['name']))
-                else:
-                    print "Foobar"
+                for i in y:
+                    if "analyst" in i.keys() and "name" in i.keys():
+                        doc.add_paragraph("RELEASABILITY: analyst {0} added releasability to {1}".format(i['analyst'], i['name']))
+                    else:
+                        print "Foobar"
                 return
         if x and y:
             doc.add_paragraph("{0}:  {1}".format(x,y))
