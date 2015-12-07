@@ -913,9 +913,18 @@ def write_INTSUM(j):
     :type j: json
     """
     def docx_write(doc,x=None,y=None):
-        print type(y)
+        #print type(y)
         if isinstance(y,list):
-            y = ", ".join(str(y))
+            try:
+                y = ", ".join(y)
+            except TypeError:
+                print y
+                insts = y[0]
+                if "analyst" in insts.keys() and "name" in insts.keys():
+                    doc.add_paragraph("RELEASABILITY: analyst {0} added releasability to {1}".format(insts['analyst'], insts['name']))
+                else:
+                    print "Foobar"
+                return
         if x and y:
             doc.add_paragraph("{0}:  {1}".format(x,y))
         elif not x and not y:
