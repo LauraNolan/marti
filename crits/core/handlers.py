@@ -904,13 +904,16 @@ def modify_bucket_list(itype, oid, tags, analyst):
     except ValidationError:
         pass
 
-def write_INTSUM(j):
+def write_INTREP(j, tmp_path):
     """
     Given a json representation of a CRITs object, write a custom
-    INTSUM report.
+    INTREP report.
 
     :param j: json represenation of a CRITs object
     :type j: json
+
+    :param tmp_path: temporary path to save the INTREP document
+    :type tmp_path: str
     """
     def docx_write(doc,x=None,y=None):
         #print type(y)
@@ -922,8 +925,6 @@ def write_INTSUM(j):
                 for i in y:
                     if "analyst" in i.keys() and "name" in i.keys():
                         doc.add_paragraph("RELEASABILITY: analyst {0} added releasability to {1}".format(i['analyst'], i['name']))
-                    else:
-                        print "Foobar"
                 return
         if x and y:
             doc.add_paragraph("{0}:  {1}".format(x,y))
@@ -955,10 +956,10 @@ def write_INTSUM(j):
 
     import docx
     docx.text.run.Font.size = docx.shared.Pt(12)
-    tmp_path = '/tmp/del_me.docx'
     doc = docx.Document()
-    doc.add_heading("INTELLIGENCE SUMMARY [INTSUM]",0)
+    doc.add_heading("INTELLIGENCE REPORT [INTREP]",0)
     docx.text.run.Font.size = docx.shared.Pt(12)
+    j_type = None
     if "filename" in j.keys():
         j_type = "Sample"
         doc.add_heading("FILE SAMPLE",1)
@@ -1023,6 +1024,7 @@ def write_INTSUM(j):
     docx_write(doc)
     doc.save(tmp_path)
     #doc.add_paragraph(json.dumps(j,sort_keys=True, indent=4,separators=(',',': ')))
+    return j_type
 
 def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                             bin_fmt, object_types, objs, sources,
@@ -1044,7 +1046,7 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                       should have before we ignore its relationships.
     :type rel_limit: int
     :param rst_fmt: The format the results should be in ("zip", "json",
-                    "json_no_bin", "docx").
+                    "json_no_bin", "INTREP").
     :type rst_fmt: str
     :param object_types: The types of top-level objects to include.
     :type object_types: list
@@ -1102,16 +1104,16 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
     zip_count = len(to_zip)
     if rst_fmt == 'docx':
         #MD: TODO figure out how to manage the docx download without saving file
-        import json
         tmp_path = '/tmp/del_me.docx'
         j = json.loads(json_docs[0])
-        write_INTSUM(j)
-        doc_data = open(tmp_path,'rb').read()
-        os.remove(tmp_path)
-        result['success'] = True
-        result['data'] = doc_data
-        result['filename'] = "INTSUM.docx"
-        result['mimetype'] = 'application/vnd.openxmlformats-officedocument.wordprocessingm1.document'
+        j_type = write_INTREP(j, tmp_path)
+        if j_type != None:
+            doc_data = open(tmp_path,'rb').read()
+            os.remove(tmp_path)
+            result['success'] = True
+            result['data'] = doc_data
+            result['filename'] = "INTREP-"+j_type.upper()+"-"+str(j['_id'][-4:])+".docx"
+            result['mimetype'] = 'application/vnd.openxmlformats-officedocument.wordprocessingm1.document'
     elif zip_count <= 0:
         result['success'] = True
         result['data'] = json_docs
