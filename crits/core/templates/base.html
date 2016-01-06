@@ -554,7 +554,6 @@
         </li>
       </ul>
     </li>
-    //-->
     <li class='nav_main mmenu_item'>
       <a href="{% url 'crits.comments.views.activity' %}">Recent Activity</a>
     </li>
@@ -585,6 +584,7 @@
       </ul>
     </li>
     {% endif %}
+    //-->
     {% if user_role == 'Administrator' %}
         <li class='nav_admin mmenu_item'>
             <a href="{% url 'crits.config.views.crits_config' %}">CRITs Control Panel</a>
