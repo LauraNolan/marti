@@ -398,6 +398,7 @@
       <a href="{% url 'crits.core.views.profile' %}">My CRITs</a>
     </li>
     {% endif %}
+    <!--
     <li class='nav_main mmenu_item'>
       <a href="{% url 'crits.core.views.bucket_list' %}">Bucket Lists</a>
     </li>
@@ -418,14 +419,17 @@
       <a href="{% url 'crits.backdoors.views.backdoors_listing' %}">Backdoors</a>
       <a href id="new-backdoor" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-backdoor" persona="new" title="New Backdoor"></a>
     </li>
+    //-->
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.campaigns.views.campaigns_listing' %}">Campaigns</a>
       <a href id="new-campaign" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-campaign" persona="new" title="New Campaign"></a>
     </li>
+    <!--
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.certificates.views.certificates_listing' %}">Certificates</a>
       <a href id="new-certificate" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-certificate" persona="new" title="New Certificate"></a>
     </li>
+    //-->
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.domains.views.domains_listing' %}">Domains</a>
       <a href id="new-domain" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-domain" persona="new" title="New Domain"></a>
@@ -453,6 +457,7 @@
         </li>
       </ul>
     </li>
+    <!--
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.events.views.events_listing' %}">Events</a>
       <a href id="new-event" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-event" persona="new" title="New Event"></a>
@@ -461,6 +466,7 @@
       <a href="{% url 'crits.exploits.views.exploits_listing' %}">Exploits</a>
       <a href id="new-exploit" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-exploit" persona="new" title="New Exploit"></a>
     </li>
+    //-->
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.indicators.views.indicators_listing' %}">Indicators</a>
       <a href id="new-indicator" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-indicator"  persona="new" title="New Indicator"></a>
@@ -482,6 +488,7 @@
         </li>
       </ul>
     </li>
+    <!--
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.pcaps.views.pcaps_listing' %}">PCAPs</a>
       <a href id="new-pcap" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-pcap" persona="new" title="New PCAP"></a>
@@ -496,6 +503,7 @@
         </li>
       </ul>
     </li>
+    //-->
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.samples.views.samples_listing' %}">Samples</a>
       <a href id="new-sample" class="ui-icon ui-icon-plusthick add dialogClick" dialog="new-sample" persona="new" title="New Sample"></a>
@@ -513,6 +521,7 @@
         </li>
       </ul>
     </li>
+    <!--
     <li class='nav_objects mmenu_item'>
       <a href="{% url 'crits.screenshots.views.screenshots_listing' %}">Screenshots</a>
     </li>
@@ -545,6 +554,7 @@
         </li>
       </ul>
     </li>
+    //-->
     <li class='nav_main mmenu_item'>
       <a href="{% url 'crits.comments.views.activity' %}">Recent Activity</a>
     </li>
