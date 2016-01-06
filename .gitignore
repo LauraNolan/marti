@@ -2,6 +2,7 @@
 *.pyc
 *.swp
 *.swo
+tags
 
 # Ignore custom config files and logs
 crits/config/database.py
