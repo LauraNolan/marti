@@ -230,6 +230,7 @@ def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst, date=No
     source = create_embedded_source(name=get_user_organization(analyst),
                                     analyst=analyst)
     comment.source = [source]
+    comment.private = cleaned_data['private']
 
     if date:
         comment.created = date
@@ -285,6 +286,7 @@ def comment_update(cleaned_data, obj_type, obj_id, subscr, analyst):
         result = {'success': False, 'message': message}
     else:
         comment.edit_comment(cleaned_data['comment'])
+        comment.private = cleaned_data['private']
         try:
             comment.save()
             comment.comment_to_html()
