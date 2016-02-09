@@ -10,8 +10,8 @@ from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 
 from mongoengine import Document, EmbeddedDocument, DynamicEmbeddedDocument
-from mongoengine import StringField, ListField, EmbeddedDocumentField
-from mongoengine import IntField, DateTimeField, ObjectIdField
+from mongoengine import StringField, ListField, EmbeddedDocumentField, ReferenceField
+from mongoengine import IntField, DateTimeField, ObjectIdField, BooleanField
 from mongoengine.base import BaseDocument, ValidationError
 
 # Determine if we should be caching queries or not.
@@ -1138,6 +1138,22 @@ class EmbeddedLocation(EmbeddedDocument, CritsDocumentFormatter):
     analyst = StringField(required=True)
     date = DateTimeField(default=datetime.datetime.now)
 
+class Sightings(EmbeddedDocument, CritsDocumentFormatter):
+    """
+    Sightings class
+    """
+
+    class SightingInstance(EmbeddedDocument, CritsDocumentFormatter):
+        """
+        Sightings Instance Class
+        """
+
+        name = StringField()
+        date = DateTimeField()
+
+    sighting = BooleanField()
+    date = DateTimeField()
+    instances = ListField(EmbeddedDocumentField(SightingInstance))
 
 class Releasability(EmbeddedDocument, CritsDocumentFormatter):
     """
@@ -1215,6 +1231,23 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
     releasability = ListField(EmbeddedDocumentField(Releasability))
     screenshots = ListField(StringField())
     sectors = ListField(StringField())
+    sightings = EmbeddedDocumentField(Sightings, default=Sightings)
+
+    def set_sighting(self, date, value):
+        self.sightings.sighting = value
+        self.sightings.date = date
+
+        return {'success': True, 'message': 'Sighting successfully updated!'}
+
+    def add_sighting(self, name, date):
+
+        sighting = Sightings.SightingInstance()
+        sighting.name = name
+        sighting.date = date
+
+        self.sightings.instances.append(sighting)
+
+        return {'success': True, 'message': 'Sighting added successfully!'}
 
     def add_campaign(self, campaign_item=None, update=True):
         """

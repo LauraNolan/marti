@@ -5,6 +5,7 @@ import logging
 from bson import json_util
 from dateutil.parser import parse
 from time import gmtime, strftime
+from dateutil.tz import tzutc
 
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
@@ -30,6 +31,7 @@ from crits.core.forms import SourceAccessForm, AddSourceForm, AddUserRoleForm
 from crits.core.forms import SourceForm, DownloadFileForm, AddReleasabilityForm
 from crits.core.forms import TicketForm
 from crits.core.handlers import add_releasability, add_releasability_instance
+from crits.core.handlers import add_sighting
 from crits.core.handlers import remove_releasability, remove_releasability_instance
 from crits.core.handlers import add_new_source, generate_counts_jtable
 from crits.core.handlers import source_add_update, source_remove, source_remove_all
@@ -537,6 +539,11 @@ def source_releasability(request):
             return render_to_response("error.html",
                                       {"error" : error },
                                       RequestContext(request))
+
+        print "trying to add the sighting"
+        add_sighting(type_, id_, name, datetime.datetime.now(tzutc()), user)
+        print "just added the sighting"
+
         if action  == "add":
             result = add_releasability(type_, id_, name, user)
         elif action  == "add_instance":

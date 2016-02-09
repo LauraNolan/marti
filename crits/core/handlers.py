@@ -432,6 +432,28 @@ def get_data_for_item(item_type, item_id):
             response['data'][field.title()] = value
     return response
 
+def add_sighting(type_, id_, name, date, user):
+
+    obj = class_from_id(type_, id_)
+    print "1"
+    if not obj:
+        print "2"
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+        obj.add_sighting(name, date)
+        print "3"
+        obj.save(username=user)
+        print "4"
+        obj.reload()
+        print "5"
+        return {'success': True,
+                'obj': obj.to_dict()['sightings']}
+    except Exception, e:
+        print "6"
+        return {'success': False,
+                'message': "Could not add sighting: %s" % e}
+
 def add_releasability(type_, id_, name, user, **kwargs):
     """
     Add releasability to a top-level object.
