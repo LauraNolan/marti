@@ -119,6 +119,11 @@
              {% include 'releasability_list_widget.html' %}
         {% endwith %}
         </tr>
+        <tr>
+        {% with sightings=email.sightings %}
+             {% include 'sightings_list_widget.html' %}
+        {% endwith %}
+        </tr>
         </tbody> 
     </table>
     </div>

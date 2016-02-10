@@ -31,7 +31,7 @@ from crits.core.forms import SourceAccessForm, AddSourceForm, AddUserRoleForm
 from crits.core.forms import SourceForm, DownloadFileForm, AddReleasabilityForm
 from crits.core.forms import TicketForm
 from crits.core.handlers import add_releasability, add_releasability_instance
-from crits.core.handlers import add_sighting
+from crits.core.handlers import add_sighting, set_sighting
 from crits.core.handlers import remove_releasability, remove_releasability_instance
 from crits.core.handlers import add_new_source, generate_counts_jtable
 from crits.core.handlers import source_add_update, source_remove, source_remove_all
@@ -516,6 +516,55 @@ def counts_listing(request,option=None):
     return generate_counts_jtable(request, option)
 
 @user_passes_test(user_can_view_data)
+def source_sighting(request):
+    """
+    Modify a top-level object's sightings. Should be an AJAX POST.
+
+    :param request: Django request.
+    :type request: :class:`django.http.HttpRequest`
+    :returns: :class:`django.http.HttpResponse`
+    """
+
+    if request.method == 'POST' and request.is_ajax():
+        type_ = request.POST.get('type', None)
+        id_ = request.POST.get('id', None)
+        name = request.POST.get('name', None)
+        date = request.POST.get('date', datetime.datetime.now())
+        if not isinstance(date, datetime.datetime):
+            date = parse(date, fuzzy=True)
+        user = str(request.user.username)
+        if not type_ or not id_:
+            error = "Modifying sightings requires a type, id"
+            return render_to_response("error.html",
+                                      {"error" : error },
+                                      RequestContext(request))
+
+        result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), True, user)
+
+        if result['success']:
+            subscription = {
+                'type': type_,
+                'id': id_
+            }
+
+            html = render_to_string('releasability_header_widget.html',
+                                    {'releasability': result['obj'],
+                                     'subscription': subscription},
+                                    RequestContext(request))
+            response = {'success': result['success'],
+                        'html': html}
+        else:
+            response = {'success': result['success'],
+                        'error': result['message']}
+        return HttpResponse(json.dumps(response),
+                            mimetype="application/json")
+    else:
+        error = "Expected AJAX POST!"
+        return render_to_response("error.html",
+                                  {"error" : error },
+                                  RequestContext(request))
+
+@user_passes_test(user_can_view_data)
 def source_releasability(request):
     """
     Modify a top-level object's releasability. Should be an AJAX POST.
@@ -539,10 +588,6 @@ def source_releasability(request):
             return render_to_response("error.html",
                                       {"error" : error },
                                       RequestContext(request))
-
-        print "trying to add the sighting"
-        add_sighting(type_, id_, name, datetime.datetime.now(tzutc()), user)
-        print "just added the sighting"
 
         if action  == "add":
             result = add_releasability(type_, id_, name, user)
