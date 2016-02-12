@@ -73,10 +73,18 @@
             {% with sectors=campaign_detail.sectors %}
                 {% include "sector_widget.html" %}
             {% endwith %}
+            {% with kill_chain=campaign_detail.kill_chain %}
+                {% include "kill_chain_widget.html" %}
+            {% endwith %}
             <tr>
                 {% with releasability=campaign_detail.releasability %}
                     {% include "releasability_list_widget.html" %}
                 {% endwith %}
+            </tr>
+            <tr>
+            {% with sightings=campaign_detail.sightings %}
+                 {% include 'sightings_list_widget.html' %}
+            {% endwith %}
             </tr>
         </tbody>
         </table>

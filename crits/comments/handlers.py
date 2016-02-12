@@ -29,7 +29,7 @@ def generate_comment_csv(request):
     response = csv_export(request,Comment)
     return response
 
-def get_comments(obj_id, obj_type):
+def get_comments(obj_id, obj_type, html=True):
     """
     Get Comments for a specific top-level object.
 
@@ -45,7 +45,8 @@ def get_comments(obj_id, obj_type):
                               obj_type=obj_type).order_by('+created')
     final_comments = []
     for result in results:
-        result.comment_to_html()
+        if html:
+            result.comment_to_html()
         final_comments.append(result)
     return final_comments
 
@@ -195,7 +196,7 @@ def generate_comment_jtable(request, option):
                                    'jtid': '%s_listing' % type_},
                                   RequestContext(request))
 
-def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst):
+def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst, date=None):
     """
     Add a new comment.
 
@@ -229,6 +230,12 @@ def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst):
     source = create_embedded_source(name=get_user_organization(analyst),
                                     analyst=analyst)
     comment.source = [source]
+    comment.private = cleaned_data['private']
+
+    if date:
+        comment.created = date
+        comment.edit_date = date
+
     try:
         comment.save(username=analyst)
         # this is silly :( in the comment object the dates are still
@@ -279,6 +286,7 @@ def comment_update(cleaned_data, obj_type, obj_id, subscr, analyst):
         result = {'success': False, 'message': message}
     else:
         comment.edit_comment(cleaned_data['comment'])
+        comment.private = cleaned_data['private']
         try:
             comment.save()
             comment.comment_to_html()
