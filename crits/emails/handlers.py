@@ -544,7 +544,7 @@ def handle_email_fields(data, analyst, method):
     if prev_email:
         #update sources
         print "Existing Email discovered"
-        prev_email.merge(data,overwrite=True)
+        prev_email.merge(data)
         prev_email.save(username=analyst)
         prev_email.reload()
         run_triage(new_email, analyst)
