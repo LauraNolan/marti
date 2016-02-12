@@ -528,7 +528,7 @@ def source_sighting(request):
     if request.method == 'POST' and request.is_ajax():
         type_ = request.POST.get('type', None)
         id_ = request.POST.get('id', None)
-        name = request.POST.get('name', None)
+        action = request.POST.get('action', None)
         date = request.POST.get('date', datetime.datetime.now())
         if not isinstance(date, datetime.datetime):
             date = parse(date, fuzzy=True)
@@ -539,7 +539,16 @@ def source_sighting(request):
                                       {"error" : error },
                                       RequestContext(request))
 
-        result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), True, user)
+        #add_sighting(type_, id_, 'New York', datetime.datetime.now(tzutc()), user)
+        #add_sighting(type_, id_, 'Maryland', datetime.datetime.now(tzutc()), user)
+        #add_sighting(type_, id_, 'FBI', datetime.datetime.now(tzutc()), user)
+
+
+        if action == 'set':
+            result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), True, user)
+            add_sighting(type_, id_, settings.COMPANY_NAME, datetime.datetime.now(tzutc()), user)
+        else:
+            result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), False, user)
 
         if result['success']:
             subscription = {

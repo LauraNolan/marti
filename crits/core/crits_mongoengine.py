@@ -1241,6 +1241,14 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
     def add_sighting(self, name, date):
 
+        if settings.COMPANY_NAME == name:
+            return {'success': False, 'message': 'Sighting is self'}
+
+        for sighting in self.sightings.instances:
+            if sighting.name == name:
+                sighting.date = date
+                return {'success': True, 'message': 'Sighting updated successfully'}
+
         sighting = Sightings.SightingInstance()
         sighting.name = name
         sighting.date = date
