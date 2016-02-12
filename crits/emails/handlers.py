@@ -468,6 +468,13 @@ def handle_email_fields(data, analyst, method):
     # Date and source are the only required ones.
     # If there is no campaign confidence, default it to low.
     # Remove these items from data so they are not added when merged.
+    # MD: Changing this rule, Message IDs should be globally unique
+    # and will be used to handle merging pre-existing emails
+    #message_id = data.get('message_id', None)
+    #try:
+    #    del data['message_id']
+    #except:
+    #    pass
     sourcename = data.get('source', None)
     del data['source']
     if data.get('source_method', None):
@@ -517,6 +524,34 @@ def handle_email_fields(data, analyst, method):
     except:
         pass
 
+    #MD: check if email already exists (with message id)
+    prev_email = None
+    try:
+        print "TEST!"
+        message_id = data.get('message_id', None)
+        print  message_id
+        e_id = None
+        if message_id != "":
+            for e in Email.objects():
+                if e['message_id'] == message_id:
+                    e_id = e.id
+                    prev_email =  Email.objects(id = e_id).first()
+                    break
+    except Exception,e:
+        print "Exception was thrown:"
+        print str(e)
+    if prev_email:
+        #update sources
+        print "Existing Email discovered"
+        prev_email.merge(data,overwrite=True)
+        prev_email.save(username=analyst)
+        prev_email.reload()
+        run_triage(new_email, analyst)
+        result['object'] = prev_email
+        result['status'] = True
+        return result
+
+    print "New Email discovered"
     new_email = Email()
     new_email.merge(data)
     if bucket_list:
@@ -698,6 +733,9 @@ def handle_yaml(data, sourcename, reference, analyst, method, email_id=None,
         new_email.add_campaign(ec)
 
     result['object'] = new_email
+
+    #MD: attempting to fix dup problem
+    #email_id = Email.objects(
 
     if email_id:
         old_email = class_from_id('Email', email_id)
