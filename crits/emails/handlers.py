@@ -12,6 +12,7 @@ import yaml
 import io
 import sys
 import olefile
+import random
 
 from dateutil.parser import parse as date_parser
 from django.conf import settings
@@ -468,13 +469,6 @@ def handle_email_fields(data, analyst, method):
     # Date and source are the only required ones.
     # If there is no campaign confidence, default it to low.
     # Remove these items from data so they are not added when merged.
-    # MD: Changing this rule, Message IDs should be globally unique
-    # and will be used to handle merging pre-existing emails
-    #message_id = data.get('message_id', None)
-    #try:
-    #    del data['message_id']
-    #except:
-    #    pass
     sourcename = data.get('source', None)
     del data['source']
     if data.get('source_method', None):
@@ -527,9 +521,7 @@ def handle_email_fields(data, analyst, method):
     #MD: check if email already exists (with message id)
     prev_email = None
     try:
-        print "TEST!"
         message_id = data.get('message_id', None)
-        print  message_id
         e_id = None
         if message_id != "":
             for e in Email.objects():
@@ -537,8 +529,17 @@ def handle_email_fields(data, analyst, method):
                     e_id = e.id
                     prev_email =  Email.objects(id = e_id).first()
                     break
+        else:
+            #Generate our own message id
+            from_addr = data.get('from_address', None)
+            date_time = data.get('date', None)
+            rand_int = str(random.randint(1000,9999))
+            s = (from_addr if from_addr else "") + date_time + rand_int
+            d = s.encode('base64')
+            new_message_id = "CRITs_internal_" + d
+            data.update({'message_id':new_message_id})
     except Exception,e:
-        print "Exception was thrown:"
+        print "MD: Exception was thrown:"
         print str(e)
     if prev_email:
         #update sources
