@@ -37,7 +37,7 @@ from crits.core.handlers import add_new_source, generate_counts_jtable
 from crits.core.handlers import source_add_update, source_remove, source_remove_all
 from crits.core.handlers import modify_bucket_list, promote_bucket_list
 from crits.core.handlers import download_object_handler, unflatten
-from crits.core.handlers import modify_sector_list
+from crits.core.handlers import modify_sector_list, modify_kill_chain_list
 from crits.core.handlers import generate_bucket_jtable, generate_bucket_csv
 from crits.core.handlers import generate_sector_jtable, generate_sector_csv
 from crits.core.handlers import generate_dashboard, generate_global_search
@@ -99,6 +99,7 @@ from crits.signatures.signature import SignatureDependency
 from crits.targets.forms import TargetInfoForm
 
 from crits.vocabulary.sectors import Sectors
+from crits.vocabulary.kill_chain import KillChain
 
 logger = logging.getLogger(__name__)
 
@@ -546,7 +547,6 @@ def source_sighting(request):
 
         if action == 'set':
             result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), True, user)
-            add_sighting(type_, id_, settings.COMPANY_NAME, datetime.datetime.now(tzutc()), user)
         else:
             result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), False, user)
 
@@ -556,8 +556,8 @@ def source_sighting(request):
                 'id': id_
             }
 
-            html = render_to_string('releasability_header_widget.html',
-                                    {'releasability': result['obj'],
+            html = render_to_string('sightings_header_widget.html',
+                                    {'sightings': result['obj'],
                                      'subscription': subscription},
                                     RequestContext(request))
             response = {'success': result['success'],
@@ -2146,6 +2146,22 @@ def sector_modify(request):
         modify_sector_list(itype, oid, sectors, request.user.username)
     return HttpResponse({})
 
+def kill_chain_modify(request):
+    """
+    Modify a sectors list for a top-level object. Should be an AJAX POST.
+
+    :param request: Django request.
+    :type request: :class:`django.http.HttpRequest`
+    :returns: :class:`django.http.HttpResponse`
+    """
+
+    if request.method == "POST" and request.is_ajax():
+        kill_chains = request.POST['kill_chains'].split(",")
+        oid = request.POST['oid']
+        itype = request.POST['itype']
+        modify_kill_chain_list(itype, oid, kill_chains, request.user.username)
+    return HttpResponse({})
+
 @user_passes_test(user_can_view_data)
 def sector_list(request, option=None):
     """
@@ -2161,6 +2177,23 @@ def sector_list(request, option=None):
     if option == "csv":
         return generate_sector_csv(request)
     return generate_sector_jtable(request, option)
+
+@user_passes_test(user_can_view_data)
+def get_available_kill_chain(request):
+    """
+    Get the available sectors to use.
+
+    :param request: Django request.
+    :type request: :class:`django.http.HttpRequest`
+    :returns: :class:`django.http.HttpResponse`
+    """
+
+    if request.method == "POST" and request.is_ajax():
+        return HttpResponse(
+            json.dumps(KillChain.values(sort=True), default=json_handler),
+            content_type='application/json'
+        )
+    return HttpResponse({})
 
 @user_passes_test(user_can_view_data)
 def get_available_sectors(request):

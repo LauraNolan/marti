@@ -4279,6 +4279,30 @@ def generate_sector_jtable(request, option):
                                'jtid': 'sector_lists'},
                               RequestContext(request))
 
+def modify_kill_chain_list(itype, oid, kill_chains, analyst):
+    """
+    Modify the sector list for a top-level object.
+
+    :param itype: The CRITs type of the top-level object to modify.
+    :type itype: str
+    :param oid: The ObjectId to search for.
+    :type oid: str
+    :param sectors: The list of sectors.
+    :type sectors: list
+    :param analyst: The user making the modifications.
+    """
+
+    obj = class_from_id(itype, oid)
+    if not obj:
+        return
+
+    obj.set_kill_chain_list(kill_chains)
+
+    try:
+        obj.save(username=analyst)
+    except ValidationError:
+        pass
+
 def modify_sector_list(itype, oid, sectors, analyst):
     """
     Modify the sector list for a top-level object.

@@ -1231,6 +1231,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
     releasability = ListField(EmbeddedDocumentField(Releasability))
     screenshots = ListField(StringField())
     sectors = ListField(StringField())
+    kill_chain = ListField(StringField())
     sightings = EmbeddedDocumentField(Sightings, default=Sightings)
 
     def set_sighting(self, date, value):
@@ -1448,6 +1449,25 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         """
 
         return ','.join(str(x) for x in self.bucket_list)
+
+    def set_kill_chain_list(self, kill_chain):
+        """
+        Set kill_chain to this top-level object.
+
+        :param kill_chain: The sectors to be added.
+        :type tags: list, str
+        """
+
+        if isinstance(kill_chain, list) and len(kill_chain) == 1 and kill_chain[0] == '':
+            parsed_kill_chains = []
+        elif isinstance(kill_chain, (str, unicode)):
+            parsed_kill_chains = kill_chain.split(',')
+        else:
+            parsed_kill_chains = kill_chain
+
+        parsed_kill_chains = [s.strip() for s in parsed_kill_chains]
+
+        self.kill_chain = parsed_kill_chains
 
     def add_sector_list(self, sectors, analyst, append=True):
         """

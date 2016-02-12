@@ -72,6 +72,10 @@ urlpatterns = patterns('',
     (r'^sector/mod/$', 'crits.core.views.sector_modify'),
     (r'^sector/options/$', 'crits.core.views.get_available_sectors'),
 
+    #KillChain
+    (r'^kill_chain/options/$', 'crits.core.views.get_available_kill_chain'),
+    (r'^kill_chain/mod/$', 'crits.core.views.kill_chain_modify'),
+
     # Timeline
     (r'^timeline/(?P<data_type>\S+)/$', 'crits.core.views.timeline'),
     (r'^timeline/(?P<data_type>\S+)/(?P<extra_data>\S+)/$', 'crits.core.views.timeline'),

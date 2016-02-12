@@ -109,6 +109,9 @@
         {% with sectors=email.sectors %}
             {% include "sector_widget.html" %}
         {% endwith %}
+        {% with kill_chain=email.kill_chain %}
+            {% include "kill_chain_widget.html" %}
+        {% endwith %}
         <tr>
         {% with sources=email.source obj_id=email.id obj_type=subscription.type %}
             {% include "sources_listing_widget.html" %}

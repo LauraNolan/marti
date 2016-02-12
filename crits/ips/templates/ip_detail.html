@@ -53,6 +53,9 @@
                     {% with sectors=ip.sectors %}
                         {% include "sector_widget.html" %}
                     {% endwith %}
+                    {% with kill_chain=ip.kill_chain %}
+                        {% include "kill_chain_widget.html" %}
+                    {% endwith %}
                     <tr>
                         {% with sources=ip.source obj_id=ip.id obj_type=subscription.type %}
                             {% include "sources_listing_widget.html" %}
@@ -63,6 +66,11 @@
                             {% include "releasability_list_widget.html" %}
                         {% endwith %}
                     </tr>
+                    <tr>
+                        {% with sightings=ip.sightings %}
+                            {% include 'sightings_list_widget.html' %}
+                        {% endwith %}
+            </tr>
                 </tbody>
             </table>
         </div> <!-- content_body -->

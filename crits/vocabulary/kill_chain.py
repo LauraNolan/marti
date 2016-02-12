@@ -5,11 +5,10 @@ class KillChain(vocab):
     Vocabulary for Kill Chain.
     """
 
-
-    CONTROL = "Control"
-    DELIVER = "Deliver"
-    EXECUTE = "Execute"
-    EXPLOIT = "Exploit"
-    MAINTAIN = "Maintain"
-    RECON = "Recon"
-    WEAPONIZE = "Weaponize"
+    RECON = "Reconnaissance"
+    WEAPONIZE = "Weaponization"
+    DELIVER = "Delivery"
+    EXPLOIT = "Exploitation"
+    INSTALL = "Installation"
+    CONTROL = "Command & Control"
+    ACTIONS = "Actions on Objectives"
