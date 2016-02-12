@@ -1,0 +1,41 @@
+{% load url from future %}
+
+
+        <tr class="sig_source">
+        <td colspan="2" class="scollapsible_alt" style="border-right:none;">
+            <a href="#">{{company_name}} Sighting: {{sightings.sighting}}</a>
+        </td>
+            {% if sightings.sighting %}
+            <td style="border-right:none;">
+        <span class="heading"><b>Reported:</b> {{sightings.date|date:'Y-m-d H:i:s'}}</span>
+        </td>
+            {% endif %}
+        <td data-intro="Add Instance/Delete" data-position="right">
+          {% if sightings.sighting %}
+          <span class="set_sighting_button ui-icon ui-icon-trash" title="Remove Sighting" action="{% url 'crits.core.views.source_sighting' %}" data-action="remove" style="float: right; border-left: 1px solid #ddd;"></span>
+
+            {% else %}
+        <span class="set_sighting_button ui-icon ui-icon-plusthick" title="Report Sighting" action="{% url 'crits.core.views.source_sighting' %}" data-action="set" style="float: right;"></span>
+        {% endif %}
+        </span>
+        </td>
+    </tr>
+<tr class="sig_source">
+        <td class="scollapsible" style="border-right:none;" ><a class="ui-icon ui-icon-triangle-1-e" href="#"></a></td>
+        <td colspan="2" class="scollapsible_alt" style="border-right:none;">
+            <a href="#">Other Sightings ({{sightings.instances|length|default:0}})</a>
+        </td>
+    </tr>
+    {% for instance in sightings.instances %}
+        <tr class="expand-child">
+    <td style="border-right:none;"></td><!-- collapsible spacer -->
+    <td style="border-right:none;">
+        <span class="heading" style="float: left;"><b>Company:</b> {{instance.name|default:""}}</span>
+    </td>
+    <td style="border-right:none;">
+        <span class="heading"><b>Reported:</b> {{instance.date|date:'Y-m-d H:i:s'}}</span>
+    </td>
+    <td>
+    </td>
+</tr>
+    {% endfor %}

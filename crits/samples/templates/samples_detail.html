@@ -121,6 +121,9 @@
             {% with sectors=sample.sectors %}
                 {% include "sector_widget.html" %}
             {% endwith %}
+            {% with kill_chain=sample.kill_chain %}
+                {% include "kill_chain_widget.html" %}
+            {% endwith %}
             <tr>
             {% with sources=sample.source obj_id=sample.id obj_type=subscription.type %}
                 {% include "sources_listing_widget.html" %}
@@ -129,6 +132,11 @@
             <tr>
             {% with releasability=sample.releasability %}
                 {% include 'releasability_list_widget.html' %}
+            {% endwith %}
+            </tr>
+            <tr>
+            {% with sightings=sample.sightings %}
+                 {% include 'sightings_list_widget.html' %}
             {% endwith %}
             </tr>
             </tbody>

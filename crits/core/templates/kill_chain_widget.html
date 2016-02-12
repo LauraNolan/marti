@@ -1,0 +1,22 @@
+<script>
+    var kill_chain_search = "{% url 'crits.core.views.global_search_listing' %}";
+    var kill_chain_modify = "{% url 'crits.core.views.kill_chain_modify' %}";
+    var kill_chain_list = "{% url 'crits.core.views.get_available_kill_chain' %}";
+</script>
+<tr>
+    <td class="key">Kill Chain</td>
+    <td>
+        <ul id="kill_chain_list">
+            {% for kill in kill_chain %}
+                <li>{{kill}}</li>
+            {% endfor %}
+        </ul>
+    </td>
+</tr>
+<script type="text/javascript">
+    $(document).bind('enable_kill_chains', function(){
+        kill_chain_load = false;
+    });
+</script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/kill_chain.js"></script>

@@ -54,6 +54,9 @@
             {% with sectors=domain.sectors %}
                 {% include "sector_widget.html" %}
             {% endwith %}
+            {% with kill_chain=domain.kill_chain %}
+                {% include "kill_chain_widget.html" %}
+            {% endwith %}
             <tr>
                 {% with sources=domain.source obj_id=domain.id obj_type=subscription.type %}
                     {% include "sources_listing_widget.html" %}
@@ -63,6 +66,11 @@
                 {% with releasability=domain.releasability %}
                     {% include "releasability_list_widget.html" %}
                 {% endwith %}
+            </tr>
+            <tr>
+            {% with sightings=domain.sightings %}
+                 {% include 'sightings_list_widget.html' %}
+            {% endwith %}
             </tr>
         </tbody>
         </table>

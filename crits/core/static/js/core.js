@@ -846,6 +846,14 @@ $(document).ready(function() {
             return false;
         });
     }
+    collapse3 = function() {
+        var collapser = $('.scollapser').collapsible('td.scollapsible', {'collapse':true, toggleAllSelector:'#toggle_sightings_', 'textExpand':'', 'textCollapse':'', classExpand: 'ui-icon-triangle-1-s', classCollapse: 'ui-icon-triangle-1-e'});//.tablesorter();
+        //  toggle on first column
+        collapser.find('.scollapsible_alt a').unbind('click').click(function(e) {
+            $(this).parents('.scollapsible_alt').siblings('.scollapsible').find('a').click();
+            return false;
+        });
+    }
 
     $(document).on('click', '.titleheader span.collapsible', function(e) {
         $(this).parent().next().toggle();
@@ -853,6 +861,7 @@ $(document).ready(function() {
     });
     collapse();
     collapse2();
+    collapse3();
 
     // evidently collapsible is broken for collapsing "all", so this is a quick
     // hack to fix it :(
@@ -879,6 +888,26 @@ $(document).ready(function() {
         var me = $(this);
         var classes = $(this).attr('class').split(/\s+/);
         $('#releasability_list.rcollapser tr td.rcollapsible').each(function(e) {
+            var link = $(this).children('a')
+            for (var i=0, len=classes.length; i<len; i++){
+                if (link.hasClass(classes[i])){
+                    link.click();
+                }
+            }
+        });
+        if (me.hasClass('ui-icon-triangle-1-e')) {
+            me.removeClass('ui-icon-triangle-1-e');
+            me.addClass('ui-icon-triangle-1-s');
+        } else {
+            me.removeClass('ui-icon-triangle-1-s');
+            me.addClass('ui-icon-triangle-1-e');
+        }
+    });
+
+    $(document).on('click', '#toggle_sightings', function(e) {
+        var me = $(this);
+        var classes = $(this).attr('class').split(/\s+/);
+        $('#sightings_list.scollapser tr td.scollapsible').each(function(e) {
             var link = $(this).children('a')
             for (var i=0, len=classes.length; i<len; i++){
                 if (link.hasClass(classes[i])){
