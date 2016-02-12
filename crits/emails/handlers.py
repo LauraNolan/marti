@@ -534,7 +534,11 @@ def handle_email_fields(data, analyst, method):
             from_addr = data.get('from_address', None)
             date_time = data.get('date', None)
             rand_int = str(random.randint(1000,9999))
-            s = (from_addr if from_addr else "") + date_time + rand_int
+            try:
+                s = (from_addr if from_addr else "") + date_time + rand_int
+            except:
+                date_time = date_time.strftime("%Y-%m-%d %H:%M:%S")
+                s = (from_addr if from_addr else "") + date_time + rand_int
             d = s.encode('base64')
             new_message_id = "CRITs_internal_" + d
             data.update({'message_id':new_message_id})
