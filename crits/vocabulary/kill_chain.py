@@ -10,5 +10,5 @@ class KillChain(vocab):
     DELIVER = "Delivery"
     EXPLOIT = "Exploitation"
     INSTALL = "Installation"
-    CONTROL = "Command & Control"
+    CONTROL = "Command and Control"
     ACTIONS = "Actions on Objectives"
