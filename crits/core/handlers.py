@@ -1165,13 +1165,16 @@ def write_INTREP_txt(j, tmp_path):
         j_type = "Sample"
         lines.append("FILE SAMPLE")
         lines.append("FILENAME: " + j["filename"])
-        lines.append("OTHER FILENAMES: " + j['filenames'])
+        try:
+            lines.append("OTHER FILENAMES: " + j['filenames'])
+        except:
+            pass
         lines.append("CREATED: " + j["created"])
         try:
             lines.append("FILETYPE: " + j["filetype"])
         except:
             pass
-        lines.append("FILE SIZE IN BYTES: " + j["size"])
+        lines.append("FILE SIZE IN BYTES: " + str(j["size"]))
         lines.append("MD5: " + j["md5"])
         try:
             lines.append("SHA1: " + j["sha1"])
@@ -1183,33 +1186,40 @@ def write_INTREP_txt(j, tmp_path):
             lines.append("MIMETYPE: " + j["mimetype"])
         except:
             pass
-        lines.append("\n")
-        lines.append("PART OF CAMPAIGN: " + j["campaign"])
-        lines.append("SECTORS TARGETED: " + j["sectors"])
-        lines.append("BUCKET LIST: " + j["bucket_list"])
-        lines.append("RELEASABILITY: " + j["releasability"])
-        lines.append("\n")
-        lines.append("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES")
-        lines = add_sources(lines,j['source'])
-        lines = add_comments(lines,j["_id"],j_type)
+        try:
+            lines.append("\n")
+            lines.append("PART OF CAMPAIGN: " + ",".join(j["campaign"]))
+            lines.append("SECTORS TARGETED: " + ",".join(j["sectors"]))
+            lines.append("BUCKET LIST: " + ",".join(j["bucket_list"]))
+            lines.append("RELEASABILITY: " + ",".join(j["releasability"]))
+            lines.append("\n")
+            lines.append("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES")
+            lines = add_sources(lines,j['source'])
+            lines = add_comments(lines,j["_id"],j_type)
+        except:
+            PrintException()
     elif "from" in j.keys():
         j_type = "Email"
         lines.append("EMAIL")
-        lines.append("TO: " + j["to"])
-        lines.append("FROM: " + j["from"])
-        lines.append("DATE: " + j["isodate"])
-        lines.append("SUBJECT: " + j["subject"])
-        lines.append("\n")
-        lines.append("X-MAILER: " + j["x_mailer"])
-        lines.append("MESSAGE ID: " + j["message_id"])
-        lines.append("REPLY TO: " + j["reply_to"])
-        if 'originating_ip' in j:
-            lines.append("ORIGINATING IP: " + j["originating_ip"])
-        lines.append("X ORIGINATING IP: " + j["x_originating_ip"])
-        lines.append("HELO: " + j["helo"])
-        lines.append("BUCKET LIST: " + j["bucket_list"])
-        lines.append("RELEASABILITY:" + j["releasability"])
-        lines.append("\n")
+        try:
+            lines.append("TO: " + ",".join(j["to"]))
+            lines.append("FROM: " + j["from"])
+            lines.append("SENDER: " + j["sender"])
+            lines.append("DATE: " + j["isodate"])
+            lines.append("SUBJECT: " + j["subject"])
+            lines.append("\n")
+            lines.append("X-MAILER: " + j["x_mailer"])
+            lines.append("MESSAGE ID: " + j["message_id"])
+            lines.append("REPLY TO: " + j["reply_to"])
+            if 'originating_ip' in j:
+                lines.append("ORIGINATING IP: " + j["originating_ip"])
+            lines.append("X ORIGINATING IP: " + j["x_originating_ip"])
+            lines.append("HELO: " + j["helo"])
+            lines.append("BUCKET LIST: " + ",".join(j["bucket_list"]))
+            lines.append("RELEASABILITY:" + ",".join(j["releasability"]))
+            lines.append("\n")
+        except:
+            PrintException()
         add_sources(lines,j['source'])
         add_comments(lines,j["_id"],j_type)
     elif "type" in j.keys():
@@ -1230,7 +1240,8 @@ def write_INTREP_txt(j, tmp_path):
 
 
     with open(tmp_path, 'w') as f:
-        f.write(lines)
+        for line in lines:
+            f.write(line + "\n")
     return j_type
 
 def write_INTREP_docx(j, tmp_path):
@@ -1329,6 +1340,7 @@ def write_INTREP_docx(j, tmp_path):
         doc.add_heading("EMAIL",1)
         docx_write(doc,"TO",j["to"])
         docx_write(doc,"FROM",j["from"])
+        docx_write(doc,"SENDER", j["sender"])
         docx_write(doc,"DATE",j["isodate"])
         docx_write(doc,"SUBJECT",j["subject"])
         docx_write(doc)
