@@ -544,7 +544,6 @@ def source_sighting(request):
         #add_sighting(type_, id_, 'Maryland', datetime.datetime.now(tzutc()), user)
         #add_sighting(type_, id_, 'FBI', datetime.datetime.now(tzutc()), user)
 
-
         if action == 'set':
             result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), True, user)
         else:
