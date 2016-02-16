@@ -3,7 +3,7 @@ import re
 
 from bson.objectid import ObjectId
 from mongoengine import Document, EmbeddedDocument
-from mongoengine import ObjectIdField, StringField, ListField, EmbeddedDocumentField
+from mongoengine import ObjectIdField, StringField, ListField, EmbeddedDocumentField, BooleanField
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
@@ -30,7 +30,7 @@ class Comment(CritsDocument, CritsSchemaDocument, CritsSourceDocument, Document)
     meta = {
         "collection": settings.COL_COMMENTS,
         "crits_type": "Comment",
-        "latest_schema_version": 1,
+        "latest_schema_version": 2,
         "schema_doc": {
             'comment': 'The comment body',
             'obj_type': 'The type of the object this comment is for',
@@ -45,7 +45,8 @@ class Comment(CritsDocument, CritsSchemaDocument, CritsSourceDocument, Document)
                 'analyst': 'Analyst who made the comment this is a reply to'
             },
             'source': ('List [] of source information about who provided this'
-                       ' comment')
+                       ' comment'),
+            'private': 'Is the comment private or not'
         },
         "jtable_opts": {
             'details_url': '',
@@ -79,6 +80,7 @@ class Comment(CritsDocument, CritsSchemaDocument, CritsSourceDocument, Document)
     tags = ListField(StringField())
     url_key = StringField()
     users = ListField(StringField())
+    private = BooleanField()
 
     def get_parent(self):
         """

@@ -10,8 +10,8 @@ from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 
 from mongoengine import Document, EmbeddedDocument, DynamicEmbeddedDocument
-from mongoengine import StringField, ListField, EmbeddedDocumentField
-from mongoengine import IntField, DateTimeField, ObjectIdField
+from mongoengine import StringField, ListField, EmbeddedDocumentField, ReferenceField
+from mongoengine import IntField, DateTimeField, ObjectIdField, BooleanField
 from mongoengine.base import BaseDocument, ValidationError
 
 # Determine if we should be caching queries or not.
@@ -1138,6 +1138,22 @@ class EmbeddedLocation(EmbeddedDocument, CritsDocumentFormatter):
     analyst = StringField(required=True)
     date = DateTimeField(default=datetime.datetime.now)
 
+class Sightings(EmbeddedDocument, CritsDocumentFormatter):
+    """
+    Sightings class
+    """
+
+    class SightingInstance(EmbeddedDocument, CritsDocumentFormatter):
+        """
+        Sightings Instance Class
+        """
+
+        name = StringField()
+        date = DateTimeField()
+
+    sighting = BooleanField()
+    date = DateTimeField()
+    instances = ListField(EmbeddedDocumentField(SightingInstance))
 
 class Releasability(EmbeddedDocument, CritsDocumentFormatter):
     """
@@ -1215,6 +1231,32 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
     releasability = ListField(EmbeddedDocumentField(Releasability))
     screenshots = ListField(StringField())
     sectors = ListField(StringField())
+    kill_chain = ListField(StringField())
+    sightings = EmbeddedDocumentField(Sightings, default=Sightings)
+
+    def set_sighting(self, date, value):
+        self.sightings.sighting = value
+        self.sightings.date = date
+
+        return {'success': True, 'message': 'Sighting successfully updated!'}
+
+    def add_sighting(self, name, date):
+
+        if settings.COMPANY_NAME == name:
+            return {'success': False, 'message': 'Sighting is self'}
+
+        for sighting in self.sightings.instances:
+            if sighting.name == name:
+                sighting.date = date
+                return {'success': True, 'message': 'Sighting updated successfully'}
+
+        sighting = Sightings.SightingInstance()
+        sighting.name = name
+        sighting.date = date
+
+        self.sightings.instances.append(sighting)
+
+        return {'success': True, 'message': 'Sighting added successfully!'}
 
     def add_campaign(self, campaign_item=None, update=True):
         """
@@ -1407,6 +1449,25 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         """
 
         return ','.join(str(x) for x in self.bucket_list)
+
+    def set_kill_chain_list(self, kill_chain):
+        """
+        Set kill_chain to this top-level object.
+
+        :param kill_chain: The sectors to be added.
+        :type tags: list, str
+        """
+
+        if isinstance(kill_chain, list) and len(kill_chain) == 1 and kill_chain[0] == '':
+            parsed_kill_chains = []
+        elif isinstance(kill_chain, (str, unicode)):
+            parsed_kill_chains = kill_chain.split(',')
+        else:
+            parsed_kill_chains = kill_chain
+
+        parsed_kill_chains = [s.strip() for s in parsed_kill_chains]
+
+        self.kill_chain = parsed_kill_chains
 
     def add_sector_list(self, sectors, analyst, append=True):
         """

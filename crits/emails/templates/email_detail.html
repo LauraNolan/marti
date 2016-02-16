@@ -109,6 +109,9 @@
         {% with sectors=email.sectors %}
             {% include "sector_widget.html" %}
         {% endwith %}
+        {% with kill_chain=email.kill_chain %}
+            {% include "kill_chain_widget.html" %}
+        {% endwith %}
         <tr>
         {% with sources=email.source obj_id=email.id obj_type=subscription.type %}
             {% include "sources_listing_widget.html" %}
@@ -117,6 +120,11 @@
         <tr>
         {% with releasability=email.releasability %}
              {% include 'releasability_list_widget.html' %}
+        {% endwith %}
+        </tr>
+        <tr>
+        {% with sightings=email.sightings %}
+             {% include 'sightings_list_widget.html' %}
         {% endwith %}
         </tr>
         </tbody> 
@@ -128,11 +136,13 @@
             {% include 'bucket_list_widget.html' %}
         {% endwith %}
     </div>
+    <!--
     <div class="content_box">
         {% with obj=email obj_type="Email" %}
             {% include 'action_listing_widget.html' %}
         {% endwith %}
     </div>
+    #-->
     <div>
       {% with obj=email obj_type=subscription.type %}
          {% include 'tickets_listing_widget.html' %}
@@ -143,17 +153,21 @@
         {% include 'campaigns_display_widget.html' %}
     {% endwith %}
     </div>
+    <!--
     <div>
     {% with hit=email col=COL_EMAIL %}
         {% include 'locations_display_widget.html' %}
     {% endwith %}
     </div>
+    #-->
     <div id="relationships_div_container">
         {% include 'relationships_listing_widget.html' %}
     </div>
+    <!--
     <div>
         {% include 'objects_listing_widget.html' %}
     </div>
+    #-->
     <div>
         {% include "screenshot_widget.html" %}
     </div>

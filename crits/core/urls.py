@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     (r'^object/sources/remove/(?P<obj_type>\S+)/(?P<obj_id>\S+)/$', 'crits.core.views.remove_source'),
     (r'^object/sources/(?P<method>\S+)/(?P<obj_type>\S+)/(?P<obj_id>\S+)/$', 'crits.core.views.add_update_source'),
     (r'^source_releasability/$', 'crits.core.views.source_releasability'),
+    (r'^source_sighting/$', 'crits.core.views.source_sighting'),
     (r'^tickets/(?P<method>\S+)/(?P<type_>\w+)/(?P<id_>\w+)/$', 'crits.core.views.add_update_ticket'),
     (r'^preferred_actions/$', 'crits.core.views.add_preferred_actions'),
     (r'^actions/(?P<method>\S+)/(?P<obj_type>\S+)/(?P<obj_id>\w+)/$', 'crits.core.views.add_update_action'),
@@ -70,6 +71,10 @@ urlpatterns = patterns('',
     (r'^sector/list/(?P<option>.+)$', 'crits.core.views.sector_list'),
     (r'^sector/mod/$', 'crits.core.views.sector_modify'),
     (r'^sector/options/$', 'crits.core.views.get_available_sectors'),
+
+    #KillChain
+    (r'^kill_chain/options/$', 'crits.core.views.get_available_kill_chain'),
+    (r'^kill_chain/mod/$', 'crits.core.views.kill_chain_modify'),
 
     # Timeline
     (r'^timeline/(?P<data_type>\S+)/$', 'crits.core.views.timeline'),

@@ -1,0 +1,26 @@
+{% load url from future %}
+
+<script type="text/javascript">
+    var type = "{{subscription.type}}";
+    var id = "{{subscription.id}}";
+</script>
+
+<td class="key" valign="top">
+    <div>
+        <span>Sightings</span>
+    </div>
+</td>
+<td>
+    <table style="table-layout:fixed;" class="chart scollapser" id="sightings_list">
+        <col width="19" /> <!-- spacer -->
+        <col width="65%" /> <!-- name -->
+        <col width="200" /> <!-- analyst/created -->
+        <col width="40" /> <!-- buttons -->
+        <thead>
+        </thead>
+        <tbody class="guardian">
+            {% include "sightings_header_widget.html" %}
+        </tbody>
+    </table>
+</td>
+

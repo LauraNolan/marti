@@ -30,9 +30,11 @@
     <ul class="hmenu">
         <li><a href="#" class="dialogClick" dialog="download-sample">Download Sample</a></li>
         <li><a href="#" class="dialogClick" dialog="new-sample" persona="related" action="{% url 'crits.samples.views.upload_file' sample.md5 %}">Upload Related Sample</a></li>
+        <!--
         <li><a href="#" class="dialogClick" dialog="new-pcap" persona="related">Upload Related PCAP</a></li>
         <li><a href="{% url 'crits.samples.views.detail' sample.md5 %}?format=text">Text</a></li>
         <li><a href="{% url 'crits.samples.views.detail' sample.md5 %}?format=yaml">YAML</a></li>
+         #-->
         <li><a href="#" class="dialogClick" dialog="unzip-sample">Un7zip</a></li>
         {% if admin %}
             <li class="right"><a href="#" class="deleteClick" data-is-object="true" type="sample" action='{% url "crits.samples.views.remove_sample" sample.md5 %}'>Delete Sample</a></li>
@@ -119,6 +121,9 @@
             {% with sectors=sample.sectors %}
                 {% include "sector_widget.html" %}
             {% endwith %}
+            {% with kill_chain=sample.kill_chain %}
+                {% include "kill_chain_widget.html" %}
+            {% endwith %}
             <tr>
             {% with sources=sample.source obj_id=sample.id obj_type=subscription.type %}
                 {% include "sources_listing_widget.html" %}
@@ -127,6 +132,11 @@
             <tr>
             {% with releasability=sample.releasability %}
                 {% include 'releasability_list_widget.html' %}
+            {% endwith %}
+            </tr>
+            <tr>
+            {% with sightings=sample.sightings %}
+                 {% include 'sightings_list_widget.html' %}
             {% endwith %}
             </tr>
             </tbody>
@@ -138,11 +148,13 @@
             {% include 'bucket_list_widget.html' %}
         {% endwith %}
     </div>
+    <!--
     <div class="content_box">
         {% with obj=sample obj_type="Sample" %}
             {% include 'action_listing_widget.html' %}
         {% endwith %}
     </div>
+    #-->
     <div>
         {% with obj=sample obj_type=subscription.type %}
                  {% include 'tickets_listing_widget.html' %}
@@ -153,17 +165,21 @@
             {% include 'campaigns_display_widget.html' %}
         {% endwith %}
     </div>
+    <!--
     <div>
         {% with hit=sample col=COL_SAMPLES %}
             {% include 'locations_display_widget.html' %}
         {% endwith %}
     </div>
+    #-->
     <div>
         {% include 'relationships_listing_widget.html' %}
     </div>
+    <!--
     <div>
         {% include 'objects_listing_widget.html' %}
     </div>
+    #-->
     <div>
     {% include 'screenshot_widget.html' %}
     </div>

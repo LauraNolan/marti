@@ -53,6 +53,9 @@
                     {% with sectors=ip.sectors %}
                         {% include "sector_widget.html" %}
                     {% endwith %}
+                    {% with kill_chain=ip.kill_chain %}
+                        {% include "kill_chain_widget.html" %}
+                    {% endwith %}
                     <tr>
                         {% with sources=ip.source obj_id=ip.id obj_type=subscription.type %}
                             {% include "sources_listing_widget.html" %}
@@ -63,6 +66,11 @@
                             {% include "releasability_list_widget.html" %}
                         {% endwith %}
                     </tr>
+                    <tr>
+                        {% with sightings=ip.sightings %}
+                            {% include 'sightings_list_widget.html' %}
+                        {% endwith %}
+            </tr>
                 </tbody>
             </table>
         </div> <!-- content_body -->
@@ -73,11 +81,13 @@
              {% include 'bucket_list_widget.html' %}
          {% endwith %}
      </div>
+    <!--
     <div class="content_box">
         {% with obj=ip obj_type="IP" %}
             {% include 'action_listing_widget.html' %}
         {% endwith %}
     </div>
+    #-->
      <div>
 	    {% with obj=ip obj_type=subscription.type %}
                 {% include 'tickets_listing_widget.html' %}
@@ -88,17 +98,21 @@
             {% include "campaigns_display_widget.html" %}
         {% endwith %}
     </div>
+    <!--
     <div>
         {% with hit=ip col=COL_IPS %}
             {% include "locations_display_widget.html" %}
         {% endwith %}
     </div>
+    #-->
     <div>
         {% include 'relationships_listing_widget.html' %}
     </div>
+    <!--
     <div>
         {% include 'objects_listing_widget.html' %}
     </div>
+    #-->
     <div>
     {% include 'screenshot_widget.html' %}
     </div>

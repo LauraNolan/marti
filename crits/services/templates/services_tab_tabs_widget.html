@@ -1,5 +1,7 @@
 {% for tab_template in service_tab_templates %}
     {% if tab_template.0 == relationship.type|lower or tab_template.0 == 'all' %}
-        {% include tab_template.2 %}
+            {% if tab_template.1 == 'relationships_service' or tab_template.1 == 'timeline_service' %}
+                {% include tab_template.2 %}
+            {% endif%}
     {% endif %}
 {% endfor %}

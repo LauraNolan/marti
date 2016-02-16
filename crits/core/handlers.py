@@ -432,6 +432,44 @@ def get_data_for_item(item_type, item_id):
             response['data'][field.title()] = value
     return response
 
+def set_sighting(type_, id_, date, value, user):
+
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+        obj.set_sighting(date, value)
+        obj.save(username=user)
+        obj.reload()
+
+        return {'success': True,
+                'obj': obj.to_dict()['sightings']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not add sighting: %s" % e}
+
+def add_sighting(type_, id_, name, date, user):
+
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+        obj.add_sighting(name, date)
+        obj.save(username=user)
+        obj.reload()
+
+        return {'success': True,
+                'obj': obj.to_dict()['sightings']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not add sighting: %s" % e}
+
 def add_releasability(type_, id_, name, user, **kwargs):
     """
     Add releasability to a top-level object.
@@ -4257,6 +4295,30 @@ def generate_sector_jtable(request, option):
                               {'jtable': jtable,
                                'jtid': 'sector_lists'},
                               RequestContext(request))
+
+def modify_kill_chain_list(itype, oid, kill_chains, analyst):
+    """
+    Modify the sector list for a top-level object.
+
+    :param itype: The CRITs type of the top-level object to modify.
+    :type itype: str
+    :param oid: The ObjectId to search for.
+    :type oid: str
+    :param sectors: The list of sectors.
+    :type sectors: list
+    :param analyst: The user making the modifications.
+    """
+
+    obj = class_from_id(itype, oid)
+    if not obj:
+        return
+
+    obj.set_kill_chain_list(kill_chains)
+
+    try:
+        obj.save(username=analyst)
+    except ValidationError:
+        pass
 
 def modify_sector_list(itype, oid, sectors, analyst):
     """

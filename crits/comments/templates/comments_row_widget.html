@@ -5,8 +5,9 @@
     <a href="{% url 'crits.comments.views.activity' 'byuser' comment.analyst %}">{{comment.analyst}}</a><br /> ({{comment.source.0.name}})
     </td>
     <td>
-        <div class="comment_body">
-            <span data-field="comment"> 
+
+        <div class="comment_body" {% if comment.private %} style="background:#FDD7E4" {% endif %}>
+            <span data-field="comment">
                 {{ comment.comment|safe }}
             </span>
             {% if comment.url_key and not subscription %}

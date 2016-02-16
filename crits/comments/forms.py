@@ -11,6 +11,7 @@ class AddCommentForm(forms.Form):
     error_css_class = 'error'
     required_css_class = 'required'
     comment = forms.CharField(widget=forms.Textarea(attrs={'rows':6, 'cols':40}))
+    private = forms.BooleanField(required=False, label='private', help_text='Check to keep comment internal')
     parent_date = forms.DateTimeField(widget=HiddenInput, required=False)
     parent_analyst = forms.CharField(widget=HiddenInput, required=False)
     url_key = forms.CharField(widget=HiddenInput(attrs={'class':'no_clear'}))
