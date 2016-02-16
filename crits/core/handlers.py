@@ -1249,6 +1249,8 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
     json_docs = []
     to_zip = []
     need_filedata = rst_fmt != 'json_no_bin'
+    if rst_fmt == "INTREP":
+        need_filedata = True
     if not need_filedata:
         bin_fmt = None
 
@@ -1256,6 +1258,7 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
     if rst_fmt == 'json' and bin_fmt not in ['zlib', 'base64']:
         bin_fmt = 'base64'
 
+    print "test2", objs
     for (obj_type, obj_id) in objs:
         # get related objects
         new_objects = collect_objects(obj_type, obj_id, depth_limit,
@@ -1270,25 +1273,39 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                  otype == Sample._meta['crits_type'] or
                  otype == Certificate._meta['crits_type']) and
                rst_fmt == 'zip'):
+                print "baz"
                 if obj.filedata: # if data is available
                     if bin_fmt == 'raw':
+                        print "bar"
                         to_zip.append((obj.filename, obj.filedata.read()))
                     else:
                         (data, ext) = format_file(obj.filedata.read(),
                                                   bin_fmt)
                         to_zip.append((obj.filename + ext, data))
                     obj.filedata.seek(0)
+                elif rst_fmt == "docx":
+                    print "test1", obj
             else:
+                print "foo"
                 try:
                     json_docs.append(obj.to_json())
                 except:
                     pass
     zip_count = len(to_zip)
+    print "to_zip", to_zip
+    print "json_docs", json_docs
     if rst_fmt == 'docx':
         #MD: TODO figure out how to manage the docx download without saving file
         tmp_path = '/tmp/del_me.docx'
-        j = json.loads(json_docs[0])
-        j_type = write_INTREP(j, tmp_path)
+        try:
+            j = json.loads(json_docs[0])
+            j_type = write_INTREP(j, tmp_path)
+        except:
+            print "Fail to load json for writing intrep"
+            print objs
+            s = Sample(id=objs[0][1])
+            print s
+            j_type = None
         if j_type != None:
             doc_data = open(tmp_path,'rb').read()
             os.remove(tmp_path)
