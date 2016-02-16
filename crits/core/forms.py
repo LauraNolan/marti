@@ -326,7 +326,8 @@ class DownloadFileForm(forms.Form):
     rst_fmt = forms.ChoiceField(choices=[("zip", "zip"),
                                          ("json", "JSON"),
                                          ("json_no_bin", "JSON (no binaries)"),
-                                         ("docx","INTREP")],
+                                         ("intrep_docx","INTREP (word doc)"),
+                                         ("intrep_txt","INTREP (txt doc)")],
                                          label="Result format")
 
     bin_fmt = forms.ChoiceField(choices=[("raw", "raw"),
