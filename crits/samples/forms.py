@@ -35,39 +35,39 @@ class UploadFileForm(forms.Form):
 
     error_css_class = 'error'
     required_css_class = 'required'
-    upload_type = forms.ChoiceField(choices=[(form_consts.Sample.UploadType.FILE_UPLOAD, form_consts.Sample.UploadType.FILE_UPLOAD),
-                                             (form_consts.Sample.UploadType.METADATA_UPLOAD, form_consts.Sample.UploadType.METADATA_UPLOAD)],
+    upload_type = forms.ChoiceField(choices=[(form_consts.Sample.UploadType.METADATA_UPLOAD, form_consts.Sample.UploadType.METADATA_UPLOAD),
+                                             (form_consts.Sample.UploadType.FILE_UPLOAD, form_consts.Sample.UploadType.FILE_UPLOAD)],
                                     widget=forms.RadioSelect(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' toggle_upload_type'}),
                                     required=True,
                                     label=form_consts.Sample.UPLOAD_TYPE)
     filedata = forms.FileField(required=False,
                                label=form_consts.Sample.FILE_DATA)
-    filedata.widget.attrs=({form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_0 required'})
-    filename = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_1 required'}),
+    filedata.widget.attrs=({form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_1 required'})
+    filename = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_0 required'}),
                                required=False,
                                label=form_consts.Sample.FILE_NAME)
-    md5 = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_1 required'}),
+    md5 = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_0 required'}),
                           required=False,
                           label=form_consts.Sample.MD5)
-    sha1 = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_1'}),
+    sha1 = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_0'}),
                            required=False,
                            label=form_consts.Sample.SHA1)
-    sha256 = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_1'}),
+    sha256 = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_0'}),
                              required=False,
                              label=form_consts.Sample.SHA256)
-    size = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_1'}),
+    size = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_0'}),
                            required=False,
                            label=form_consts.Sample.SIZE)
-    mimetype = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_1'}),
+    mimetype = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_REQUIRED + ' id_upload_type_0'}),
                                required=False,
                                label=form_consts.Sample.MIMETYPE)
-    file_format = forms.ChoiceField(widget=RadioSelect(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_0 required'}),
+    file_format = forms.ChoiceField(widget=RadioSelect(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_1 required'}),
                                     choices=[("zip", "7z/Zip/RAR"),
                                              ("raw", "raw")],
                                     initial="zip",
                                     required=False,
                                     label=form_consts.Sample.FILE_FORMAT)
-    password = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_0'}),
+    password = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_1'}),
                                required=False,
                                label=form_consts.Sample.PASSWORD)
     campaign = forms.ChoiceField(widget=forms.Select, required=False,
