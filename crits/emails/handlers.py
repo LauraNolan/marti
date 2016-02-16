@@ -551,7 +551,7 @@ def handle_email_fields(data, analyst, method):
         prev_email.merge(data)
         prev_email.save(username=analyst)
         prev_email.reload()
-        run_triage(new_email, analyst)
+        run_triage(prev_email, analyst)
         result['object'] = prev_email
         result['status'] = True
         return result
