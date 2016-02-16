@@ -1188,15 +1188,24 @@ def write_INTREP(j, tmp_path):
         docx_write(doc,"OTHER FILENAMES",j['filenames'])
         docx_write(doc,"CREATED",j["created"])
         #doc.add_paragraph("FILETYPE:  ",j["filetype"])
-        docx_write(doc,"FILETYPE",j["filetype"])
+        try:
+            docx_write(doc,"FILETYPE",j["filetype"])
+        except:
+            pass
         docx_write(doc,"FILE SIZE IN BYTES",j["size"])
         #doc.add_paragraph("MD5:  ",j["md5"])
         docx_write(doc,"MD5",j["md5"])
-        docx_write(doc,"SHA1",j["sha1"])
-        docx_write(doc,"SHA256",j["sha256"])
-        docx_write(doc,"SSDEEP",j["ssdeep"])
+        try:
+            docx_write(doc,"SHA1",j["sha1"])
+            docx_write(doc,"SHA256",j["sha256"])
+            docx_write(doc,"SSDEEP",j["ssdeep"])
+        except:
+            print "caught special case"
         #doc.add_paragraph("CREATED:  ",j["created"])
-        docx_write(doc,"MIMETYPE",j["mimetype"])
+        try:
+            docx_write(doc,"MIMETYPE",j["mimetype"])
+        except:
+            pass
         docx_write(doc)
         docx_write(doc,"PART OF CAMPAIGN",j["campaign"])
         docx_write(doc,"SECTORS TARGETED",j["sectors"])
@@ -1287,8 +1296,8 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
     json_docs = []
     to_zip = []
     need_filedata = rst_fmt != 'json_no_bin'
-    if rst_fmt == "INTREP":
-        need_filedata = True
+    if rst_fmt == "docx":
+        need_filedata = False
     if not need_filedata:
         bin_fmt = None
 
@@ -1296,13 +1305,11 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
     if rst_fmt == 'json' and bin_fmt not in ['zlib', 'base64']:
         bin_fmt = 'base64'
 
-    print "test2", objs
     for (obj_type, obj_id) in objs:
         # get related objects
         new_objects = collect_objects(obj_type, obj_id, depth_limit,
                                       total_limit, rel_limit, object_types,
                                       sources, need_filedata=need_filedata)
-
         # if result format calls for binary data to be zipped, loop over
         # collected objects and convert binary data to bin_fmt specified, then
         # add to the list of data to zip up
@@ -1311,26 +1318,20 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                  otype == Sample._meta['crits_type'] or
                  otype == Certificate._meta['crits_type']) and
                rst_fmt == 'zip'):
-                print "baz"
                 if obj.filedata: # if data is available
                     if bin_fmt == 'raw':
-                        print "bar"
                         to_zip.append((obj.filename, obj.filedata.read()))
                     else:
                         (data, ext) = format_file(obj.filedata.read(),
                                                   bin_fmt)
                         to_zip.append((obj.filename + ext, data))
                     obj.filedata.seek(0)
-                elif rst_fmt == "docx":
-                    print "test1", obj
             else:
-                print "foo"
                 try:
                     json_docs.append(obj.to_json())
                 except:
                     pass
     zip_count = len(to_zip)
-    print "to_zip", to_zip
     print "json_docs", json_docs
     if rst_fmt == 'docx':
         #MD: TODO figure out how to manage the docx download without saving file
@@ -1338,11 +1339,9 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
         try:
             j = json.loads(json_docs[0])
             j_type = write_INTREP(j, tmp_path)
-        except:
+        except Exception, e:
             print "Fail to load json for writing intrep"
-            print objs
-            s = Sample(id=objs[0][1])
-            print s
+            print e
             j_type = None
         if j_type != None:
             doc_data = open(tmp_path,'rb').read()
