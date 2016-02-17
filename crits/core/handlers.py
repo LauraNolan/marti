@@ -1124,10 +1124,130 @@ def modify_bucket_list(itype, oid, tags, analyst):
     except ValidationError:
         pass
 
-def write_INTREP(j, tmp_path):
+def write_INTREP_txt(j, tmp_path):
     """
     Given a json representation of a CRITs object, write a custom
-    INTREP report.
+    INTREP report in a text document.
+
+    :param j: json represenation of a CRITs object
+    :type j: json
+
+    :param tmp_path: temporary path to save the INTREP document
+    :type tmp_path: str
+    """
+    def add_sources(lines,sources):
+        for source in sources:
+            lines.append("SAMPLE WAS SEEN AT {0}".format(source['name']))
+            for instance in source['instances']:
+                lines.append("\tANALYST {0} DISCOVERED ON {1}".format(instance['analyst'],instance['date']))
+                if instance['method']:
+                    lines.append("\t\tMETHOD OF DISCOVERY: {0}".format(instance['method']))
+                if instance['reference']:
+                    lines.append("\t\tREFERENCE OF DISCOVERY: {0}".format(instance['reference']))
+        return lines
+
+    def add_comments(lines,obj_id,obj_type):
+        from crits.comments.handlers import get_comments
+        comments = get_comments(obj_id,obj_type)
+        if comments:
+            lines.append("ANALYST COMMENTS")
+            i = 0
+            for comment in comments:
+                lines.append("ANALYST {0} MADE THE FOLLOWING COMMENT AT {1}".format(comment.analyst,comment.date))
+                lines.append("\tCOMMENT #"+str(i),comment.comment)
+                i += 1
+        return lines
+
+    lines = []
+    lines.append("INTELLIGENCE REPORT - INTREP")
+    lines.append("############################")
+    if "filename" in j.keys():
+        j_type = "Sample"
+        lines.append("FILE SAMPLE")
+        lines.append("FILENAME: " + j["filename"])
+        try:
+            lines.append("OTHER FILENAMES: " + j['filenames'])
+        except:
+            pass
+        lines.append("CREATED: " + j["created"])
+        try:
+            lines.append("FILETYPE: " + j["filetype"])
+        except:
+            pass
+        lines.append("FILE SIZE IN BYTES: " + str(j["size"]))
+        lines.append("MD5: " + j["md5"])
+        try:
+            lines.append("SHA1: " + j["sha1"])
+            lines.append("SHA256: " + j["sha256"])
+            lines.append("SSDEEP: " + j["ssdeep"])
+        except:
+            pass
+        try:
+            lines.append("MIMETYPE: " + j["mimetype"])
+        except:
+            pass
+        try:
+            lines.append("\n")
+            lines.append("PART OF CAMPAIGN: " + ",".join(j["campaign"]))
+            lines.append("SECTORS TARGETED: " + ",".join(j["sectors"]))
+            lines.append("BUCKET LIST: " + ",".join(j["bucket_list"]))
+            lines.append("RELEASABILITY: " + ",".join(j["releasability"]))
+            lines.append("\n")
+            lines.append("THIS SAMPLE WAS SEEN AT FOLLOWING SOURCES")
+            lines = add_sources(lines,j['source'])
+            lines = add_comments(lines,j["_id"],j_type)
+        except:
+            PrintException()
+    elif "from" in j.keys():
+        j_type = "Email"
+        lines.append("EMAIL")
+        try:
+            lines.append("TO: " + ",".join(j["to"]))
+            lines.append("FROM: " + j["from"])
+            lines.append("SENDER: " + j["sender"])
+            lines.append("DATE: " + j["isodate"])
+            lines.append("SUBJECT: " + j["subject"])
+            lines.append("\n")
+            lines.append("X-MAILER: " + j["x_mailer"])
+            lines.append("MESSAGE ID: " + j["message_id"])
+            lines.append("REPLY TO: " + j["reply_to"])
+            if 'originating_ip' in j:
+                lines.append("ORIGINATING IP: " + j["originating_ip"])
+            lines.append("X ORIGINATING IP: " + j["x_originating_ip"])
+            lines.append("HELO: " + j["helo"])
+            lines.append("BUCKET LIST: " + ",".join(j["bucket_list"]))
+            lines.append("RELEASABILITY:" + ",".join(j["releasability"]))
+            lines.append("\n")
+        except:
+            PrintException()
+        add_sources(lines,j['source'])
+        add_comments(lines,j["_id"],j_type)
+    elif "type" in j.keys():
+        j_type = "Indicator"
+        lines.append("INDICATOR")
+        lines.append("TYPE: " + j["type"])
+        lines.append("VALUE: " + j["value"])
+        lines.append("DATE: " + j["created"])
+        lines.append("THREAT TYPE: " + j["threat_type"])
+        lines.append("ATTACK TYPE: " + j["attack_type"])
+        lines.append("IMPACT: " + j["impact"])
+        lines.append("CONFIDENCE: " + j["confidence"])
+        lines.append("BUCKET LIST: " + j["bucket_list"])
+        lines.append("RELEASABILITY: " + j["releasability"])
+        lines.append("\n")
+        lines = add_sources(lines,j['source'])
+        lines = add_comments(lines,j["_id"],j_type)
+
+
+    with open(tmp_path, 'w') as f:
+        for line in lines:
+            f.write(line + "\n")
+    return j_type
+
+def write_INTREP_docx(j, tmp_path):
+    """
+    Given a json representation of a CRITs object, write a custom
+    INTREP report in a docx document.
 
     :param j: json represenation of a CRITs object
     :type j: json
@@ -1188,15 +1308,24 @@ def write_INTREP(j, tmp_path):
         docx_write(doc,"OTHER FILENAMES",j['filenames'])
         docx_write(doc,"CREATED",j["created"])
         #doc.add_paragraph("FILETYPE:  ",j["filetype"])
-        docx_write(doc,"FILETYPE",j["filetype"])
+        try:
+            docx_write(doc,"FILETYPE",j["filetype"])
+        except:
+            pass
         docx_write(doc,"FILE SIZE IN BYTES",j["size"])
         #doc.add_paragraph("MD5:  ",j["md5"])
         docx_write(doc,"MD5",j["md5"])
-        docx_write(doc,"SHA1",j["sha1"])
-        docx_write(doc,"SHA256",j["sha256"])
-        docx_write(doc,"SSDEEP",j["ssdeep"])
+        try:
+            docx_write(doc,"SHA1",j["sha1"])
+            docx_write(doc,"SHA256",j["sha256"])
+            docx_write(doc,"SSDEEP",j["ssdeep"])
+        except:
+            print "caught special case"
         #doc.add_paragraph("CREATED:  ",j["created"])
-        docx_write(doc,"MIMETYPE",j["mimetype"])
+        try:
+            docx_write(doc,"MIMETYPE",j["mimetype"])
+        except:
+            pass
         docx_write(doc)
         docx_write(doc,"PART OF CAMPAIGN",j["campaign"])
         docx_write(doc,"SECTORS TARGETED",j["sectors"])
@@ -1211,6 +1340,7 @@ def write_INTREP(j, tmp_path):
         doc.add_heading("EMAIL",1)
         docx_write(doc,"TO",j["to"])
         docx_write(doc,"FROM",j["from"])
+        docx_write(doc,"SENDER", j["sender"])
         docx_write(doc,"DATE",j["isodate"])
         docx_write(doc,"SUBJECT",j["subject"])
         docx_write(doc)
@@ -1246,6 +1376,17 @@ def write_INTREP(j, tmp_path):
     #doc.add_paragraph(json.dumps(j,sort_keys=True, indent=4,separators=(',',': ')))
     return j_type
 
+def PrintException():
+    import linecache
+    import sys
+    exc_type, exc_obj, tb = sys.exc_info()
+    f = tb.tb_frame
+    lineno = tb.tb_lineno
+    filename = f.f_code.co_filename
+    linecache.checkcache(filename)
+    line = linecache.getline(filename, lineno, f.f_globals)
+    print 'EXCEPTION IN ({}, Line {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj)
+
 def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                             bin_fmt, object_types, objs, sources,
                             make_zip=True):
@@ -1266,7 +1407,7 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                       should have before we ignore its relationships.
     :type rel_limit: int
     :param rst_fmt: The format the results should be in ("zip", "json",
-                    "json_no_bin", "INTREP").
+                    "json_no_bin", "intrep_docx", "intrep_txt").
     :type rst_fmt: str
     :param object_types: The types of top-level objects to include.
     :type object_types: list
@@ -1287,6 +1428,8 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
     json_docs = []
     to_zip = []
     need_filedata = rst_fmt != 'json_no_bin'
+    if rst_fmt == "intrep_docx" or rst_fmt == "intrep_txt":
+        need_filedata = False
     if not need_filedata:
         bin_fmt = None
 
@@ -1299,7 +1442,6 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
         new_objects = collect_objects(obj_type, obj_id, depth_limit,
                                       total_limit, rel_limit, object_types,
                                       sources, need_filedata=need_filedata)
-
         # if result format calls for binary data to be zipped, loop over
         # collected objects and convert binary data to bin_fmt specified, then
         # add to the list of data to zip up
@@ -1322,17 +1464,40 @@ def download_object_handler(total_limit, depth_limit, rel_limit, rst_fmt,
                 except:
                     pass
     zip_count = len(to_zip)
-    if rst_fmt == 'docx':
+    print "json_docs", json_docs
+    if rst_fmt == 'intrep_docx':
         #MD: TODO figure out how to manage the docx download without saving file
         tmp_path = '/tmp/del_me.docx'
-        j = json.loads(json_docs[0])
-        j_type = write_INTREP(j, tmp_path)
+        try:
+            j = json.loads(json_docs[0])
+            j_type = write_INTREP_docx(j, tmp_path)
+        except Exception, e:
+            print "Fail to load json for writing intrep"
+            print e
+            j_type = None
         if j_type != None:
             doc_data = open(tmp_path,'rb').read()
             os.remove(tmp_path)
             result['success'] = True
             result['data'] = doc_data
             result['filename'] = "INTREP-"+j_type.upper()+"-"+str(j['_id'][-4:])+".docx"
+            result['mimetype'] = 'application/vnd.openxmlformats-officedocument.wordprocessingm1.document'
+    elif rst_fmt == "intrep_txt":
+        tmp_path = '/tmp/del_me.txt'
+        try:
+            j = json.loads(json_docs[0])
+            j_type = write_INTREP_txt(j, tmp_path)
+        except Exception, e:
+            print "Failed to write INTREP txt"
+            print e
+            PrintException()
+            j_type = None
+        if j_type != None:
+            doc_data = open(tmp_path,'rb').read()
+            os.remove(tmp_path)
+            result['success'] = True
+            result['data'] = doc_data
+            result['filename'] = "INTREP-"+j_type.upper()+"-"+str(j['_id'][-4:])+".txt"
             result['mimetype'] = 'application/vnd.openxmlformats-officedocument.wordprocessingm1.document'
     elif zip_count <= 0:
         result['success'] = True
