@@ -917,6 +917,37 @@ function releasability_add_submit(e) {
         });
 }
 
+function tlp_set_submit(e) {
+    var widget = $(e.currentTarget);
+    var color;
+
+
+    color = widget.attr('data-color');
+
+
+    // XXXX For the action types of remove, do we want to confirm
+    // with the user first?
+    var me = $('#tlp_list');
+    var data = {'type': type, 'id': id, 'color': color};
+
+    $.ajax({
+            type: "POST",
+        url: widget.attr("action"),
+        data: data,
+        async: false,
+        datatype: 'json',
+        success: function(result) {
+                if (result.success) {
+                    me.html(result.html);
+
+            collapse2(); // XXXX Might be nice if this wasn't collapsed, we just
+                 // changed it, left it on because the icon changes in the
+                 // new div
+                }
+            }
+        });
+}
+
 function sightings_add_submit(e) {
     var widget = $(e.currentTarget);
     var dialog;
@@ -1275,6 +1306,9 @@ var stdDialogs = {
 
   $(document).on('click', '.set_sighting_button',
         sightings_add_submit);
+
+    $(document).on('click', '.set_tlp_button',
+        tlp_set_submit);
 
   // XXX We may want confirmation dialogs on these remove buttons...
   // Perhaps convert these to "deleteClick" style in the future.

@@ -1233,6 +1233,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
     sectors = ListField(StringField())
     kill_chain = ListField(StringField())
     sightings = EmbeddedDocumentField(Sightings, default=Sightings)
+    tlp = StringField()
 
     def set_sighting(self, date, value):
         self.sightings.sighting = value

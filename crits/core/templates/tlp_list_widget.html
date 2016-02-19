@@ -1,0 +1,53 @@
+{% load url from future %}
+
+<style type="text/css">
+body {
+    background-color: #666;
+    margin: 10px;
+}
+
+/*! Light */
+#light {
+    background-color: #000;
+    box-shadow: 0 0 5px rgba(0,0,0, .8);
+    overflow: hidden;
+    padding: 0 0 4px;
+    width: 40px;
+}
+
+#light span {
+    border-radius: 50px;
+    display: block;
+    height: 30px;
+    margin: 4px auto 0;
+    opacity: .5;
+    width: 30px;
+}
+
+/*! Light colours */
+#red    { background-color: red; }
+#gold { background-color: #ffd700; }
+#green  { background-color: #00ff99; }
+#white {background-color: white;}
+
+/*! Active states */
+#light span.active    { opacity: 1; }
+#light #red.active    { box-shadow: 0 0 10px red; }
+#light #gold.active { box-shadow: 0 0 10px gold; }
+#light #green.active  { box-shadow: 0 0 10px green; }
+#light #white.active  { box-shadow: 0 0 10px white; }
+
+</style>
+
+<div class="content_box buckets" id="tlp_list">
+    <h3 class='titleheader'>
+        <span>Traffic Light Protical (TLP)</span>
+    </h3>
+    <div id="light">
+    <span class="{% if tlp == 'RED' %}active {% endif %} set_tlp_button" id="red" action="{% url 'crits.core.views.source_tlp' %}" data-color="RED" title="TLP: RED"></span>
+    <span class="{% if tlp == 'AMBER' %}active {% endif %} set_tlp_button" id="gold" action="{% url 'crits.core.views.source_tlp' %}" data-color="AMBER" title="TLP: AMBER"></span>
+    <span class="{% if tlp == 'GREEN' %}active {% endif %} set_tlp_button" id="green" action="{% url 'crits.core.views.source_tlp' %}" data-color="GREEN" title="TLP: GREEN"></span>
+    <span class="{% if tlp == 'WHITE' %}active {% endif %} set_tlp_button" id="white" action="{% url 'crits.core.views.source_tlp' %}" data-color="WHITE" title="TLP: WHITE"></span>
+</div>
+
+</div>

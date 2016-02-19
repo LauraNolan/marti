@@ -31,7 +31,7 @@ from crits.core.forms import SourceAccessForm, AddSourceForm, AddUserRoleForm
 from crits.core.forms import SourceForm, DownloadFileForm, AddReleasabilityForm
 from crits.core.forms import TicketForm
 from crits.core.handlers import add_releasability, add_releasability_instance
-from crits.core.handlers import add_sighting, set_sighting
+from crits.core.handlers import add_sighting, set_sighting, set_tlp
 from crits.core.handlers import remove_releasability, remove_releasability_instance
 from crits.core.handlers import add_new_source, generate_counts_jtable
 from crits.core.handlers import source_add_update, source_remove, source_remove_all
@@ -515,6 +515,51 @@ def counts_listing(request,option=None):
     """
 
     return generate_counts_jtable(request, option)
+
+@user_passes_test(user_can_view_data)
+def source_tlp(request):
+    """
+    Modify a top-level object's sightings. Should be an AJAX POST.
+
+    :param request: Django request.
+    :type request: :class:`django.http.HttpRequest`
+    :returns: :class:`django.http.HttpResponse`
+    """
+
+    if request.method == 'POST' and request.is_ajax():
+        type_ = request.POST.get('type', None)
+        id_ = request.POST.get('id', None)
+        color = request.POST.get('color', None)
+        user = str(request.user.username)
+        if not type_ or not id_:
+            error = "Modifying sightings requires a type, id"
+            return render_to_response("error.html",
+                                      {"error" : error },
+                                      RequestContext(request))
+
+        result = set_tlp(type_, id_, color, user)
+
+        if result['success']:
+            subscription = {
+                'type': type_,
+                'id': id_
+            }
+            html = render_to_string('tlp_list_widget.html',
+                                    {'tlp': result['obj'],
+                                     'subscription': subscription},
+                                    RequestContext(request))
+            response = {'success': result['success'],
+                        'html': html}
+        else:
+            response = {'success': result['success'],
+                        'error': result['message']}
+        return HttpResponse(json.dumps(response),
+                            mimetype="application/json")
+    else:
+        error = "Expected AJAX POST!"
+        return render_to_response("error.html",
+                                  {"error" : error },
+                                  RequestContext(request))
 
 @user_passes_test(user_can_view_data)
 def source_sighting(request):

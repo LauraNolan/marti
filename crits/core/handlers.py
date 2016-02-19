@@ -432,6 +432,29 @@ def get_data_for_item(item_type, item_id):
             response['data'][field.title()] = value
     return response
 
+def set_tlp(type_, id_, value, user):
+
+    if value not in ['AMBER', 'RED', 'GREEN', 'WHITE']:
+        return {'success': False,
+                'message': "Not a valid color"}
+
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+        obj.tlp = value
+        obj.save(username=user)
+        obj.reload()
+
+        return {'success': True,
+                'obj': obj.to_dict()['tlp']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not add tlp: %s" % e}
+
 def set_sighting(type_, id_, date, value, user):
 
     obj = class_from_id(type_, id_)
