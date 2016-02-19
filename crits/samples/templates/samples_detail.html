@@ -147,6 +147,9 @@
         {% with bucket_list=sample.bucket_list %}
             {% include 'bucket_list_widget.html' %}
         {% endwith %}
+        {% with tlp=sample.tlp %}
+            {% include 'tlp_list_widget.html' %}
+        {% endwith %}
     </div>
     <!--
     <div class="content_box">

@@ -80,6 +80,9 @@
          {% with bucket_list=ip.bucket_list %}
              {% include 'bucket_list_widget.html' %}
          {% endwith %}
+         {% with tlp=email.tlp %}
+            {% include 'tlp_list_widget.html' %}
+        {% endwith %}
      </div>
     <!--
     <div class="content_box">
