@@ -30,7 +30,7 @@ class Comment(CritsDocument, CritsSchemaDocument, CritsSourceDocument, Document)
     meta = {
         "collection": settings.COL_COMMENTS,
         "crits_type": "Comment",
-        "latest_schema_version": 2,
+        "latest_schema_version": 1,
         "schema_doc": {
             'comment': 'The comment body',
             'obj_type': 'The type of the object this comment is for',

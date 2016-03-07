@@ -39,15 +39,20 @@ def get_comments(obj_id, obj_type, html=True):
     :type obj_type: str
     :returns: list of :class:`crits.comments.comment.Comment`
     """
-
+    import sys
     #TODO: add source filtering for non-UI based applications
     results = Comment.objects(obj_id=obj_id,
                               obj_type=obj_type).order_by('+created')
     final_comments = []
-    for result in results:
-        if html:
-            result.comment_to_html()
-        final_comments.append(result)
+
+    try:
+        for result in results:
+            if html:
+                result.comment_to_html()
+            final_comments.append(result)
+    except:
+        print "error in comments: ", sys.exc_info()
+        pass
     return final_comments
 
 def get_aggregate_comments(atype, value, username, date=None):
