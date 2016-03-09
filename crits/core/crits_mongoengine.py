@@ -1171,6 +1171,7 @@ class Releasability(EmbeddedDocument, CritsDocumentFormatter):
 
     name = StringField()
     analyst = StringField()
+    release = BooleanField()
     instances = ListField(EmbeddedDocumentField(ReleaseInstance))
 
 
@@ -2364,6 +2365,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             else:
                 if analyst:
                     source_item.analyst = analyst
+                source_item.release = True
                 self.releasability.append(source_item)
         elif isinstance(source_item, dict):
             rels = self.releasability
@@ -2373,6 +2375,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             else:
                 if analyst:
                     source_item['analyst'] = analyst
+                source_item['release'] = True
                 self.releasability.append(Releasability(**source_item))
         else:
             rel = Releasability(**kwargs)
@@ -2383,6 +2386,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                 if r.name == rel.name:
                     break
             else:
+                rel.release = True
                 self.releasability.append(rel)
 
     def add_releasability_instance(self, name=None, instance=None, *args, **kwargs):
@@ -2400,6 +2404,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             for r in self.releasability:
                 if r.name == name:
                     r.instances.append(instance)
+                    r.release = False
 
     def remove_releasability(self, name=None, *args, **kwargs):
         """
