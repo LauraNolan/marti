@@ -2404,12 +2404,12 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
         """
 
-        if not name:
-            self.set_all_releasability_flag()
-        else:
-            for rel in self.releasability:
-                if rel.name == name:
-                    rel.release = True
+        # if not name:
+        #     self.set_all_releasability_flag()
+        # else:
+        for rel in self.releasability:
+            if rel.name != name:
+                rel.release = True
 
     def add_releasability_instance(self, name=None, instance=None, *args, **kwargs):
         """
