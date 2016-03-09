@@ -21,6 +21,7 @@ from crits.emails.handlers import generate_email_csv
 from crits.emails.handlers import create_email_attachment, get_email_formatted
 from crits.emails.handlers import create_indicator_from_header_field
 from crits.samples.forms import UploadFileForm
+from crits.core.handlers import set_releasability_flag
 
 
 @user_passes_test(user_can_view_data)
@@ -539,6 +540,7 @@ def update_header_value(request, email_id):
                                            type_,
                                            value,
                                            analyst)
+        set_releasability_flag('Email', email_id, analyst)
         return HttpResponse(json.dumps(result),
                             mimetype="application/json")
     else:

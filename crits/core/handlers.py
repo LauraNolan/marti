@@ -493,6 +493,25 @@ def add_sighting(type_, id_, name, date, user):
         return {'success': False,
                 'message': "Could not add sighting: %s" % e}
 
+def set_releasability_flag(type_, id_, user, name=None):
+
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object."}
+
+    try:
+        obj.set_releasability_flag(name=name)
+        obj.save(username=user)
+        obj.reload()
+        return {'success': True,
+                'obj': obj.to_dict()['releasability']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not set releasability flag: %s" % e}
+
 def add_releasability(type_, id_, name, user, **kwargs):
     """
     Add releasability to a top-level object.

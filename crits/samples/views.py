@@ -29,6 +29,7 @@ from crits.samples.handlers import generate_sample_csv, process_bulk_add_md5_sam
 from crits.samples.handlers import update_sample_filename, modify_sample_filenames
 from crits.samples.sample import Sample
 from crits.stats.handlers import generate_sources
+from crits.core.handlers import set_releasability_flag
 
 
 @user_passes_test(user_can_view_data)
@@ -528,9 +529,12 @@ def set_sample_filename(request):
         filename = request.POST.get('filename', None)
         id_ = request.POST.get('id', None)
         analyst = request.user.username
-        return HttpResponse(json.dumps(update_sample_filename(id_,
-                                                              filename,
-                                                              analyst)),
+
+        result = update_sample_filename(id_, filename, analyst)
+
+        set_releasability_flag('Sample', id_, analyst)
+
+        return HttpResponse(json.dumps(result),
                             mimetype="application/json")
     else:
         error = "Expected POST"
@@ -551,9 +555,13 @@ def set_sample_filenames(request):
     if request.method == "POST" and request.is_ajax():
         tags = request.POST.get('tags', "").split(",")
         id_ = request.POST.get('id', None)
-        return HttpResponse(json.dumps(modify_sample_filenames(id_,
-                                                               tags,
-                                                               request.user.username)),
+        analyst = request.user.username
+
+        result = modify_sample_filenames(id_, tags, analyst)
+
+        set_releasability_flag('Sample', id_, analyst)
+
+        return HttpResponse(json.dumps(result),
                             mimetype="application/json")
     else:
         error = "Expected POST"

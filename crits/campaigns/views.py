@@ -21,6 +21,7 @@ from crits.campaigns.handlers import generate_campaign_jtable, generate_campaign
 from crits.campaigns.handlers import get_campaign_names_list
 from crits.core.user_tools import user_can_view_data
 from crits.stats.handlers import campaign_date_stats
+from crits.core.handlers import set_releasability_flag
 
 
 @user_passes_test(user_can_view_data)
@@ -175,6 +176,7 @@ def campaign_add(request, ctype, objectid):
                                    objectid,
                                    update=False)
             if result['success']:
+                set_releasability_flag(ctype, objectid, analyst)
                 return HttpResponse(json.dumps(result),
                                     mimetype="application/json")
         result['form'] = form.as_table()
@@ -224,6 +226,7 @@ def edit_campaign(request, ctype, objectid):
                                    related,
                                    analyst)
             if result['success']:
+                set_releasability_flag(ctype, objectid, analyst)
                 return HttpResponse(json.dumps(result),
                                     mimetype="application/json")
             else:

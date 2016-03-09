@@ -30,7 +30,7 @@ from crits.core.forms import ActionsForm, NewActionForm
 from crits.core.forms import SourceAccessForm, AddSourceForm, AddUserRoleForm
 from crits.core.forms import SourceForm, DownloadFileForm, AddReleasabilityForm
 from crits.core.forms import TicketForm
-from crits.core.handlers import add_releasability, add_releasability_instance
+from crits.core.handlers import add_releasability, add_releasability_instance, set_releasability_flag
 from crits.core.handlers import add_sighting, set_sighting, set_tlp
 from crits.core.handlers import remove_releasability, remove_releasability_instance
 from crits.core.handlers import add_new_source, generate_counts_jtable
@@ -119,10 +119,12 @@ def update_object_description(request):
         id_ = request.POST['id']
         description = request.POST['description']
         analyst = request.user.username
-        return HttpResponse(json.dumps(description_update(type_,
-                                                          id_,
-                                                          description,
-                                                          analyst)),
+
+        result = description_update(type_, id_, description, analyst)
+
+        set_releasability_flag(type_, id_, analyst)
+
+        return HttpResponse(json.dumps(result),
                             mimetype="application/json")
     else:
         return render_to_response("error.html",
@@ -538,6 +540,7 @@ def source_tlp(request):
                                       RequestContext(request))
 
         result = set_tlp(type_, id_, color, user)
+        set_releasability_flag(type_, id_, user)
 
         if result['success']:
             subscription = {
@@ -585,12 +588,9 @@ def source_sighting(request):
                                       {"error" : error },
                                       RequestContext(request))
 
-        #add_sighting(type_, id_, 'New York', datetime.datetime.now(tzutc()), user)
-        #add_sighting(type_, id_, 'Maryland', datetime.datetime.now(tzutc()), user)
-        #add_sighting(type_, id_, 'FBI', datetime.datetime.now(tzutc()), user)
-
         if action == 'set':
             result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), True, user)
+            set_releasability_flag(type_, id_, user)
         else:
             result = set_sighting(type_, id_, datetime.datetime.now(tzutc()), False, user)
 
@@ -2188,6 +2188,7 @@ def sector_modify(request):
         oid = request.POST['oid']
         itype = request.POST['itype']
         modify_sector_list(itype, oid, sectors, request.user.username)
+        set_releasability_flag(itype, oid, request.user.username)
     return HttpResponse({})
 
 def kill_chain_modify(request):
@@ -2204,6 +2205,7 @@ def kill_chain_modify(request):
         oid = request.POST['oid']
         itype = request.POST['itype']
         modify_kill_chain_list(itype, oid, kill_chains, request.user.username)
+        set_releasability_flag(itype, oid, request.user.username)
     return HttpResponse({})
 
 @user_passes_test(user_can_view_data)

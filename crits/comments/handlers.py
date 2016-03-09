@@ -14,7 +14,7 @@ from crits.comments.forms import JumpToDateForm
 from crits.core.class_mapper import class_from_type
 from crits.core.crits_mongoengine import create_embedded_source, json_handler
 from crits.core.handlers import jtable_ajax_list,build_jtable, jtable_ajax_delete
-from crits.core.handlers import csv_export
+from crits.core.handlers import csv_export, set_releasability_flag
 from crits.core.user_tools import get_user_organization, user_sources
 
 def generate_comment_csv(request):
@@ -249,6 +249,10 @@ def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst, date=No
         # to compare creation and edit times.
         comment.reload()
         comment.comment_to_html()
+
+        if not comment.private:
+            set_releasability_flag(obj_type, obj_id, analyst)
+
         html = render_to_string('comments_row_widget.html',
                                 {'comment': comment,
                                  'user': {'username': analyst},
@@ -295,6 +299,10 @@ def comment_update(cleaned_data, obj_type, obj_id, subscr, analyst):
         try:
             comment.save()
             comment.comment_to_html()
+
+            if not comment.private:
+                set_releasability_flag(obj_type, obj_id, analyst)
+
             html = render_to_string('comments_row_widget.html',
                                     {'comment': comment,
                                      'user': {'username': analyst},
