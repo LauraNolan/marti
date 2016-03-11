@@ -789,8 +789,6 @@ def handle_file(filename, data, source, method='Generic', reference='',
         sample = cached_results.get(md5_digest)
     else:
         sample = Sample.objects(md5=md5_digest).first()
-        if sample.check_message_received(id):
-            return {'success': False, 'message': 'dup'}
 
     if not sample:
         is_sample_new = True
@@ -802,6 +800,9 @@ def handle_file(filename, data, source, method='Generic', reference='',
         sample.size = size
         sample.mimetype = mimetype
     else:
+        if sample.check_message_received(id):
+            return {'success': False, 'message': 'dup'}
+
         if filename not in sample.filenames and filename != sample.filename:
             sample.filenames.append(filename)
 

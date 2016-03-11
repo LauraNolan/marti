@@ -385,8 +385,6 @@ def ip_add_update(ip_address, ip_type, source=None, source_method='',
         ip_object = cached_results.get(ip_address)
     else:
         ip_object = IP.objects(ip=ip_address).first()
-        if ip_object.check_message_received(id):
-            return {'success': False, 'message': 'dup'}
 
     if not ip_object:
         ip_object = IP()
@@ -396,6 +394,9 @@ def ip_add_update(ip_address, ip_type, source=None, source_method='',
 
         if cached_results != None:
             cached_results[ip_address] = ip_object
+
+    if ip_object.check_message_received(id):
+        return {'success': False, 'message': 'dup'}
 
     if isinstance(source, basestring):
         source = [create_embedded_source(source,

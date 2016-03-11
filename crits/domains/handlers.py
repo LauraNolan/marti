@@ -580,12 +580,9 @@ def upsert_domain(domain, source, username=None, campaign=None,
     else:
         #first find the domain(s) if it/they already exist
         root_domain = Domain.objects(domain=root).first()
-        if root_domain.check_message_received(id):
-            return {'success': False, 'message': 'dup'}
+
         if domain != root:
             fqdn_domain = Domain.objects(domain=domain).first()
-            if fqdn_domain.check_message_received(id):
-                return {'success': False, 'message': 'dup'}
 
     #if they don't exist, create them
     if not root_domain:
@@ -606,6 +603,13 @@ def upsert_domain(domain, source, username=None, campaign=None,
 
         if cached_results != None:
             cached_results[domain] = fqdn_domain
+
+    if root_domain:
+        if root_domain.check_message_received(id):
+            return {'success': False, 'message': 'dup'}
+    if fqdn_domain:
+        if fqdn_domain.check_message_received(id):
+            return {'success': False, 'message': 'dup'}
 
     # if new or found, append the new source(s)
     for s in source:
