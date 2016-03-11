@@ -511,7 +511,8 @@ def edit_domain_name(domain, new_domain, analyst):
         return False
 
 def upsert_domain(domain, source, username=None, campaign=None,
-                  confidence=None, bucket_list=None, ticket=None, cache={}):
+                  confidence=None, bucket_list=None, ticket=None, cache={},
+                  feed=None, id=None):
     """
     Add or update a domain/FQDN. Campaign is assumed to be a list of campaign
     dictionary objects.
@@ -579,8 +580,12 @@ def upsert_domain(domain, source, username=None, campaign=None,
     else:
         #first find the domain(s) if it/they already exist
         root_domain = Domain.objects(domain=root).first()
+        if root_domain.check_message_received(feed, id):
+            return {'success': False, 'message': 'dup'}
         if domain != root:
             fqdn_domain = Domain.objects(domain=domain).first()
+            if fqdn_domain.check_message_received(feed, id):
+                return {'success': False, 'message': 'dup'}
 
     #if they don't exist, create them
     if not root_domain:
