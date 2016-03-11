@@ -444,6 +444,10 @@ def set_tlp(type_, id_, value, user):
         return {'success': False,
                 'message': "Could not find object"}
     try:
+
+        if user == 'taxii' and obj.tlp:
+            return
+        
         obj.tlp = value
         obj.save(username=user)
         obj.reload()
