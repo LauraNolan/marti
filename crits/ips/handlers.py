@@ -329,7 +329,7 @@ def ip_add_update(ip_address, ip_type, source=None, source_method='',
                   source_reference='', campaign=None, confidence='low',
                   analyst=None, is_add_indicator=False, indicator_reference='',
                   bucket_list=None, ticket=None, is_validate_only=False, cache={},
-                  feed=None, id=None):
+                  id=None):
     """
     Add/update an IP address.
 
@@ -385,7 +385,7 @@ def ip_add_update(ip_address, ip_type, source=None, source_method='',
         ip_object = cached_results.get(ip_address)
     else:
         ip_object = IP.objects(ip=ip_address).first()
-        if ip_object.check_message_received(feed, id):
+        if ip_object.check_message_received(id):
             return {'success': False, 'message': 'dup'}
 
     if not ip_object:

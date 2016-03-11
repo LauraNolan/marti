@@ -493,7 +493,7 @@ def add_sighting(type_, id_, name, date, user):
         return {'success': False,
                 'message': "Could not add sighting: %s" % e}
 
-def set_releasability_flag(type_, id_, user, name=None):
+def set_releasability_flag(type_, id_, user, name=None, reference_id=None):
 
     obj = class_from_id(type_, id_)
 
@@ -502,7 +502,7 @@ def set_releasability_flag(type_, id_, user, name=None):
                 'message': "Could not find object."}
 
     try:
-        obj.set_releasability_flag(name=name)
+        obj.set_releasability_flag(name=name, reference_id=reference_id)
         obj.save(username=user)
         obj.reload()
         return {'success': True,

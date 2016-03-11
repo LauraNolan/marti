@@ -443,7 +443,7 @@ def generate_email_jtable(request, option):
                                    'jtid': '%s_listing' % type_},
                                   RequestContext(request))
 
-def handle_email_fields(data, analyst, method, feed=None, id=None):
+def handle_email_fields(data, analyst, method, id=None):
     """
     Take email fields and convert them into an email object.
 
@@ -546,7 +546,7 @@ def handle_email_fields(data, analyst, method, feed=None, id=None):
         print "MD: Exception was thrown:"
         print str(e)
     if prev_email:
-        if prev_email.check_message_received(feed, id):
+        if prev_email.check_message_received(id):
             return {'success': False, 'message': 'dup'}
         #update sources
         print "Existing Email discovered"

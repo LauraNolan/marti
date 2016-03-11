@@ -647,7 +647,7 @@ def handle_file(filename, data, source, method='Generic', reference='',
                 size=None, mimetype=None, bucket_list=None, ticket=None,
                 relationship=None, inherited_source=None, is_validate_only=False,
                 is_return_only_md5=True, cache={}, backdoor_name=None,
-                backdoor_version=None, feed=None, id=None):
+                backdoor_version=None, id=None):
     """
     Handle adding a file.
 
@@ -789,7 +789,7 @@ def handle_file(filename, data, source, method='Generic', reference='',
         sample = cached_results.get(md5_digest)
     else:
         sample = Sample.objects(md5=md5_digest).first()
-        if sample.check_message_received(feed, id):
+        if sample.check_message_received(id):
             return {'success': False, 'message': 'dup'}
 
     if not sample:
