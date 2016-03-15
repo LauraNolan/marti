@@ -579,8 +579,9 @@
     <li class='nav_main mmenu_item'>
       <a href="{% url 'crits.comments.views.activity' %}">Recent Activity</a>
     </li>
+    //-->
     {% if user_role != "Read Only" %}
-    <li class='nav_admin mmenu_item'>
+    <li class='nav_admin mmenu_item' style="display: none;">
       <a href class="noclick">Add New Item</a>
       <ul class='sub-mmenu'>
         <li class='mmenu_item'>
@@ -612,7 +613,7 @@
       </ul>
     </li>
     {% endif %}
-    //-->
+    //
     {% if user_role == 'Administrator' %}
         <li class='nav_admin mmenu_item'>
             <a href="{% url 'crits.config.views.crits_config' %}">CRITs Control Panel</a>
