@@ -573,6 +573,36 @@ div.content {
     overflow-y: scroll;
 }
 
+div.contenty {
+    position: static;
+    top: 25px;
+    left: 5px;
+    right: 0px;
+    bottom: 25px;
+    padding: 10px;
+    margin: 25px 0px;
+    overflow-y: scroll;
+}
+
+div.contentx {
+    position: fixed;
+    top: 25px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    padding: 10px;
+    margin: 0px;
+    overflow-y: scroll;
+}
+
+div.contentx a {
+    color: #3366ff;
+    cursor: pointer;
+    font-weight: normal;
+    margin-left: 0px;
+    text-decoration: none;
+}
+
 div.content a {
     color: #3366ff;
     cursor: pointer;

@@ -1,11 +1,20 @@
 {% load url from future %}
 
 {% block content %}
+<input class="form_submit_button" href="javascript:void(0);" type="submit" onclick="javascript:startTour();" value="WalkThrough" />
     <form id="form-config-service" action="{% url 'crits.services.views.edit_config' name %}" method="post">
         <table class="form" style="width: 75%;">
         {{ form }}
         </table>
         <input class="form_submit_button" type="submit" value="Submit" />
+        <script>		function startTour() {
+			var tour = introJs()
+			tour.setOption('tooltipPosition', 'auto');
+			tour.setOption('scrollToElement', true);
+			tour.setOption('showProgress', true);
+			tour.start()
+		}
+		</script>
     </form>
     <span id="service_edit_results"></span>
 {% endblock %}
