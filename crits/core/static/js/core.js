@@ -1460,13 +1460,14 @@ $(document).ready(function() {
         submit:'OK'
     });
 
-    setTimeout(function(){
-        var t = performance.timing;
-        if ($("#pageLoadTiming").length) {
-        $("#pageLoadTiming").text((t.loadEventEnd - t.fetchStart)/1000 + "s");
+    window.addEventListener("load", function() {
+  setTimeout(function() {
+    var timing = window.performance.timing;
+    if ($("#pageLoadTiming").length) {
+        $("#pageLoadTiming").text((timing.loadEventEnd - timing.fetchStart)/1000 + "s");
         }
-        // console.log("Page Load: " + (t.loadEventEnd - t.fetchStart)/1000 + "s");
-    }, 500);
+  }, 0);
+}, false);
 
     //help!
     $('#help_overlay').click(function(e) {
