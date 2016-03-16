@@ -1,3 +1,15 @@
+<script>
+    function makeObject(myUrl){
+        var serviceDetailObject = {
+            url:myUrl,
+            container:$("#servicesDetailsContainer"),
+            hasGottenData:false,
+        };
+
+        getRightContent(serviceDetailObject);
+        }
+</script>
+
 <div class="content_box">
     <h3 class="titleheader">
         <span>Services ({{ services.count }})</span>
@@ -31,7 +43,8 @@
             {% if service.status == "unavailable" %}
                 <td>{{ service.name }}</td>
             {% else %}
-                <td><a href="{% url 'crits.services.views.detail' service.name %}">{{ service.name }}</a></td>
+                <td><a href="javascript:void(0);" onclick="makeObject('{% url 'crits.services.views.detail' service.name %}')">{{ service.name }}</a></td>
+                <!--<td><a href="{% url 'crits.services.views.detail' service.name %}">{{ service.name }}</a></td>-->
             {% endif %}
                 <td>{{ service.version }}</td>
                 <td>{{ service.type }}</td>

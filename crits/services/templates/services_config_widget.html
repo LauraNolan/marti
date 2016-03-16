@@ -1,4 +1,16 @@
-{% load url from future %}
+
+<script>
+        function makeObject2(myUrl){
+        var serviceDetailObject = {
+            url:myUrl,
+            container:$("#servicesEditContainer"),
+            hasGottenData:false,
+        };
+
+        getRightContent(serviceDetailObject);
+        }
+</script>
+
 <div class="content_box" style="width: 75%;">
     <h3 class="titleheader">
         <span>Configuration</span>
@@ -9,7 +21,8 @@
         {% if admin %}
         <span class="horizontal_menu">
             <ul class="hmenu">
-                <li><a href="{% url 'crits.services.views.edit_config' service.name %}" style="display: inline">Edit</a></li>
+                <li><a href="javascript:void(0);" onclick="makeObject2('{% url 'crits.services.views.edit_config' service.name %}')" style="display: inline">Edit</a></li>
+                <!--<li><a href="{% url 'crits.services.views.edit_config' service.name %}" style="display: inline">Edit</a></li>-->
             </ul>
         </span>
         {% endif %}
