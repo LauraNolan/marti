@@ -1,13 +1,12 @@
 
 <script>
-        function makeObject2(myUrl){
+        function makeObjectDetail2(myUrl){
         var serviceDetailObject = {
             url:myUrl,
             container:$("#servicesEditContainer"),
-            hasGottenData:false,
         };
 
-        getRightContent(serviceDetailObject);
+        editContentDetail(serviceDetailObject);
         }
 </script>
 
@@ -21,7 +20,7 @@
         {% if admin %}
         <span class="horizontal_menu">
             <ul class="hmenu">
-                <li><a href="javascript:void(0);" onclick="makeObject2('{% url 'crits.services.views.edit_config' service.name %}')" style="display: inline">Edit</a></li>
+                <li><a href="javascript:void(0);" onclick="makeObjectDetail2('{% url 'crits.services.views.edit_config' service.name %}')" style="display: inline">Edit</a></li>
                 <!--<li><a href="{% url 'crits.services.views.edit_config' service.name %}" style="display: inline">Edit</a></li>-->
             </ul>
         </span>

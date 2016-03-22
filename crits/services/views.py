@@ -139,11 +139,17 @@ def edit_config(request, name):
     analyst = request.user.username
     if request.method == "POST" and request.is_ajax():
         results = do_edit_config(name, analyst, post_data=request.POST)
+
+        if request.POST.get('inline') == 'true':
+            return render_to_response('services_edit_config.html',
+                                      {'form': results['form'],
+                                       'service': results['service']},
+                                      RequestContext(request))
         if 'service' in results:
             del results['service']
         return HttpResponse(json.dumps(results), mimetype="application/json")
     elif request.method == "POST" and not request.is_ajax():
-        error = results['config_error']
+        #error = results['config_error']
         return render_to_response('error.html',
                                   {'error': "Expected AJAX POST."},
                                   RequestContext(request))

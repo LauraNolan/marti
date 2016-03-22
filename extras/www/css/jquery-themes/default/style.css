@@ -581,7 +581,7 @@ div.contenty {
     bottom: 25px;
     padding: 10px;
     margin: 25px 0px;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 div.contentx {
@@ -595,7 +595,7 @@ div.contentx {
     overflow-y: scroll;
 }
 
-div.contentx a {
+div.contenty a {
     color: #3366ff;
     cursor: pointer;
     font-weight: normal;

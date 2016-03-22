@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base-details.html" %}
 {% load url from future %}
 {% block title %}CRITs Configuration{% endblock %}
 
@@ -77,6 +77,39 @@
             toggleRightContent(object.container);
         }
 
+        //modularized ajax call to get/show right content
+        function getContentDetail(object) {
+            object.container.html('');
+                $.ajax({
+                    type:"POST",
+                    url: object.url,
+                    data: {'inline':true},
+                    datatype: 'json',
+                    success: function(data) {
+                        object.container.html(data);
+                       }
+                });
+
+            //show content
+            toggleRightContent(object.container);
+        }
+
+        //modularized ajax call to get/show right content
+        function editContentDetail(object) {
+                $.ajax({
+                    type:"POST",
+                    url: object.url,
+                    data: {'inline':true},
+                    datatype: 'json',
+                    success: function(data) {
+                        object.container.html(data);
+                       }
+                });
+
+            //show content
+            toggleRightContent(object.container);
+        }
+
         //hiding and showing action for the right side
         function toggleRightContent(element, showSystemContainer) {
             $(".rightContent").hide();
@@ -139,6 +172,10 @@
                 });
                 //call to get the content for the services tab
                 $("#node_services").click(function() {
+                    getRightContent(servicesObject);
+                });
+                //call to get the content for the services tab
+                $("#linkServices").click(function() {
                     getRightContent(servicesObject);
                 });
                 //call to get content for the audit log tab
