@@ -1,3 +1,12 @@
+LimitRequestBody 0
+ExtendedStatus On
+
+WSGIApplicationGroup %{GLOBAL}
+WSGISocketPrefix /var/run/wsgi
+WSGIDaemonProcess marti python-path=/opt/crits/crits:/usr/lib/python2.7/dist-packages
+WSGIProcessGroup marti
+WSGIScriptAlias / /opt/crits/crits/django.wsgi process-group=marti application-group=%{GLOBAL}
+
 <IfModule mod_ssl.c>
 <VirtualHost _default_:443>
     ServerAdmin webmaster@localhost
@@ -20,8 +29,28 @@
     Alias /new_images/ /opt/crits/crits/extras/www/new_images/
     Alias /plugin/ /opt/crits/crits/extras/www/plugin/
     Alias /favicon.ico /opt/crits/crits/extras/www/favicon.ico
-    WSGIScriptAlias / /opt/crits/crits/django.wsgi
-    WSGIApplicationGroup %{GLOBAL}
 
 </VirtualHost>
 </IfModule>
+
+<IfModule mpm_worker_module>
+    StartServers         2
+    MinSpareThreads      10
+    MaxSpareThreads      25
+    ThreadLimit          25
+    ThreadsPerChild      25
+    MaxClients           75
+    MaxRequestsPerChild   0
+</IfModule>
+
+<Location /server-status>
+SetHandler server-status
+
+Require all granted
+</Location>
+
+<Location /server-info>
+SetHandler server-info
+
+Require all granted
+</Location>
