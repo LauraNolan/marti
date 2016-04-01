@@ -623,7 +623,8 @@ def validate_md5_checksum(md5_checksum):
     retVal = {'success': True, 'message': ''}
 
     if re.match("^[a-fA-F0-9]{32}$", md5_checksum) == None:
-        retVal['message'] += "The MD5 digest needs to be 32 hex characters."
+        input_len = str(len(md5_checksum))
+        retVal['message'] += "The MD5 digest needs to be 32 hex characters. Input was " + input_len + " characters long."
         retVal['success'] = False
 
     return retVal
