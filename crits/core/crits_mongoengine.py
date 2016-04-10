@@ -1214,6 +1214,7 @@ class EmbeddedRelationship(EmbeddedDocument, CritsDocumentFormatter):
     analyst = StringField()
     rel_reason = StringField()
     rel_confidence = StringField(default='unknown', required=True)
+    url_key = StringField()
 
 class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                           CritsSchemaDocument, CritsStatusDocument, EmbeddedTickets):

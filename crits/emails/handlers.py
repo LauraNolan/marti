@@ -150,7 +150,7 @@ def get_email_detail(email_id, analyst):
 
     template = None
     sources = user_sources(analyst)
-    email = Email.objects(id=email_id, source__name__in=sources).first()
+    email = Email.objects(message_id=email_id, source__name__in=sources).first()
     if not email:
         template = "error.html"
         args = {'error': "ID does not exist or insufficient privs for source"}
@@ -159,7 +159,7 @@ def get_email_detail(email_id, analyst):
         update_data_form = EmailYAMLForm(analyst)
         campaign_form = CampaignForm()
         download_form = DownloadFileForm(initial={"obj_type": 'Email',
-                                                  "obj_id":email_id})
+                                                  "obj_id":email.id})
 
         # remove pending notifications for user
         remove_user_from_notification("%s" % analyst, email.id, 'Email')
@@ -186,7 +186,7 @@ def get_email_detail(email_id, analyst):
 
         # comments
         comments = {'comments': email.get_comments(),
-                    'url_key': email.id}
+                    'url_key': email.message_id}
 
         #screenshots
         screenshots = email.get_screenshots(analyst)
@@ -277,7 +277,7 @@ def get_email_detail(email_id, analyst):
                 IndicatorTypes.EMAIL_MESSAGE_ID,
                 email.message_id,
                 "Message ID",
-                True, False, True, False, False,
+                True, False, False, False, False,
                 href_search_field=None
                 ))
         email_fields.append(create_email_field_dict(
@@ -539,7 +539,7 @@ def handle_email_fields(data, analyst, method, id=None):
             except:
                 date_time = date_time.strftime("%Y-%m-%d %H:%M:%S")
                 s = (from_addr if from_addr else "") + date_time + rand_int
-            d = s.encode('base64')
+            d = s.encode('base64').rstrip().replace("=", '') #the encode likes to add '==\n' at the end and this breaks the gui
             new_message_id = "CRITs_internal_" + d
             data.update({'message_id':new_message_id})
     except Exception,e:

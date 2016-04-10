@@ -126,7 +126,7 @@ def upload_attach(request, email_id):
 
             # If successful, tell the browser to redirect back to this email.
             if result['success']:
-                result['redirect_url'] = reverse('crits.emails.views.email_detail', args=[email_id])
+                result['redirect_url'] = reverse('crits.emails.views.email_detail', args=[email.message_id])
             return render_to_response('file_upload_response.html',
                                       {'response': json.dumps(result)},
                                       RequestContext(request))
@@ -195,7 +195,8 @@ def email_fields_add(request):
     if request.is_ajax():
         json_reply['success'] = True
         del json_reply['form']
-        json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' % reverse('crits.emails.views.email_detail', args=[obj['object'].id])
+        json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' \
+                                % reverse('crits.emails.views.email_detail', args=[obj['object'].message_id])
         return HttpResponse(json.dumps(json_reply),
                             mimetype="application/json")
     else:
@@ -270,7 +271,7 @@ def email_yaml_add(request, email_id=None):
 
     if request.is_ajax():
         json_reply['success'] = True
-        json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' % reverse('crits.emails.views.email_detail', args=[obj['object'].id])
+        json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' % reverse('crits.emails.views.email_detail', args=[obj['object'].message_id])
         return HttpResponse(json.dumps(json_reply),
                             mimetype="application/json")
     else:
@@ -332,7 +333,7 @@ def email_raw_add(request):
     if request.is_ajax():
         json_reply['success'] = True
         del json_reply['form']
-        json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' % reverse('crits.emails.views.email_detail', args=[obj['object'].id])
+        json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' % reverse('crits.emails.views.email_detail', args=[obj['object'].message_id])
         return HttpResponse(json.dumps(json_reply), mimetype="application/json")
     else:
         return HttpResponseRedirect(reverse('crits.emails.views.email_detail', args=[obj['object'].id]))
@@ -389,7 +390,7 @@ def email_eml_add(request):
                                   RequestContext(request))
 
     json_reply['success'] = True
-    json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' % reverse('crits.emails.views.email_detail', args=[obj['object'].id])
+    json_reply['message'] = 'Email uploaded successfully. <a href="%s">View email.</a>' % reverse('crits.emails.views.email_detail', args=[obj['object'].message_id])
     return render_to_response('file_upload_response.html',
                               {'response': json.dumps(json_reply)},
                               RequestContext(request))
@@ -460,7 +461,7 @@ def email_detail(request, email_id):
 
     :param request: Django request object (Required)
     :type request: :class:`django.http.HttpRequest`
-    :param email_id: The ObjectId of the email to get details for.
+    :param email_id: The Message_id of the email to get details for.
     :type email_id: str
     :returns: :class:`django.http.HttpResponse`
     """

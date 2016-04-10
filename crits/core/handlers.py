@@ -4156,6 +4156,10 @@ def details_from_id(type_, id_):
             arg = class_from_id(type_, id_)
             if arg:
                 arg = arg.md5
+        elif type_ == 'Email':
+            arg = class_from_id(type_, id_)
+            if arg:
+                arg = arg.message_id
         elif type_ == 'Target':
             arg = class_from_id(type_, id_)
             if arg:
