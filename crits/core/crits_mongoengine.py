@@ -1214,7 +1214,7 @@ class EmbeddedRelationship(EmbeddedDocument, CritsDocumentFormatter):
     analyst = StringField()
     rel_reason = StringField()
     rel_confidence = StringField(default='unknown', required=True)
-    url_key = StringField(required=True)
+    url_key = StringField(required=False)
 
 class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                           CritsSchemaDocument, CritsStatusDocument, EmbeddedTickets):
@@ -2380,8 +2380,9 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             return rel_dict
         elif username:
             user_source_access = user_sources(username)
-            for r in self.relationships:
+            for c, r in enumerate(self.relationships):
                 rd = r.to_dict()
+
                 obj_class = class_from_type(rd['type'])
                 # TODO: these should be limited to the fields above, or at
                 # least exclude larger fields that we don't need.
@@ -2395,6 +2396,24 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                     # we can't add and remove attributes on the class
                     # so convert it to a dict that we can manipulate.
                     result = obj.to_dict()
+
+                    if 'url_key' not in rd:
+                        # setup new relationship
+                        my_rel = EmbeddedRelationship()
+                        my_rel.relationship = r.relationship
+                        my_rel.rel_type = r.rel_type
+                        my_rel.analyst = r.analyst
+                        my_rel.date = r.date
+                        my_rel.relationship_date = r.relationship_date
+                        my_rel.object_id = r.object_id
+                        my_rel.rel_confidence = r.rel_confidence
+                        my_rel.rel_reason = r.rel_reason
+                        my_rel.url_key = obj.get_url_key()
+
+                        self.relationships[c] = my_rel
+
+                        rd = my_rel.to_dict()
+
                     if "_id" in result:
                         result["id"] = result["_id"]
                     if "type" in result:
@@ -2403,14 +2422,13 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                     if "value" in result:
                         result["ind_value"] = result["value"]
                         del result["value"]
-                    # turn this relationship into a dict so we can update
-                    # it with the object information
-                    if r.rel_type in ['Email']: #TODO: Remove me after you get stuff working :)
-                        result['value'] = result['message_id']
                     rd.update(result)
                     rel_dict[rd['type']].append(rd)
                 else:
                     rel_dict['Other'] += 1
+
+            self.save(username=username)
+
             return rel_dict
         else:
             return {}

@@ -209,16 +209,17 @@ def delete_relationship(left_class=None, right_class=None,
                                 rel_type=rel_type,
                                 rel_date=rel_date,
                                 analyst=analyst)
-    print 'these are the results: ', analyst
-    if right_class:
-        print 'it does exist? ', right_class.to_json()
-        right_class.save(username=analyst)
-        right_class.reload()
-    print 'this is after'
-    print right_class.to_json()
+    # print 'these are the results: ', analyst
+    # if right_class:
+    #     print 'it does exist? ', right_class.to_json()
+    #     right_class.save(username=analyst)
+    #     right_class.reload()
+    # print 'this is after'
+    # print right_class.to_json()
 
     if results['success']:
         left_class.save(username=analyst)
+        left_class.reload()
         if get_rels:
             results['relationships'] = left_class.sort_relationships("%s" % analyst, meta=True)
     return results

@@ -41,7 +41,7 @@ def add_new_relationship(request):
                                          get_rels=True)
             if results['success'] == True:
                 relationship = {'type': cleaned_data.get('forward_type'),
-                                'value': cleaned_data.get('forward_value')}
+                                'url_key': cleaned_data.get('forward_value')}
                 message = render_to_string('relationships_listing_widget.html',
                                            {'relationship': relationship,
                                             'nohide': True,
@@ -218,7 +218,7 @@ def break_relationship(request):
                                       analyst=request.user.username)
         if results['success']:
             relationship = {'type': request.POST['my_type'],
-                            'value': request.POST['my_value']}
+                            'url_key': request.POST['my_value']}
             message = render_to_string('relationships_listing_widget.html',
                                        {'relationship': relationship,
                                         'nohide': True,
