@@ -181,7 +181,7 @@ def get_email_detail(email_id, analyst):
         # relationship
         relationship = {
                 'type': 'Email',
-                'url_key': email.message_id
+                'url_key': email.get_url_key()
         }
 
         # comments

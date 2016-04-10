@@ -282,7 +282,7 @@ $(document).ready(function() {
             data: function() {
                 if (currentConfidence.length < 1)
                     currentConfidence = 'unknown';
-                var dataValues = "{'unknown':'unknown', 'low':'low', 'medium':'medium', 'high':'high', 'selected': '"+currentConfidence+"'}";
+                var dataValues = "{'Unknown':'Unknown', 'Low':'Low', 'Medium':'Medium', 'High':'High', 'Selected': '"+currentConfidence+"'}";
                 return dataValues;
             },
             placeholder: currentConfidence,

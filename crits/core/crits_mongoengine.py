@@ -24,7 +24,7 @@ from pprint import pformat
 
 from crits.core.user_tools import user_sources, is_admin
 from crits.core.fields import CritsDateTimeField
-from crits.core.class_mapper import class_from_id, class_from_type
+from crits.core.class_mapper import class_from_id, class_from_type, class_from_value
 from crits.vocabulary.relationships import RelationshipTypes
 from crits.vocabulary.objects import ObjectTypes
 
@@ -1208,13 +1208,13 @@ class EmbeddedRelationship(EmbeddedDocument, CritsDocumentFormatter):
 
     relationship = StringField(required=True)
     relationship_date = CritsDateTimeField()
-    object_id = ObjectIdField(required=True, db_field="value")
+    object_id = ObjectIdField(required=False, db_field="value")
     date = CritsDateTimeField(default=datetime.datetime.now)
     rel_type = StringField(db_field="type", required=True)
     analyst = StringField()
     rel_reason = StringField()
     rel_confidence = StringField(default='unknown', required=True)
-    url_key = StringField()
+    url_key = StringField(required=True)
 
 class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                           CritsSchemaDocument, CritsStatusDocument, EmbeddedTickets):
@@ -1752,9 +1752,102 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             o_dict[o.object_type].append(o.to_dict())
         return o_dict
 
+    def set_relationship(self, rel_url_key, rel_type, type, rel_date=None,
+                         rel_confidence='unknown', rel_reason='N/A'):
+        """
+        Add a relationship to this top-level object.
+
+        :param rel_url_key: The url_key to the top-level object to relate to.
+        :type rel_url_key: str
+        :param rel_type: The type of relationship.
+        :type rel_type: str
+        :param rel_date: The date this relationship applies.
+        :type rel_date: datetime.datetime
+        :param rel_confidence: The confidence of the relationship.
+        :type rel_confidence: str
+        :param rel_reason: The reason for the relationship.
+        :type rel_reason: str
+        :param get_rels: Return the relationships after forging.
+        :type get_rels: boolean
+        :returns: dict with keys "success" (boolean) and "message" (str if
+                  failed, dict if successful)
+        """
+
+        # get reverse relationship
+        rev_type = RelationshipTypes.inverse(rel_type)
+        if rev_type is None:
+            return {'success': False,
+                    'message': 'Could not find relationship type'}
+        date = datetime.datetime.now()
+
+        # setup the relationship for me
+        my_rel = EmbeddedRelationship()
+        my_rel.relationship = rel_type
+        my_rel.rel_type = type
+        my_rel.analyst = 'taxii'
+        my_rel.date = date
+        my_rel.relationship_date = rel_date
+        my_rel.rel_confidence = rel_confidence
+        my_rel.rel_reason = rel_reason
+        my_rel.url_key = rel_url_key
+
+        #Check to see if the other item exists
+        rel_item = class_from_value(type, rel_url_key)
+        if rel_item:
+            my_rel.object_id = rel_item.id
+
+        is_left_rel_exist = False
+        is_right_rel_exist = False
+
+        # check for existing relationship
+        for r in self.relationships:
+            if (r.url_key == my_rel.url_key
+                and r.rel_type == my_rel.rel_type):
+                is_left_rel_exist = True
+                break
+
+        #Relationship is new
+        if not is_left_rel_exist:
+            self.relationships.append(my_rel)
+
+        #ONLY setup the other relationship if the TLO exists
+        if rel_item:
+            # setup the relationship for them
+            their_rel = EmbeddedRelationship()
+            their_rel.relationship = rev_type
+            their_rel.rel_type = self._meta['crits_type']
+            their_rel.analyst = 'taxii'
+            their_rel.date = date
+            their_rel.relationship_date = rel_date
+            their_rel.object_id = self.id
+            their_rel.rel_confidence = rel_confidence
+            their_rel.rel_reason = rel_reason
+            their_rel.url_key = self.get_url_key()
+
+            for r in rel_item.relationships:
+                if (r.url_key == their_rel.url_key
+                    and r.rel_type == their_rel.rel_type):
+                    is_right_rel_exist = True
+                    break
+
+            #Relationship is new
+            if not is_right_rel_exist:
+                rel_item.relationships.append(their_rel)
+                rel_item.save(username='taxii')
+
+        # If the relationship already exists on both sides then do nothing
+        if is_left_rel_exist and is_right_rel_exist:
+            return {'success': False,
+                    'message': 'Relationship already exists'}
+
+        results = {'success': True,
+                       'message': 'Relationship forged'}
+
+        return results
+
     def add_relationship(self, rel_item, rel_type, rel_date=None,
                          analyst=None, rel_confidence='unknown',
-                         rel_reason='N/A', get_rels=False, rel_url_key=None):
+                         rel_reason='N/A', get_rels=False):
         """
         Add a relationship to this top-level object. The rel_item will be
         saved. It is up to the caller to save "self".
@@ -1795,7 +1888,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         my_rel.object_id = rel_item.id
         my_rel.rel_confidence = rel_confidence
         my_rel.rel_reason = rel_reason
-        my_rel.url_key = rel_url_key
+        my_rel.url_key = rel_item.get_url_key()
 
         # setup the relationship for them
         their_rel = EmbeddedRelationship()
@@ -1807,9 +1900,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         their_rel.object_id = self.id
         their_rel.rel_confidence = rel_confidence
         their_rel.rel_reason = rel_reason
-
-        if their_rel.rel_type in ['Email']:
-            their_rel.url_key = self.message_id
+        their_rel.url_key = self.get_url_key()
 
         # variables for detecting if an existing relationship exists
         is_left_rel_exist = False
@@ -2320,8 +2411,6 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                     rel_dict[rd['type']].append(rd)
                 else:
                     rel_dict['Other'] += 1
-            import pprint
-            pprint.pprint(rel_dict)
             return rel_dict
         else:
             return {}

@@ -2,7 +2,7 @@ import datetime
 
 from dateutil.parser import parse
 
-from crits.core.class_mapper import class_from_id
+from crits.core.class_mapper import class_from_id, class_from_value
 
 def get_relationships(obj=None, type_=None, id_=None, analyst=None):
     """
@@ -75,7 +75,7 @@ def forge_relationship(type_=None, id_=None,
 
     if not class_:
         if type_ and id_:
-            class_ = class_from_id(type_, id_)
+            class_ = class_from_value(type_, id_)
             if not class_:
                 return {'success': False,
                         'message': "Unable to get left object."}
@@ -93,7 +93,7 @@ def forge_relationship(type_=None, id_=None,
                                         rel_reason=rel_reason)
         else:
             if right_type and right_id:
-                rel_item = class_from_id(right_type, right_id)
+                rel_item = class_from_value(right_type, right_id)
                 if rel_item:
                     results = class_.add_relationship(rel_item,
                                                 rel_type,
@@ -186,7 +186,7 @@ def delete_relationship(left_class=None, right_class=None,
 
     if not left_class:
         if left_type and left_id:
-            left_class = class_from_id(left_type, left_id)
+            left_class = class_from_value(left_type, left_id)
             if not left_class:
                 return {'success': False,
                         'message': "Unable to get object."}
@@ -195,22 +195,28 @@ def delete_relationship(left_class=None, right_class=None,
                     'message': "Need a valid left type and id"}
 
     # delete relationship
-    if right_class:
-        results = left_class.delete_relationship(rel_item=right_class,
-                                    rel_type=rel_type,
-                                    rel_date=rel_date,
-                                    analyst=analyst)
-        right_class.save(username=analyst)
-    else:
+    if not right_class:
         if right_type and right_id:
-            results = left_class.delete_relationship(type_=right_type,
-                                        rel_id=right_id,
-                                        rel_type=rel_type,
-                                        rel_date=rel_date,
-                                        analyst=analyst)
+            right_class = class_from_value(right_type, right_id)
+            if not right_class:
+                return {'success': False,
+                        'message': "Unable to get object."}
         else:
             return {'success': False,
                     'message': "Need a valid right type and id"}
+
+    results = left_class.delete_relationship(rel_item=right_class,
+                                rel_type=rel_type,
+                                rel_date=rel_date,
+                                analyst=analyst)
+    print 'these are the results: ', analyst
+    if right_class:
+        print 'it does exist? ', right_class.to_json()
+        right_class.save(username=analyst)
+        right_class.reload()
+    print 'this is after'
+    print right_class.to_json()
+
     if results['success']:
         left_class.save(username=analyst)
         if get_rels:

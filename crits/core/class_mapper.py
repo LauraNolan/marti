@@ -8,7 +8,7 @@ __obj_type_to_key_descriptor__ = {
     'Certificate': 'md5',
     'Comment': 'object_id',
     'Domain': 'domain',
-    'Email': 'id',
+    'Email': 'message_id',
     'Event': 'id',
     'Exploit': 'id',
     'Indicator': 'id',
@@ -155,7 +155,7 @@ def class_from_value(type_, value):
 
     # Use bson.ObjectId to make sure this is a valid ObjectId, otherwise
     # the queries below will raise a ValidationError exception.
-    if (type_ in ['Backdoor', 'Comment', 'Email', 'Event', 'Exploit',
+    if (type_ in ['Backdoor', 'Comment', 'Event', 'Exploit',
                   'Indicator', 'Screenshot'] and
        not ObjectId.is_valid(value.decode('utf8'))):
         return None
@@ -175,7 +175,7 @@ def class_from_value(type_, value):
     elif type_ == 'Domain':
         return Domain.objects(domain=value).first()
     elif type_ == 'Email':
-        return Email.objects(id=value).first()
+        return Email.objects(message_id=value).first()
     elif type_ == 'Event':
         return Event.objects(id=value).first()
     elif type_ == 'Exploit':

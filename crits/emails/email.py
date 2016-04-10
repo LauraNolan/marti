@@ -118,6 +118,9 @@ class Email(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
     x_originating_ip = StringField()
     x_mailer = StringField()
 
+    def get_url_key(self):
+        return self.message_id
+
     def migrate(self):
         """
         Migrate to latest schema version.

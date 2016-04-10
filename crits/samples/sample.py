@@ -74,6 +74,9 @@ class Sample(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
     size = IntField(default=0)
     ssdeep = StringField()
 
+    def get_url_key(self):
+        return self.md5
+
     def migrate(self):
         migrate_sample(self)
 
