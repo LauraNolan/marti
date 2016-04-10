@@ -1754,7 +1754,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
     def add_relationship(self, rel_item, rel_type, rel_date=None,
                          analyst=None, rel_confidence='unknown',
-                         rel_reason='N/A', get_rels=False):
+                         rel_reason='N/A', get_rels=False, rel_url_key=None):
         """
         Add a relationship to this top-level object. The rel_item will be
         saved. It is up to the caller to save "self".
@@ -1795,6 +1795,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         my_rel.object_id = rel_item.id
         my_rel.rel_confidence = rel_confidence
         my_rel.rel_reason = rel_reason
+        my_rel.url_key = rel_url_key
 
         # setup the relationship for them
         their_rel = EmbeddedRelationship()
@@ -1806,6 +1807,9 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         their_rel.object_id = self.id
         their_rel.rel_confidence = rel_confidence
         their_rel.rel_reason = rel_reason
+
+        if their_rel.rel_type in ['Email']:
+            their_rel.url_key = self.message_id
 
         # variables for detecting if an existing relationship exists
         is_left_rel_exist = False
@@ -2258,7 +2262,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             'Campaign': ('id', 'name'),
             'Certificate': ('id', 'md5', 'filename', 'description', 'campaign'),
             'Domain': ('id', 'domain'),
-            'Email': ('id', 'from_address', 'sender', 'subject', 'campaign'),
+            'Email': ('id', 'from_address', 'sender', 'subject', 'campaign', 'message_id'),
             'Event': ('id', 'title', 'event_type', 'description', 'campaign'),
             'Exploit': ('id', 'name', 'cve', 'campaign'),
             'Indicator': ('id', 'ind_type', 'value', 'campaign'),
@@ -2310,10 +2314,14 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                         del result["value"]
                     # turn this relationship into a dict so we can update
                     # it with the object information
+                    if r.rel_type in ['Email']: #TODO: Remove me after you get stuff working :)
+                        result['value'] = result['message_id']
                     rd.update(result)
                     rel_dict[rd['type']].append(rd)
                 else:
                     rel_dict['Other'] += 1
+            import pprint
+            pprint.pprint(rel_dict)
             return rel_dict
         else:
             return {}

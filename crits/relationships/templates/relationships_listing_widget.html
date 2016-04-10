@@ -7,7 +7,7 @@
             <span>Relationships (0)</span>
                     {% endif %}
                         <span class="add_button" data-intro="Add a relationship" data-position="right">
-                            <a style="display: inline-block;" href="#" title="Add Relationship" class="ui-icon ui-icon-person dialogClick" data-value="{{ relationship.value|escapejs }}" data-type="{{ relationship.type|escapejs }}" dialog="forge-relationship" id="forge-relationship"></a>
+                            <a style="display: inline-block;" href="#" title="Add Relationship" class="ui-icon ui-icon-person dialogClick" data-value="{{ relationship.url_key|escapejs }}" data-type="{{ relationship.type|escapejs }}" dialog="forge-relationship" id="forge-relationship"></a>
                         </span>
                         <span style="float: right;" class="ui-icon ui-icon-triangle-1-s collapsible"></span>
         </h3>

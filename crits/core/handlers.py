@@ -4132,45 +4132,46 @@ def details_from_id(type_, id_):
                 'Target': 'crits.targets.views.target_info',
                 }
     if type_ in type_map and id_:
-        if type_ == 'Campaign':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.name
-        elif type_ == 'Certificate':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.md5
-        elif type_ == 'Domain':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.domain
-        elif type_ == 'IP':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.ip
-        elif type_ == 'PCAP':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.md5
-        elif type_ == 'Sample':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.md5
-        elif type_ == 'Email':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.message_id
-        elif type_ == 'Target':
-            arg = class_from_id(type_, id_)
-            if arg:
-                arg = arg.email_address
-        else:
-            arg = id_
-
-        if not arg:
-            return None
-
-        return reverse(type_map[type_], args=(arg,))
+        return reverse(type_map[type_], args=(id_,))
+        # if type_ == 'Campaign':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.name
+        # elif type_ == 'Certificate':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.md5
+        # elif type_ == 'Domain':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.domain
+        # elif type_ == 'IP':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.ip
+        # elif type_ == 'PCAP':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.md5
+        # elif type_ == 'Sample':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.md5
+        # elif type_ == 'Email':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.message_id
+        # elif type_ == 'Target':
+        #     arg = class_from_id(type_, id_)
+        #     if arg:
+        #         arg = arg.email_address
+        # else:
+        #     arg = id_
+        #
+        # if not arg:
+        #     return None
+        #
+        # return reverse(type_map[type_], args=(arg,))
     else:
         return None
 

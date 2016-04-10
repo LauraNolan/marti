@@ -79,8 +79,8 @@
             </thead>
             <tbody>
                 {% for rel in rel_list %}
-                    <tr mtype="{{ relationship.type }}" mvalue="{{ relationship.value }}" rtype="{{ rel_type }}" rvalue="{{ rel.value }}" frel="{{ rel.relationship }}" rdate="{{ rel.relationship_date }}" fdate="{{ rel.date }}" rConfidence="{{ rel.rel_confidence }}" {% if rel_type == 'Indicator' %} data-value="{{rel.ind_value}}" data-type="{{rel.ind_type}}"{% endif %}>
-                        <td style="width: 16px; padding: 0px"><a href="{% url 'crits.core.views.details' rel_type rel.value %}" style="width: 16px; padding: 0px" class="ui-icon ui-icon-document" title="View Details"></a></td>
+                    <tr mtype="{{ relationship.type }}" mvalue="{{ relationship.value }}" rtype="{{ rel_type }}" rvalue="{{ rel.url_key }}" frel="{{ rel.relationship }}" rdate="{{ rel.relationship_date }}" fdate="{{ rel.date }}" rConfidence="{{ rel.rel_confidence }}" {% if rel_type == 'Indicator' %} data-value="{{rel.ind_value}}" data-type="{{rel.ind_type}}"{% endif %}>
+                        <td style="width: 16px; padding: 0px"><a href="{% url 'crits.core.views.details' rel_type rel.url_key %}" style="width: 16px; padding: 0px" class="ui-icon ui-icon-document" title="View Details"></a></td>
                         <td class="relationship_type_edit tooltip_edit" action="{% url 'crits.relationships.views.update_relationship_type' %}">{{ rel.relationship }}</td>
                         {% if rel_type == 'Campaign' %}
                             <td>

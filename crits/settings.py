@@ -490,25 +490,25 @@ for handler in LOGGING['handlers'].values():
 
 # CRITs Types
 CRITS_TYPES = {
-    'Actor': COL_ACTORS,
-    'AnalysisResult': COL_ANALYSIS_RESULTS,
-    'Backdoor': COL_BACKDOORS,
+#    'Actor': COL_ACTORS,
+#    'AnalysisResult': COL_ANALYSIS_RESULTS,
+#    'Backdoor': COL_BACKDOORS,
     'Campaign': COL_CAMPAIGNS,
-    'Certificate': COL_CERTIFICATES,
+#    'Certificate': COL_CERTIFICATES,
     'Comment': COL_COMMENTS,
     'Domain': COL_DOMAINS,
     'Email': COL_EMAIL,
-    'Event': COL_EVENTS,
-    'Exploit': COL_EXPLOITS,
-    'Indicator': COL_INDICATORS,
+#    'Event': COL_EVENTS,
+#    'Exploit': COL_EXPLOITS,
+#    'Indicator': COL_INDICATORS,
     'IP': COL_IPS,
     'Notification': COL_NOTIFICATIONS,
-    'PCAP': COL_PCAPS,
-    'RawData': COL_RAW_DATA,
+#    'PCAP': COL_PCAPS,
+#    'RawData': COL_RAW_DATA,
     'Sample': COL_SAMPLES,
     'Screenshot': COL_SCREENSHOTS,
-    'Signature': COL_SIGNATURES,
-    'Target': COL_TARGETS,
+#    'Signature': COL_SIGNATURES,
+#    'Target': COL_TARGETS,
 }
 
 # Custom template lists for loading in different places in the UI
