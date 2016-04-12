@@ -76,6 +76,9 @@ class Domain(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
     watchlistEnabled = BooleanField(default=False)
     analyst = StringField()
 
+    def get_url_key(self):
+        return self.domain
+
     def migrate(self):
         """
         Migrate to the latest schema version.

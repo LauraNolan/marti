@@ -81,7 +81,8 @@ def get_event_details(event_id, analyst):
     # relationship
     relationship = {
             'type': 'Event',
-            'value': event.id
+            'value': event.id,
+            'url_key': event.get_url_key()
     }
 
     #comments

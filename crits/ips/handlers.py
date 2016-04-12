@@ -181,7 +181,8 @@ def get_ip_details(ip, analyst):
         # relationship
         relationship = {
                 'type': 'IP',
-                'value': ip.id
+                'value': ip.id,
+                'url_key': ip.get_url_key()
         }
 
         #comments

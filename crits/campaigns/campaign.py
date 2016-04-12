@@ -77,6 +77,9 @@ class Campaign(CritsBaseAttributes, CritsActionsDocument, Document):
     sample_count = IntField(default=0)
     ttps = ListField(EmbeddedDocumentField(EmbeddedTTP), default=[])
 
+    def get_url_key(self):
+        return self.name
+
     def migrate(self):
         """
         Migrate the Campaign to the latest schema version.

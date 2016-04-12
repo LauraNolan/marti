@@ -71,6 +71,9 @@ class Event(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
     description = StringField(required=True)
     event_id = UUIDField(binary=True, required=True, default=uuid.uuid4)
 
+    def get_url_key(self):
+        return self.id
+
     def set_event_type(self, event_type):
         """
         Set the Event Type.

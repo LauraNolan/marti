@@ -230,7 +230,8 @@ def refresh_services(request, crits_type, identifier):
                                      object_id=identifier)
 
     relationship = {'type': crits_type,
-                    'value': identifier}
+                    'value': identifier,
+                    'url_key' : obj.get_url_key()}
 
     subscription = {'type': crits_type,
                     'id': identifier}

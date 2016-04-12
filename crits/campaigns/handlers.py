@@ -79,7 +79,11 @@ def get_campaign_details(campaign_name, analyst):
                                                        meta=True)
 
     # relationship
-    relationship = {'type': 'Campaign', 'value': campaign_detail.id}
+    relationship = {
+        'type': 'Campaign',
+        'value': campaign_detail.id,
+        'url_key': campaign_detail.get_url_key()
+    }
 
     #comments
     comments = {'comments': campaign_detail.get_comments(),

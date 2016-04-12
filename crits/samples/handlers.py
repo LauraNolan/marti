@@ -151,7 +151,8 @@ def get_sample_details(sample_md5, analyst, format_=None):
         # relationship
         relationship = {
                 'type': 'Sample',
-                'value': sample.id
+                'value': sample.id,
+                'url_key': sample.get_url_key()
         }
 
         #comments

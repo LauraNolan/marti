@@ -107,6 +107,9 @@ class Indicator(CritsBaseAttributes, CritsActionsDocument, CritsSourceDocument, 
     value = StringField()
     lower = StringField()
 
+    def get_url_key(self):
+        return self.id
+
     def migrate(self):
         """
         Migrate to the latest schema version.

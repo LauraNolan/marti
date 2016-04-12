@@ -53,6 +53,8 @@ def getHREFLink(object, object_type):
         key = "domain"
     elif object_type == "IP":
         key = "ip"
+    elif object_type == 'Email':
+        key = "message_id"
     elif not object_type == "Target" and "_id" in object:
         key = "_id"
     else:

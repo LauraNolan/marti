@@ -219,6 +219,7 @@ def get_indicator_details(indicator_id, analyst):
     relationship = {
         'type': 'Indicator',
         'value': indicator_id,
+        'url_key': indicator.get_url_key()
     }
 
     #objects

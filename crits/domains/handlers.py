@@ -103,7 +103,8 @@ def get_domain_details(domain, analyst):
     # relationship
     relationship = {
             'type': 'Domain',
-            'value': dmain.id
+            'value': dmain.id,
+            'url_key': dmain.get_url_key()
     }
 
     #comments

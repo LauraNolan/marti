@@ -181,6 +181,7 @@ def get_email_detail(email_id, analyst):
         # relationship
         relationship = {
                 'type': 'Email',
+                'value' : email.id,
                 'url_key': email.get_url_key()
         }
 
