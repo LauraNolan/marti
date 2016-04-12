@@ -2074,7 +2074,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         if not rel_item:
             got_rel = False
             if isinstance(rel_id, basestring) and isinstance(type_, basestring):
-                rel_item = class_from_id(type_, rel_id)
+                rel_item = class_from_value(type_, rel_id)
             else:
                 return {'success': False,
                         'message': 'Could not find object'}
@@ -2152,8 +2152,8 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                             rel_item.relationships[c].rel_reason = new_reason
                         elif modification == "delete":
                             del rel_item.relationships[c]
-            if not got_rel:
-                rel_item.save(username=analyst)
+
+            rel_item.save(username=analyst)
             if modification == "delete":
                 return {'success': True,
                         'message': 'Relationship deleted'}
