@@ -77,7 +77,9 @@ def forge_relationship(type_=None, id_=None,
         if type_ and id_:
             class_ = class_from_value(type_, id_)
             if not class_:
-                return {'success': False,
+                class_ = class_from_id(type_, id_)
+                if not class_:
+                    return {'success': False,
                         'message': "Unable to get left object."}
         else:
             return {'success': False,
@@ -93,17 +95,28 @@ def forge_relationship(type_=None, id_=None,
                                         rel_reason=rel_reason)
         else:
             if right_type and right_id:
-                rel_item = class_from_value(right_type, right_id)
-                if rel_item:
-                    results = class_.add_relationship(rel_item,
-                                                rel_type,
+                if user in 'taxii':
+                    results = class_.set_relationship(right_id,
+                                                rel_type, right_type,
                                                 rel_date=rel_date,
                                                 analyst=user,
                                                 rel_confidence=rel_confidence,
                                                 rel_reason=rel_reason)
                 else:
-                    return {'success': False,
-                            'message': "Failed to get right object"}
+                    rel_item = class_from_value(right_type, right_id)
+                    if not rel_item:
+                        rel_item = class_from_id(right_type, right_id)
+                    if rel_item:
+                        results = class_.add_relationship(rel_item,
+                                                    rel_type,
+                                                    rel_date=rel_date,
+                                                    analyst=user,
+                                                    rel_confidence=rel_confidence,
+                                                    rel_reason=rel_reason)
+
+                    else:
+                        return {'success': False,
+                                'message': "Failed to get right object"}
             else:
                 return {'success': False,
                         'message': "Need a valid right type and id"}
@@ -198,14 +211,18 @@ def delete_relationship(left_class=None, right_class=None,
     if not right_class:
         if right_type and right_id:
             right_class = class_from_value(right_type, right_id)
-            if not right_class:
-                return {'success': False,
-                        'message': "Unable to get object."}
         else:
             return {'success': False,
                     'message': "Need a valid right type and id"}
 
-    results = left_class.delete_relationship(rel_item=right_class,
+    if not right_class:
+        results = left_class.delete_relationship(rel_type=rel_type,
+                                                 rel_date=rel_date,
+                                                 analyst=analyst,
+                                                 rel_id=right_id,
+                                                 type_=right_type)
+    else:
+        results = left_class.delete_relationship(rel_item=right_class,
                                 rel_type=rel_type,
                                 rel_date=rel_date,
                                 analyst=analyst)
@@ -330,7 +347,7 @@ def update_relationship_confidences(left_class=None, right_class=None,
 
     if not left_class:
         if left_type and left_id:
-            left_class = class_from_id(left_type, left_id)
+            left_class = class_from_value(left_type, left_id)
         else:
             return {'success': False,
                     'message': "Need a valid left type and id"}

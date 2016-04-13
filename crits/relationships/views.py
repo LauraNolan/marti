@@ -105,7 +105,7 @@ def update_relationship_confidence(request):
     """
     if request.method == 'POST' and request.is_ajax():
         new_confidence = request.POST['new_confidence']
-        if new_confidence not in ('unknown', 'low', 'medium', 'high'):
+        if new_confidence not in ('Unknown', 'Low', 'Medium', 'High'):
             result = {'success': False,
                       'message': 'Unknown confidence level.'}
             return HttpResponse(json.dumps(result), mimetype="application/json")

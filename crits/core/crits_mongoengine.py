@@ -1753,7 +1753,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         return o_dict
 
     def set_relationship(self, rel_url_key, rel_type, type, rel_date=None,
-                         rel_confidence='unknown', rel_reason='N/A'):
+                         rel_confidence='unknown', rel_reason='N/A', analyst=None):
         """
         Add a relationship to this top-level object.
 
@@ -1784,7 +1784,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         my_rel = EmbeddedRelationship()
         my_rel.relationship = rel_type
         my_rel.rel_type = type
-        my_rel.analyst = 'taxii'
+        my_rel.analyst = analyst
         my_rel.date = date
         my_rel.relationship_date = rel_date
         my_rel.rel_confidence = rel_confidence
@@ -1816,7 +1816,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             their_rel = EmbeddedRelationship()
             their_rel.relationship = rev_type
             their_rel.rel_type = self._meta['crits_type']
-            their_rel.analyst = 'taxii'
+            their_rel.analyst = analyst
             their_rel.date = date
             their_rel.relationship_date = rel_date
             their_rel.object_id = self.id
@@ -1833,7 +1833,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             #Relationship is new
             if not is_right_rel_exist:
                 rel_item.relationships.append(their_rel)
-                rel_item.save(username='taxii')
+                rel_item.save(username=analyst)
 
         # If the relationship already exists on both sides then do nothing
         if is_left_rel_exist and is_right_rel_exist:
@@ -2075,12 +2075,13 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             got_rel = False
             if isinstance(rel_id, basestring) and isinstance(type_, basestring):
                 rel_item = class_from_value(type_, rel_id)
-            else:
-                return {'success': False,
-                        'message': 'Could not find object'}
+
         if isinstance(new_date, basestring):
             new_date = parse(new_date, fuzzy=True)
-        if rel_item and rel_type and modification:
+        if rel_item:
+            rel_id = rel_item.get_url_key()
+            type_ = rel_item._meta['crits_type']
+        if rel_type and modification:
             # get reverse relationship
             rev_type = RelationshipTypes.inverse(rel_type)
             if rev_type is None:
@@ -2094,10 +2095,10 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                             'message': 'Could not find reverse relationship type'}
             for c, r in enumerate(self.relationships):
                 if rel_date:
-                    if (r.object_id == rel_item.id
+                    if (r.url_key == rel_id
                         and r.relationship == rel_type
                         and r.relationship_date == rel_date
-                        and r.rel_type == rel_item._meta['crits_type']):
+                        and r.rel_type == type_):
                         if modification == "type":
                             self.relationships[c].relationship = new_type
                         elif modification == "date":
@@ -2109,9 +2110,9 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                         elif modification == "delete":
                             del self.relationships[c]
                 else:
-                    if (r.object_id == rel_item.id
+                    if (r.url_key == rel_id
                         and r.relationship == rel_type
-                        and r.rel_type == rel_item._meta['crits_type']):
+                        and r.rel_type == type_):
                         if modification == "type":
                             self.relationships[c].relationship = new_type
                         elif modification == "date":
@@ -2122,6 +2123,12 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                             self.relationships[c].rel_reason = new_reason
                         elif modification == "delete":
                             del self.relationships[c]
+
+        else:
+            return {'success': False,
+                    'message': 'Need valid relationship type'}
+
+        if rel_item:
             for c, r in enumerate(rel_item.relationships):
                 if rel_date:
                     if (r.object_id == self.id
@@ -2154,15 +2161,14 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                             del rel_item.relationships[c]
 
             rel_item.save(username=analyst)
-            if modification == "delete":
-                return {'success': True,
-                        'message': 'Relationship deleted'}
-            else:
-                return {'success': True,
-                        'message': 'Relationship modified'}
+
+        if modification == "delete":
+            return {'success': True,
+                    'message': 'Relationship deleted'}
         else:
-            return {'success': False,
-                    'message': 'Need valid object and relationship type'}
+            return {'success': True,
+                    'message': 'Relationship modified'}
+
 
     def edit_relationship_date(self, rel_item=None, rel_id=None, type_=None, rel_type=None,
                                rel_date=None, new_date=None, analyst=None):
@@ -2387,17 +2393,60 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                 # TODO: these should be limited to the fields above, or at
                 # least exclude larger fields that we don't need.
                 fields = query_dict.get(rd['type'])
-                if r.rel_type not in ["Campaign", "Target"]:
-                    obj = obj_class.objects(id=rd['value'],
+                if 'value' in rd:
+                    if r.rel_type not in ["Campaign", "Target"]:
+                        obj = obj_class.objects(id=rd['value'],
                             source__name__in=user_source_access).only(*fields).first()
-                else:
-                    obj = obj_class.objects(id=rd['value']).only(*fields).first()
-                if obj:
-                    # we can't add and remove attributes on the class
-                    # so convert it to a dict that we can manipulate.
-                    result = obj.to_dict()
+                    else:
+                        obj = obj_class.objects(id=rd['value']).only(*fields).first()
+                    if obj:
+                        # we can't add and remove attributes on the class
+                        # so convert it to a dict that we can manipulate.
+                        result = obj.to_dict()
 
-                    if 'url_key' not in rd:
+                        if 'url_key' not in rd:
+                            # setup new relationship
+                            my_rel = EmbeddedRelationship()
+                            my_rel.relationship = r.relationship
+                            my_rel.rel_type = r.rel_type
+                            my_rel.analyst = r.analyst
+                            my_rel.date = r.date
+                            my_rel.relationship_date = r.relationship_date
+                            my_rel.object_id = r.object_id
+                            my_rel.rel_confidence = r.rel_confidence
+                            my_rel.rel_reason = r.rel_reason
+                            my_rel.url_key = obj.get_url_key()
+
+                            self.relationships[c] = my_rel
+
+                            rd = my_rel.to_dict()
+
+                        if "_id" in result:
+                            result["id"] = result["_id"]
+                        if "type" in result:
+                            result["ind_type"] = result["type"]
+                            del result["type"]
+                        if "value" in result:
+                            result["ind_value"] = result["value"]
+                            del result["value"]
+                        rd.update(result)
+                        rel_dict[rd['type']].append(rd)
+                elif 'value' not in rd:
+                    #see if the object exists now :)
+                    obj = class_from_value(rd['type'], rd['url_key'])
+
+                    if obj:
+                        result = obj.to_dict()
+
+                        if "_id" in result:
+                            result["id"] = result["_id"]
+                        if "type" in result:
+                            result["ind_type"] = result["type"]
+                            del result["type"]
+                        if "value" in result:
+                            result["ind_value"] = result["value"]
+                            del result["value"]
+
                         # setup new relationship
                         my_rel = EmbeddedRelationship()
                         my_rel.relationship = r.relationship
@@ -2405,25 +2454,43 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                         my_rel.analyst = r.analyst
                         my_rel.date = r.date
                         my_rel.relationship_date = r.relationship_date
-                        my_rel.object_id = r.object_id
+                        my_rel.object_id = result['id']
                         my_rel.rel_confidence = r.rel_confidence
                         my_rel.rel_reason = r.rel_reason
-                        my_rel.url_key = obj.get_url_key()
+                        my_rel.url_key = r.url_key
 
                         self.relationships[c] = my_rel
-
                         rd = my_rel.to_dict()
 
-                    if "_id" in result:
-                        result["id"] = result["_id"]
-                    if "type" in result:
-                        result["ind_type"] = result["type"]
-                        del result["type"]
-                    if "value" in result:
-                        result["ind_value"] = result["value"]
-                        del result["value"]
-                    rd.update(result)
+                        rd.update(result)
+
+                        # setup the relationship for them
+                        their_rel = EmbeddedRelationship()
+                        their_rel.relationship = RelationshipTypes.inverse(r.relationship)
+                        their_rel.rel_type = self._meta['crits_type']
+                        their_rel.analyst = username
+                        their_rel.date = datetime.datetime.now()
+                        their_rel.relationship_date = r.relationship_date
+                        their_rel.object_id = self.id
+                        their_rel.rel_confidence = r.rel_confidence
+                        their_rel.rel_reason = r.rel_reason
+                        their_rel.url_key = self.get_url_key()
+
+                        is_right_rel_exist = False
+
+                        for p in obj.relationships:
+                            if (p.url_key == their_rel.url_key
+                                and p.rel_type == their_rel.rel_type):
+                                is_right_rel_exist = True
+                                break
+
+                        #Relationship is new
+                        if not is_right_rel_exist:
+                            obj.relationships.append(their_rel)
+                            obj.save(username=username)
+
                     rel_dict[rd['type']].append(rd)
+
                 else:
                     rel_dict['Other'] += 1
 
@@ -2596,13 +2663,16 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             for r in self.relationships:
                 rd = r.to_dict()
                 obj_class = class_from_type(rd['type'])
-                if r.rel_type not in ["Campaign", "Target"]:
-                    obj = obj_class.objects(id=rd['value'],
-                            source__name__in=sources).only('id').first()
-                else:
-                    obj = obj_class.objects(id=rd['value']).only('id').first()
-                if obj:
+                if 'value' not in rd:
                     final_rels.append(r)
+                else:
+                    if r.rel_type not in ["Campaign", "Target"]:
+                        obj = obj_class.objects(id=rd['value'],
+                                source__name__in=sources).only('id').first()
+                    else:
+                        obj = obj_class.objects(id=rd['value']).only('id').first()
+                    if obj:
+                        final_rels.append(r)
             self.relationships = final_rels
 
     def sanitize_releasability(self, username=None, sources=None):
