@@ -79,6 +79,9 @@ def get_domain_details(domain, analyst):
         args = {'error': error}
         return template, args
 
+    #relationships
+    relationships = dmain.sort_relationships("%s" % analyst, meta=True)
+
     dmain.sanitize_sources(username="%s" % analyst,
                            sources=allowed_sources)
 
@@ -96,9 +99,6 @@ def get_domain_details(domain, analyst):
 
     #objects
     objects = dmain.sort_objects()
-
-    #relationships
-    relationships = dmain.sort_relationships("%s" % analyst, meta=True)
 
     # relationship
     relationship = {

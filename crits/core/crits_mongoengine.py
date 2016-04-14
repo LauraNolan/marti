@@ -2419,7 +2419,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                             my_rel.date = r.date
                             my_rel.relationship_date = r.relationship_date
                             my_rel.object_id = r.object_id
-                            my_rel.rel_confidence = r.rel_confidence
+                            my_rel.rel_confidence = r.rel_confidence.title()
                             my_rel.rel_reason = r.rel_reason
                             my_rel.url_key = obj.get_url_key()
 
@@ -2461,7 +2461,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                         my_rel.analyst = r.analyst
                         my_rel.date = r.date
                         my_rel.relationship_date = r.relationship_date
-                        my_rel.object_id = result['id']
+                        my_rel.object_id = obj.id
                         my_rel.rel_confidence = r.rel_confidence
                         my_rel.rel_reason = r.rel_reason
                         my_rel.url_key = r.url_key
@@ -2501,8 +2501,6 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
                 else:
                     rel_dict['Other'] += 1
-
-            #self.save(username=username)
 
             return rel_dict
         else:

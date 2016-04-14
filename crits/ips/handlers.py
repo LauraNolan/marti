@@ -160,6 +160,9 @@ def get_ip_details(ip, analyst):
                  ' permission to view it.')
         args = {'error': error}
     else:
+        #relationships
+        relationships = ip.sort_relationships("%s" % analyst, meta=True)
+
         ip.sanitize("%s" % analyst)
 
         # remove pending notifications for user
@@ -174,9 +177,6 @@ def get_ip_details(ip, analyst):
 
         #objects
         objects = ip.sort_objects()
-
-        #relationships
-        relationships = ip.sort_relationships("%s" % analyst, meta=True)
 
         # relationship
         relationship = {

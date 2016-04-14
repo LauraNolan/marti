@@ -127,6 +127,12 @@ def get_sample_details(sample_md5, analyst, format_=None):
         else:
             binary_exists = 0
 
+        sample.reload()
+        #relationships
+        relationships = sample.sort_relationships("%s" % analyst,
+                                                meta=True)
+        sample.sanitize_sources(username=analyst)
+
         sample.sanitize("%s" % analyst)
 
         # remove pending notifications for user
@@ -143,10 +149,6 @@ def get_sample_details(sample_md5, analyst, format_=None):
 
         #objects
         objects = sample.sort_objects()
-
-        #relationships
-        relationships = sample.sort_relationships("%s" % analyst,
-                                                meta=True)
 
         # relationship
         relationship = {
