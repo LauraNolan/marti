@@ -1775,6 +1775,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
         # get reverse relationship
         rev_type = RelationshipTypes.inverse(rel_type)
+        print 'rev_type: ', rev_type
         if rev_type is None:
             return {'success': False,
                     'message': 'Could not find relationship type'}
@@ -1791,6 +1792,8 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         my_rel.rel_reason = rel_reason
         my_rel.url_key = rel_url_key
 
+        print 'relationship: ', my_rel.to_dict()
+
         #Check to see if the other item exists
         rel_item = class_from_value(type, rel_url_key)
         if rel_item:
@@ -1806,12 +1809,17 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                 is_left_rel_exist = True
                 break
 
+        print 'before: ', self.relationships
+
         #Relationship is new
         if not is_left_rel_exist:
             self.relationships.append(my_rel)
 
+        print 'after: ', self.relationships
+
         #ONLY setup the other relationship if the TLO exists
         if rel_item:
+            print 'other item exists'
             # setup the relationship for them
             their_rel = EmbeddedRelationship()
             their_rel.relationship = rev_type
@@ -1840,10 +1848,8 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
             return {'success': False,
                     'message': 'Relationship already exists'}
 
-        results = {'success': True,
+        return {'success': True,
                        'message': 'Relationship forged'}
-
-        return results
 
     def add_relationship(self, rel_item, rel_type, rel_date=None,
                          analyst=None, rel_confidence='unknown',
@@ -2418,6 +2424,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                             my_rel.url_key = obj.get_url_key()
 
                             self.relationships[c] = my_rel
+                            self.save(username=username)
 
                             rd = my_rel.to_dict()
 
@@ -2460,6 +2467,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                         my_rel.url_key = r.url_key
 
                         self.relationships[c] = my_rel
+                        self.save(username=username)
                         rd = my_rel.to_dict()
 
                         rd.update(result)
@@ -2494,7 +2502,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                 else:
                     rel_dict['Other'] += 1
 
-            self.save(username=username)
+            #self.save(username=username)
 
             return rel_dict
         else:
