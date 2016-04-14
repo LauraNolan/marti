@@ -201,7 +201,7 @@ def generate_comment_jtable(request, option):
                                    'jtid': '%s_listing' % type_},
                                   RequestContext(request))
 
-def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst, date=None):
+def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst, date=None, source_analyst=None):
     """
     Add a new comment.
 
@@ -232,7 +232,11 @@ def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst, date=No
                                    cleaned_data['parent_analyst'])
     comment.analyst = analyst
     comment.set_url_key(cleaned_data['url_key'])
-    source = create_embedded_source(name=get_user_organization(analyst),
+    if source_analyst:
+        source = create_embedded_source(name=get_user_organization(source_analyst),
+                                    analyst=analyst)
+    else:
+        source = create_embedded_source(name=get_user_organization(analyst),
                                     analyst=analyst)
     comment.source = [source]
     comment.private = cleaned_data['private']
