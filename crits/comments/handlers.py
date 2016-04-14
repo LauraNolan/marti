@@ -233,7 +233,7 @@ def comment_add(cleaned_data, obj_type, obj_id, method, subscr, analyst, date=No
     comment.analyst = analyst
     comment.set_url_key(cleaned_data['url_key'])
     if source_analyst:
-        source = create_embedded_source(name=get_user_organization(source_analyst),
+        source = create_embedded_source(name=source_analyst,
                                     analyst=analyst)
     else:
         source = create_embedded_source(name=get_user_organization(analyst),
