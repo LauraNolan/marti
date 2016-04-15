@@ -23,7 +23,7 @@ from operator import itemgetter
 from crits.config.config import CRITsConfig
 from crits.core.audit import AuditLog
 from crits.core.bucket import Bucket
-from crits.core.class_mapper import class_from_id, class_from_type, key_descriptor_from_obj_type
+from crits.core.class_mapper import class_from_id, class_from_type, key_descriptor_from_obj_type, class_from_value
 from crits.core.crits_mongoengine import Action, Releasability, json_handler
 from crits.core.crits_mongoengine import CritsSourceDocument
 from crits.core.crits_mongoengine import EmbeddedPreferredAction
@@ -502,7 +502,9 @@ def set_releasability_flag(type_, id_, user, name=None, reference_id=None):
     obj = class_from_id(type_, id_)
 
     if not obj:
-        return {'success': False,
+        obj = class_from_value(type_, id_)
+        if not obj:
+            return {'success': False,
                 'message': "Could not find object."}
 
     try:

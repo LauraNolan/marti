@@ -12,6 +12,7 @@ from crits.relationships.handlers import forge_relationship, update_relationship
 from crits.relationships.handlers import update_relationship_types, delete_relationship, update_relationship_reasons
 
 from crits.vocabulary.relationships import RelationshipTypes
+from crits.core.handlers import set_releasability_flag
 
 @user_passes_test(user_can_view_data)
 def add_new_relationship(request):
@@ -40,6 +41,7 @@ def add_new_relationship(request):
                                          rel_confidence=cleaned_data.get('rel_confidence'),
                                          get_rels=True)
             if results['success'] == True:
+                set_releasability_flag(cleaned_data.get('forward_type'), cleaned_data.get('forward_value'), request.user.username)
                 relationship = {'type': cleaned_data.get('forward_type'),
                                 'url_key': cleaned_data.get('forward_value')}
                 message = render_to_string('relationships_listing_widget.html',
