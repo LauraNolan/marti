@@ -155,6 +155,9 @@ def get_email_detail(email_id, analyst):
         template = "error.html"
         args = {'error': "ID does not exist or insufficient privs for source"}
     else:
+        # relationships
+        relationships = email.sort_relationships("%s" % analyst, meta=True)
+
         email.sanitize(username="%s" % analyst, sources=sources)
         update_data_form = EmailYAMLForm(analyst)
         campaign_form = CampaignForm()
@@ -174,9 +177,6 @@ def get_email_detail(email_id, analyst):
 
         # objects
         objects = email.sort_objects()
-
-        # relationships
-        relationships = email.sort_relationships("%s" % analyst, meta=True)
 
         # relationship
         relationship = {
