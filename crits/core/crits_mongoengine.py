@@ -1775,7 +1775,6 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
         # get reverse relationship
         rev_type = RelationshipTypes.inverse(rel_type)
-        print 'rev_type: ', rev_type
         if rev_type is None:
             return {'success': False,
                     'message': 'Could not find relationship type'}
@@ -1813,7 +1812,6 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
         #ONLY setup the other relationship if the TLO exists
         if rel_item:
-            print 'other item exists'
             # setup the relationship for them
             their_rel = EmbeddedRelationship()
             their_rel.relationship = rev_type
