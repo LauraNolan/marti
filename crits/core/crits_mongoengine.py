@@ -1792,8 +1792,6 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
         my_rel.rel_reason = rel_reason
         my_rel.url_key = rel_url_key
 
-        print 'relationship: ', my_rel.to_dict()
-
         #Check to see if the other item exists
         rel_item = class_from_value(type, rel_url_key)
         if rel_item:
@@ -1809,13 +1807,9 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                 is_left_rel_exist = True
                 break
 
-        print 'before: ', self.relationships
-
         #Relationship is new
         if not is_left_rel_exist:
             self.relationships.append(my_rel)
-
-        print 'after: ', self.relationships
 
         #ONLY setup the other relationship if the TLO exists
         if rel_item:
