@@ -4,15 +4,18 @@ from django.forms.widgets import HiddenInput
 from crits.campaigns.campaign import Campaign
 from crits.core.forms import add_bucketlist_to_form, add_ticket_to_form
 from crits.core.handlers import get_item_names
+from django.core.validators import RegexValidator
 
 class AddCampaignForm(forms.Form):
     """
     Django form for adding a new Campaign.
     """
 
+    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only aphanumeric characters are allowed.')
+
     error_css_class = 'error'
     required_css_class = 'required'
-    campaign = forms.CharField(widget=forms.TextInput, required=True)
+    campaign = forms.CharField(widget=forms.TextInput, required=True, validators=[alphanumeric])
     aliases = forms.CharField(widget=forms.TextInput, required=False)
     description = forms.CharField(widget=forms.TextInput, required=False)
 
