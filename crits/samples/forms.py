@@ -62,8 +62,8 @@ class UploadFileForm(forms.Form):
                                required=False,
                                label=form_consts.Sample.MIMETYPE)
     file_format = forms.ChoiceField(widget=RadioSelect(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_1 required'}),
-                                    choices=[("zip", "7z/Zip/RAR"),
-                                             ("raw", "raw")],
+                                    choices=[("raw", "raw"),
+                                             ("zip", "7z/Zip/RAR")],
                                     initial="raw",
                                     required=False,
                                     label=form_consts.Sample.FILE_FORMAT)
