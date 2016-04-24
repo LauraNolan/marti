@@ -95,6 +95,9 @@
         {% with bucket_list=campaign_detail.bucket_list %}
             {% include 'bucket_list_widget.html' %}
         {% endwith %}
+        {% with tlp=campaign_detail.tlp %}
+            {% include 'tlp_list_widget.html' %}
+        {% endwith %}
     </div>
     <div class="content_box">
         {% with obj=campaign_detail obj_type="Campaign" %}
