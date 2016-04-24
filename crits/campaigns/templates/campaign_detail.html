@@ -99,12 +99,12 @@
             {% include 'tlp_list_widget.html' %}
         {% endwith %}
     </div>
-    <div class="content_box">
+    <!--<div class="content_box">
         {% with obj=campaign_detail obj_type="Campaign" %}
             {% include 'action_listing_widget.html' %}
         {% endwith %}
-    </div>
-    <div class='content_box'>
+    </div>-->
+   <!-- <div class='content_box'>
       <h3 class="titleheader">
         <span>Email Activity</span>
       </h3>
@@ -113,12 +113,12 @@
         {% include 'campaigns_display_chart_widget.html' %}
         {% endwith %}
       </div>
-    </div>
-    <div>
+    </div>-->
+    <!--<div>
         {% with hit=campaign_detail col=COL_CAMPAIGNS obj=campaign_detail %}
             {% include "locations_display_widget.html" %}
         {% endwith %}
-    </div>
+    </div>-->
     <div>
       {% with obj=campaign_detail obj_type=subscription.type %}
          {% include 'tickets_listing_widget.html' %}
@@ -127,12 +127,12 @@
     <div>
         {% include 'relationships_listing_widget.html' %}
     </div>
-    <div>
+    <!--<div>
         {% include 'objects_listing_widget.html' %}
-    </div>
-    <div>
+    </div>-->
+    <!--<div>
     {% include 'screenshot_widget.html' %}
-    </div>
+    </div>-->
     <div>
         {% include "comments_listing_widget.html" %}
     </div>
