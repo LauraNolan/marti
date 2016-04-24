@@ -45,6 +45,8 @@ TEST_RUN = False
 # More details: https://developer.mozilla.org/en-US/docs/HTTP/X-Frame-Options
 #X_FRAME_OPTIONS = 'ALLOW-FROM https://www.example.com'
 
+SECURE_SSL_REDIRECT = True
+
 # Setup for runserver or Apache
 if 'runserver' in sys.argv:
     DEVEL_INSTANCE = True
@@ -60,7 +62,7 @@ elif 'test' in sys.argv:
     CSRF_COOKIE_SECURE = False
     LOGIN_URL = "/login/"
 else:
-    DEVEL_INSTANCE = False
+    DEVEL_INSTANCE = True
     SERVICE_MODEL = 'process'
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
