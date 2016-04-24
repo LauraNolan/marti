@@ -540,7 +540,8 @@ def handle_email_fields(data, analyst, method, id=None):
             except:
                 date_time = date_time.strftime("%Y-%m-%d %H:%M:%S")
                 s = (from_addr if from_addr else "") + date_time + rand_int
-            d = s.encode('base64').rstrip().replace("=", '') #the encode likes to add '==\n' at the end and this breaks the gui
+            d = hashlib.md5(s).hexdigest()
+            #d = s.encode('base64').rstrip().replace("=", '') #the encode likes to add '==\n' at the end and this breaks the gui
             new_message_id = "CRITs_internal_" + d
             data.update({'message_id':new_message_id})
     except Exception,e:
