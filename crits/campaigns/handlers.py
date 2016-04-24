@@ -358,6 +358,23 @@ def remove_campaign(name, analyst):
     else:
         return {'success': False, 'message': 'Campaign not found.'}
 
+def merge_ttp(id, ttp, analyst, date):
+
+    campaign = Campaign.objects(id=id).first()
+    if campaign:
+        new_ttp = EmbeddedTTP()
+        new_ttp.analyst = analyst
+        new_ttp.ttp = ttp
+        new_ttp.date = date
+        try:
+            campaign.add_ttp(new_ttp)
+            campaign.save(username=analyst)
+            return {'success': True, 'campaign': campaign}
+        except ValidationError, e:
+            return {'success': False, 'message': "Invalid value: %s" % e}
+    else:
+        return {'success': False, 'message': "Could not find Campaign"}
+
 def add_ttp(cid, ttp, analyst):
     """
     Add a TTP to a Campaign.
@@ -441,7 +458,7 @@ def remove_ttp(cid, ttp, analyst):
     else:
         return {'success': False, 'message': "Could not find Campaign"}
 
-def modify_campaign_aliases(name, tags, analyst):
+def modify_campaign_aliases(name, tags, analyst, merge=None):
     """
     Modify the aliases for a Campaign.
 
@@ -456,7 +473,10 @@ def modify_campaign_aliases(name, tags, analyst):
 
     campaign = Campaign.objects(name=name).first()
     if campaign:
-        campaign.set_aliases(tags)
+        if merge:
+            campaign.merge_aliases(tags)
+        else:
+            campaign.set_aliases(tags)
         try:
             campaign.save(username=analyst)
             return {'success': True}

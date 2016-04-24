@@ -149,6 +149,11 @@ class Campaign(CritsBaseAttributes, CritsActionsDocument, Document):
 
         self.aliases.remove(alias)
 
+    def merge_aliases(self, aliases):
+
+        if isinstance(aliases, list):
+            self.aliases = list(set(aliases + self.aliases))
+
     def set_aliases(self, aliases):
         """
         Set the Campaign aliases to a specified list.
@@ -184,7 +189,11 @@ class Campaign(CritsBaseAttributes, CritsActionsDocument, Document):
             found = False
             for ttp in self.ttps:
                 if ttp.ttp == ttp_item.ttp:
-                    found = True
+                    if ttp.date:
+                        if ttp.date == ttp_item.date:
+                            found = True
+                    else:
+                        found = True
             if not found:
                 self.ttps.append(ttp_item)
 
