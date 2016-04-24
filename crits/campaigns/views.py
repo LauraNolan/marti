@@ -22,6 +22,7 @@ from crits.campaigns.handlers import get_campaign_names_list
 from crits.core.user_tools import user_can_view_data
 from crits.stats.handlers import campaign_date_stats
 from crits.core.handlers import set_releasability_flag
+from crits.campaigns.campaign import Campaign
 
 
 @user_passes_test(user_can_view_data)
@@ -319,10 +320,13 @@ def campaign_aliases(request):
     if request.method == "POST" and request.is_ajax():
         tags = request.POST.get('tags', "").split(",")
         name = request.POST.get('name', None)
-        return HttpResponse(json.dumps(modify_campaign_aliases(name,
-                                                               tags,
-                                                               request.user.username)),
-                            mimetype="application/json")
+
+        res = modify_campaign_aliases(name, tags, request.user.username)
+
+        campaign = Campaign.objects(name=name).first()
+        set_releasability_flag('Campaign', campaign.id, request.user.username)
+
+        return HttpResponse(json.dumps(res), mimetype="application/json")
     else:
         error = "Expected POST"
         return render_to_response("error.html", {"error": error}, RequestContext(request))
