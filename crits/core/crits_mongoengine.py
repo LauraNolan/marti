@@ -2571,7 +2571,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
                 rel.release = True
                 self.releasability.append(rel)
 
-    def set_releasability_flag(self, name=None, reference_id=None):
+    def set_releasability_flag(self, name=None, reference_id=None, flag=True):
         """
         Set releasability instance to True
 
@@ -2579,7 +2579,7 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
 
         for rel in self.releasability:
             if rel.name != name:
-                rel.release = True
+                rel.release = flag
                 rel.reference_id = reference_id
 
     def check_message_received(self, id):
