@@ -551,6 +551,11 @@ def handle_email_fields(data, analyst, method, id=None):
             return {'success': False, 'message': 'dup'}
         #update sources
         print "Existing Email discovered"
+        #sanitize email message id
+        msg_id_s = data.get('message_id',None)
+        msg_id_s = "".join( c for c in msg_id_s if c not in '\\/+=')
+        data.update({'message_id':msg_id_s})
+
         prev_email.merge(data)
         prev_email.add_source(source=sourcename, method=method, reference=reference, analyst=analyst)
         prev_email.save(username=analyst)
