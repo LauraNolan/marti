@@ -64,7 +64,7 @@ class UploadFileForm(forms.Form):
     file_format = forms.ChoiceField(widget=RadioSelect(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_1 required'}),
                                     choices=[("zip", "7z/Zip/RAR"),
                                              ("raw", "raw")],
-                                    initial="zip",
+                                    initial="raw",
                                     required=False,
                                     label=form_consts.Sample.FILE_FORMAT)
     password = forms.CharField(widget=forms.TextInput(attrs={form_consts.Common.CLASS_ATTRIBUTE: form_consts.Common.BULK_SKIP + ' id_upload_type_1'}),
