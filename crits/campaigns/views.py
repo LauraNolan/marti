@@ -301,6 +301,7 @@ def campaign_ttp(request, cid):
                                     RequestContext(request))
             del result['campaign']
             result['html'] = html
+            set_releasability_flag('Campaign', cid, analyst)
         return HttpResponse(json.dumps(result), mimetype="application/json")
     else:
         return render_to_response("error.html",
