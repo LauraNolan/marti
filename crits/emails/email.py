@@ -5,7 +5,7 @@ from mongoengine import Document, StringField, ListField
 from django.conf import settings
 
 from crits.core.crits_mongoengine import CritsBaseAttributes, CritsSourceDocument
-from crits.core.crits_mongoengine import CritsActionsDocument
+from crits.core.crits_mongoengine import CritsActionsDocument, MartiRFIDocument
 from crits.core.fields import CritsDateTimeField
 from crits.emails.migrate import migrate_email
 
@@ -34,7 +34,7 @@ class RawHeadersField(StringField):
 
 
 class Email(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
-            Document):
+            Document, MartiRFIDocument):
     """
     Email Class.
     """

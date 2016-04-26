@@ -1138,6 +1138,78 @@ class EmbeddedLocation(EmbeddedDocument, CritsDocumentFormatter):
     analyst = StringField(required=True)
     date = DateTimeField(default=datetime.datetime.now)
 
+class RFIItem(EmbeddedDocument, CritsDocumentFormatter):
+        rfi = StringField()
+        status = StringField(required=True, default='NEW')
+        date = DateTimeField(default=datetime.datetime.now)
+        analyst = StringField()
+
+class EmbeddedRFI(EmbeddedDocument, CritsDocumentFormatter):
+    """
+    EmbeddedRFI class
+    """
+
+    class RFIInstance(EmbeddedDocument, CritsDocumentFormatter):
+
+        question = EmbeddedDocumentField(RFIItem, default=RFIItem)
+        answers = ListField(EmbeddedDocumentField(RFIItem, default=RFIItem))
+
+
+    topic = StringField()
+    date = DateTimeField(default=datetime.datetime.now)
+    instance = ListField(EmbeddedDocumentField(RFIInstance, default=RFIInstance))
+
+class MartiRFIDocument(BaseDocument):
+    """
+    Inherit if you want to have rfi on a top-level object.
+    """
+    rfi = ListField(EmbeddedDocumentField(EmbeddedRFI), required=False)
+
+    def new_rfi_topic(self, topic):
+
+        for c, r in enumerate(self.rfi):
+            if r.topic == topic:
+                return {'success': 'False', 'message': 'Already exists'}
+
+        rfi = EmbeddedRFI()
+        rfi.topic = topic
+
+        self.rfi.append(rfi)
+
+        return {'success': 'True', 'message': 'Done'}
+
+    def rfi_request(self, topic, rfi, analyst, date=None, status=None):
+
+        question = EmbeddedRFI.RFIInstance()
+
+        question.question.rfi = rfi
+        question.question.analyst = analyst
+
+        if date:
+            question.question.date = date
+        if status:
+            question.question.status = status
+
+        for c, rFi in enumerate(self.rfi):
+            if rFi.topic == topic:
+                rFi.instance.append(question)
+
+    def rfi_response(self, topic, rfi, analyst, date=None, status=None):
+
+        response = RFIItem()
+
+        response.rfi = rfi
+        response.analyst = analyst
+
+        if date:
+            response.date = date
+        if status:
+            response.status = status
+
+        for c, rFi in enumerate(self.rfi):
+            if rFi.topic == topic:
+                rFi.instance[0].answers.append(response)
+
 class Sightings(EmbeddedDocument, CritsDocumentFormatter):
     """
     Sightings class

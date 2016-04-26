@@ -210,6 +210,13 @@ def description_update(type_, id_, description, user, **kwargs):
     if not obj:
         return {'success': False, 'message': 'Could not find object.'}
 
+    #obj.new_rfi_topic('This is my second topic')
+    #obj.rfi_request('This is my second topic', description, 'taxii')
+    #obj.save(username=user)
+    #obj.rfi_response('This is my topic', description, 'taxii')
+    #obj.rfi_response('This is my second topic', description, 'taxii')
+    #obj.rfi_response('This is my second topic', description + ' - woohoo!', 'taxii')
+
     # Have to unescape the submitted data. Use unescape() to escape
     # &lt; and friends. Use urllib2.unquote() to escape %3C and friends.
     h = HTMLParser.HTMLParser()
