@@ -290,7 +290,7 @@ def generate_campaign_jtable(request, option):
                                   RequestContext(request))
 
 def add_campaign(name, description, aliases, analyst, bucket_list=None,
-                 ticket=None):
+                 ticket=None, source=None):
     """
     Add a Campaign.
 
@@ -324,7 +324,11 @@ def add_campaign(name, description, aliases, analyst, bucket_list=None,
     if ticket:
         campaign.add_ticket(ticket, analyst)
 
-    source = create_embedded_source(name=get_user_organization(analyst),
+    if source:
+        source = create_embedded_source(name=source,
+                                    analyst=analyst)
+    else:
+        source = create_embedded_source(name=get_user_organization(analyst),
                                     analyst=analyst)
 
     campaign.source = [source]
