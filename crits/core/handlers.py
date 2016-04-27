@@ -442,6 +442,7 @@ def add_rfi(type_,id_, topic, analyst, source, date=None):
     try:
 
         result = obj.new_rfi_topic(topic, analyst, source, date)
+        print result
         if not result['success']:
             return {'success': False,
                     'message': result['message']}
@@ -466,7 +467,7 @@ def add_rfi_request(type_,id_, topic, rfi, analyst, source, date=None, status=No
     try:
 
         result = obj.rfi_request(topic, rfi, analyst, source, date, status)
-
+        print result
         if not result['success']:
             res = obj.new_rfi_topic(topic, analyst, source, date)
             if res['success']:
@@ -519,7 +520,7 @@ def add_rfi_response(type_,id_, topic, response, question, analyst, source, date
     try:
 
         result = obj.rfi_response(topic, response, question, analyst, source, date, status)
-
+        print result
         if not result['success']:
             return {'success': False,
                     'message': result['message']}
