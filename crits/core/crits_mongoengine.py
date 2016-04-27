@@ -1254,9 +1254,9 @@ class MartiRFIDocument(BaseDocument):
         for c, rFi in enumerate(self.rfi):
             if rFi.topic == topic:
                 for d, qs in enumerate(rFi.instance):
-                    if qs.request.rfi == rfi_question:
+                    if qs.request.rfi == rfi_question.encode('utf-8'):
                         for e, rs in enumerate(rFi.instance[d].response):
-                            if rs.rfi == rfi_response:
+                            if rs.rfi == rfi_response.encode('utf-8'):
                                 return {'success': False, 'message': 'RFI Response already exists'}
                         rFi.instance[d].request.status = 'OLD'
                         rFi.instance[d].response.append(response)
