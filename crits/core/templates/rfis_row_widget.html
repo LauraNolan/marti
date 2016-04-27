@@ -1,0 +1,34 @@
+{% load url from future %}
+<table class='vertical comment_table collapser' width="100%">
+    <thead>
+        </thead>
+ <tbody>
+<tr class="comment_row">
+    <td class="key" style="{% if type == 'Q' %}background:#F0F8FF{% endif %}{% if type == 'A' %}background:#F0FFF0{% endif %}">
+    {{analyst}}</br>({{source}})
+    </td>
+    <td  style="{% if status == 'NEW' %}background:#ffb3b3{% endif %}">
+
+        <div class="comment_body">
+            <span data-field="rfi" style="width:90%">
+               <div class="pretty">{{ rfi }}</div>
+            </span>
+            </div>
+
+            <div class="comment_info" style="{% if type == 'Q' %}background:#F0F8FF{% endif %}{% if type == 'A' %}background:#F0FFF0{% endif %}">
+                    <span>Created at: <b>{{date}}</b>
+                    </span>
+                {% if type != 'T' %}
+                {% if status == 'NEW' %}
+                    <input type= "button" class="rfi_add_button" action="{% url 'crits.core.views.add_rfi_item' %}" data-action="toggle" data-topic="{{each.topic}}" data-request="{{instance.request.rfi}}" value="Mark as Read" data-response="{{rfi}}" data-type="{{type}}">
+                {% endif %}
+                {% if status != 'NEW' %}
+                    <input type= "button" class="rfi_add_button" action="{% url 'crits.core.views.add_rfi_item' %}" data-action="toggle" data-topic="{{each.topic}}" data-request="{{instance.request.rfi}}" value="Mark as Unread" data-response="{{rfi}}" data-type="{{type}}">
+                {% endif %}
+
+            {% endif %}
+            </div>
+        </td>
+</tr>
+ </tbody>
+    </table>

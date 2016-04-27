@@ -1,0 +1,176 @@
+{% load url from future %}
+
+<style type="text/css">
+body {
+    background-color: #666;
+    margin: 10px;
+}
+
+/*! Light */
+#rfi {
+    background-color: #000;
+    box-shadow: 0 0 5px rgba(0,0,0, .8);
+    overflow: hidden;
+    padding: 0 0 4px;
+    width: 40px;
+}
+
+#rfi span {
+    border-radius: 50px;
+    display: block;
+    height: 30px;
+    margin: 4px auto 0;
+    opacity: .5;
+    width: 30px;
+}
+
+.pretty {white-space: pre-wrap;
+    word-wrap: break-word;}
+
+/*! Light colours */
+#Q    { background-color: red; }
+#A { background-color: #ffd700; }
+
+    #tree {
+    margin: 2em 0 0 2em;
+    width: 90%;
+}
+
+#tree > li {
+    padding-bottom: 3px;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #ccc;
+}
+
+#tree  li > a {
+    color: #000;
+    text-decoration: none;
+}
+
+#tree  li > a:before {
+    content: '+';
+    padding-right: 4px;
+    font-weight: bold;
+}
+
+#tree  li >a.active:before {
+    content: '-';
+    padding-right: 4px;
+    font-weight: bold;
+}
+
+#tree li ul {
+    margin: 0.5em 0 0.5em 2em;
+    display: none;
+}
+
+#NEW   { background-color: red; }
+
+</style>
+
+<div class="content_box buckets" id="rfi_list">
+    <h3 class='titleheader'>
+        <span>RFI List (RFI)</span>
+    </h3>
+
+    <ul id="tree" style="list-style-type:none">
+
+        <form action="#" method="post" style="width: 60%">
+        <fieldset>
+        <legend>New RFI Topic:</legend>
+        Title:<br>
+        <input type="text" name="topic" id="rfi_topic" style="width: 98%"><br>
+                <input type="submit" class="rfi_add_button" action="{% url 'crits.core.views.add_rfi_item' %}" data-action="new" value="Submit">
+            </fieldset>
+            </form>
+
+        {% for each in rfi %}
+            <li>
+                <a href="#">
+                    {% with analyst=each.analyst source=each.source date=each.date rfi=each.topic type='T'%}
+                        {% include "rfis_row_widget.html" %}
+                    {% endwith %}
+                </a>
+                <ul style="list-style-type:none">
+                    <form action="#" method="post" style="width: 60%">
+        <fieldset>
+        <legend>New RFI Request:</legend>
+        Request:<br>
+            <textarea rows="4" cols="50" name="request" id="{{each.topic}}" style="width: 98%;background:#F0F8FF"></textarea>
+        <br>
+                <input type="submit" class="rfi_add_button" action="{% url 'crits.core.views.add_rfi_item' %}" data-action="request" value="Submit" data-topic="{{each.topic}}">
+            </fieldset>
+            </form>
+                {% for instance in each.instance %}
+                    <li>
+                        <a href="#">
+                            {% with analyst=instance.request.analyst source=instance.request.source date=instance.request.date rfi=instance.request.rfi status=instance.request.status type='Q' %}
+                                {% include "rfis_row_widget.html" %}
+                            {% endwith %}
+                        </a>
+
+                        <ul style="list-style-type:none">
+                              <form action="#" method="post" style="width: 60%">
+        <fieldset>
+        <legend>New RFI Response:</legend>
+        Response:<br>
+            <textarea rows="4" cols="50" name="response" id="{{instance.request.rfi}}" style="width: 98%;background:#F0FFF0"></textarea>
+        <br>
+                <input type="submit" class="rfi_add_button" action="{% url 'crits.core.views.add_rfi_item' %}" data-action="response" value="Submit" data-topic="{{each.topic}}" data-request="{{instance.request.rfi}}">
+            </fieldset>
+            </form>
+                        {% for response in instance.response %}
+                            <li>
+                                {% with analyst=response.analyst source=response.source date=response.date rfi=response.rfi status=response.status type='A'%}
+                                    {% include "rfis_row_widget.html" %}
+                                {% endwith %}
+                            </li>
+                        {% endfor %}
+                            <li>
+
+                            </li>
+                        </ul>
+                    </li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+
+        </ul>
+    </div>
+
+<script>
+    var MenuTree = {
+    collapse: function(element) {
+
+        element.slideToggle(600);
+
+    },
+
+    walk: function() {
+
+        $('a', '#tree').each(function() {
+
+            var $a = $(this);
+            var $li = $a.parent();
+
+            if ($a.next().is('ul')) {
+
+                var $ul = $a.next();
+
+                $a.click(function(e) {
+
+                    e.preventDefault();
+                    MenuTree.collapse($ul);
+
+                    $a.toggleClass('active');
+
+                });
+            }
+        });
+    }
+};
+
+MenuTree.walk();
+
+</script>
