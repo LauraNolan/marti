@@ -120,6 +120,11 @@
     <div>
     {% include 'screenshot_widget.html' %}
     </div>
+            <div>
+    {% with rfi=domain.rfi %}
+            {% include 'rfi_list_widget.html' %}
+        {% endwith %}
+    </div>
     <div>
        {% include "comments_listing_widget.html" %}
     </div>

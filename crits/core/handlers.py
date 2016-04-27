@@ -210,13 +210,6 @@ def description_update(type_, id_, description, user, **kwargs):
     if not obj:
         return {'success': False, 'message': 'Could not find object.'}
 
-    #obj.new_rfi_topic('This is my second topic')
-    #obj.rfi_request('This is my second topic', description, 'taxii')
-    #obj.save(username=user)
-    #obj.rfi_response('This is my topic', description, 'taxii')
-    #obj.rfi_response('This is my second topic', description, 'taxii')
-    #obj.rfi_response('This is my second topic', description + ' - woohoo!', 'taxii')
-
     # Have to unescape the submitted data. Use unescape() to escape
     # &lt; and friends. Use urllib2.unquote() to escape %3C and friends.
     h = HTMLParser.HTMLParser()
@@ -438,6 +431,108 @@ def get_data_for_item(item_type, item_id):
                 value += saved[-15:]
             response['data'][field.title()] = value
     return response
+
+def add_rfi(type_,id_, topic, analyst, source, date=None):
+
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+
+        result = obj.new_rfi_topic(topic, analyst, source, date)
+        if not result['success']:
+            return {'success': False,
+                    'message': result['message']}
+
+        obj.save(username=analyst)
+        obj.reload()
+
+        return {'success': True,
+                'obj': obj.to_dict()['rfi']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not add new RFI: %s" % e}
+
+def add_rfi_request(type_,id_, topic, rfi, analyst, source, date=None, status=None):
+
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+
+        result = obj.rfi_request(topic, rfi, analyst, source, date, status)
+
+        if not result['success']:
+            res = obj.new_rfi_topic(topic, analyst, source, date)
+            if res['success']:
+                result = obj.rfi_request(topic, rfi, analyst, source, date, status)
+                if not result['success']:
+                    return {'success': False,
+                            'message': result['message']}
+
+        obj.save(username=analyst)
+        obj.reload()
+
+        return {'success': True,
+                'obj': obj.to_dict()['rfi']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not add RFI Question: %s" % e}
+
+def toggle_rfi_status(type_,id_, analyst, topic, question, response=None):
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+
+        result = obj.toggle_rfi_status(topic, question, response)
+
+        if not result['success']:
+            return {'success': False,
+                    'message': result['message']}
+
+        obj.save(username=analyst)
+        obj.reload()
+
+        return {'success': True,
+                'obj': obj.to_dict()['rfi']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not toggle RFI Status: %s" % e}
+
+def add_rfi_response(type_,id_, topic, response, question, analyst, source, date=None, status=None):
+
+    obj = class_from_id(type_, id_)
+
+    if not obj:
+        return {'success': False,
+                'message': "Could not find object"}
+    try:
+
+        result = obj.rfi_response(topic, response, question, analyst, source, date, status)
+
+        if not result['success']:
+            return {'success': False,
+                    'message': result['message']}
+
+        obj.save(username=analyst)
+        obj.reload()
+
+        return {'success': True,
+                'obj': obj.to_dict()['rfi']}
+
+    except Exception, e:
+        return {'success': False,
+                'message': "Could not add RFI Answer: %s" % e}
 
 def set_tlp(type_, id_, value, user):
 

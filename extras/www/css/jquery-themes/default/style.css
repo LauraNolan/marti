@@ -948,7 +948,7 @@ table.comment_table tr td:last-child {
 
 table.comment_table tr td div.comment_body {
     padding: 5px;
-    width: 100%;
+    width: 99%;
     overflow: auto;
 }
 

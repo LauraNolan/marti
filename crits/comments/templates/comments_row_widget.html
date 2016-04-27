@@ -4,12 +4,10 @@
     <td class="key">
     <a href="{% url 'crits.comments.views.activity' 'byuser' comment.analyst %}">{{comment.analyst}}</a><br /> ({{comment.source.0.name}})
     </td>
-    <td>
+    <td {% if comment.private %} style="background:#FDD7E4" {% endif %}>
 
-        <div class="comment_body" {% if comment.private %} style="background:#FDD7E4" {% endif %}>
-            <span data-field="comment">
-                {{ comment.comment|safe }}
-            </span>
+        <div class="comment_body">
+            <span data-field="comment" class="pretty">{{comment.comment|safe}}</span>
             {% if comment.url_key and not subscription %}
             <!-- link to the object page -->
             <span class="comment_button">
@@ -40,7 +38,7 @@
                 </a>
             </span>
             <span class="comment_button">
-                <a href="#" title="Edit Comment" class="ui-icon ui-icon-pencil dialogClick" dialog="comments" persona="update" 
+                <a href="#" title="Edit Comment" class="ui-icon ui-icon-pencil dialogClick" dialog="comments" persona="update"
 		   action="{% url 'crits.comments.views.add_update_comment' 'update' comment.obj_type comment.obj_id %}">
                 </a>
             </span>

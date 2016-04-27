@@ -1143,6 +1143,7 @@ class RFIItem(EmbeddedDocument, CritsDocumentFormatter):
         status = StringField(required=True, default='NEW')
         date = DateTimeField(default=datetime.datetime.now)
         analyst = StringField()
+        source = StringField()
 
 class EmbeddedRFI(EmbeddedDocument, CritsDocumentFormatter):
     """
@@ -1151,12 +1152,14 @@ class EmbeddedRFI(EmbeddedDocument, CritsDocumentFormatter):
 
     class RFIInstance(EmbeddedDocument, CritsDocumentFormatter):
 
-        question = EmbeddedDocumentField(RFIItem, default=RFIItem)
-        answers = ListField(EmbeddedDocumentField(RFIItem, default=RFIItem))
+        request = EmbeddedDocumentField(RFIItem, default=RFIItem)
+        response = ListField(EmbeddedDocumentField(RFIItem, default=RFIItem))
 
 
     topic = StringField()
     date = DateTimeField(default=datetime.datetime.now)
+    analyst = StringField()
+    source = StringField()
     instance = ListField(EmbeddedDocumentField(RFIInstance, default=RFIInstance))
 
 class MartiRFIDocument(BaseDocument):
@@ -1165,41 +1168,83 @@ class MartiRFIDocument(BaseDocument):
     """
     rfi = ListField(EmbeddedDocumentField(EmbeddedRFI), required=False)
 
-    def new_rfi_topic(self, topic):
-
-        for c, r in enumerate(self.rfi):
-            if r.topic == topic:
-                return {'success': 'False', 'message': 'Already exists'}
-
-        rfi = EmbeddedRFI()
-        rfi.topic = topic
-
-        self.rfi.append(rfi)
-
-        return {'success': 'True', 'message': 'Done'}
-
-    def rfi_request(self, topic, rfi, analyst, date=None, status=None):
-
-        question = EmbeddedRFI.RFIInstance()
-
-        question.question.rfi = rfi
-        question.question.analyst = analyst
-
-        if date:
-            question.question.date = date
-        if status:
-            question.question.status = status
+    def toggle_rfi_status(self, topic, request, response=None):
 
         for c, rFi in enumerate(self.rfi):
             if rFi.topic == topic:
-                rFi.instance.append(question)
+                for d, qs in enumerate(rFi.instance):
+                    if qs.request.rfi == request:
+                        if response:
+                            for e, rs in enumerate(rFi.instance[d].response):
+                                if rs.rfi == response:
+                                    if rFi.instance[d].response[e].status == 'OLD':
+                                        rFi.instance[d].response[e].status = 'NEW'
+                                    elif rFi.instance[d].response[e].status == 'NEW':
+                                        rFi.instance[d].response[e].status = 'OLD'
+                                    else:
+                                        return {'success': False, 'message': 'Invalid RFI Status'}
 
-    def rfi_response(self, topic, rfi, analyst, date=None, status=None):
+                                    return {'success': True, 'message': 'Done'}
+                        else:
+                            if rFi.instance[d].request.status == 'OLD':
+                                rFi.instance[d].request.status = 'NEW'
+                            elif rFi.instance[d].request.status == 'NEW':
+                                rFi.instance[d].request.status = 'OLD'
+                            else:
+                                return {'success': False, 'message': 'Invalid RFI Status'}
+
+                            return {'success': True, 'message': 'Done'}
+
+        return {'success': False, 'message': 'Item doesn\'t exist'}
+
+    def new_rfi_topic(self, topic, analyst, source, date=None):
+
+        for c, r in enumerate(self.rfi):
+            if r.topic == topic:
+                return {'success': False, 'message': 'Already exists'}
+
+        rfi = EmbeddedRFI()
+        rfi.topic = topic
+        rfi.analyst = analyst
+        rfi.source = source
+
+        if date:
+            rfi.date = date
+
+        self.rfi.append(rfi)
+
+        return {'success': True, 'message': 'Done'}
+
+    def rfi_request(self, topic, rfi, analyst, source, date=None, status=None):
+
+        question = EmbeddedRFI.RFIInstance()
+
+        question.request.rfi = rfi
+        question.request.analyst = analyst
+        question.request.source = source
+
+        if date:
+            question.request.date = date
+        if status:
+            question.request.status = status
+
+        for c, rFi in enumerate(self.rfi):
+            if rFi.topic == topic:
+                for c, qs in enumerate(rFi.instance):
+                    if qs.request.rfi == rfi:
+                        return {'success': False, 'message': 'RFI Request already exists'}
+                rFi.instance.append(question)
+                return {'success': True, 'message': 'Done'}
+
+        return {'success': False, 'message': 'Missing RFI Topic'}
+
+    def rfi_response(self, topic, rfi_response, rfi_question, analyst, source, date=None, status=None):
 
         response = RFIItem()
 
-        response.rfi = rfi
+        response.rfi = rfi_response
         response.analyst = analyst
+        response.source = source
 
         if date:
             response.date = date
@@ -1208,7 +1253,16 @@ class MartiRFIDocument(BaseDocument):
 
         for c, rFi in enumerate(self.rfi):
             if rFi.topic == topic:
-                rFi.instance[0].answers.append(response)
+                for d, qs in enumerate(rFi.instance):
+                    if qs.request.rfi == rfi_question:
+                        for e, rs in enumerate(rFi.instance[d].response):
+                            if rs.rfi == rfi_response:
+                                return {'success': False, 'message': 'RFI Response already exists'}
+                        rFi.instance[d].request.status = 'OLD'
+                        rFi.instance[d].response.append(response)
+                        return {'success': True, 'message': 'Done'}
+
+        return {'success': False, 'message': 'Missing RFI Topic'}
 
 class Sightings(EmbeddedDocument, CritsDocumentFormatter):
     """

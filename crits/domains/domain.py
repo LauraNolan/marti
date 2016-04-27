@@ -4,7 +4,7 @@ from django.conf import settings
 
 from crits.core.crits_mongoengine import CritsBaseAttributes, CritsDocument
 from crits.core.crits_mongoengine import CritsDocumentFormatter, CritsSourceDocument
-from crits.core.crits_mongoengine import CritsActionsDocument
+from crits.core.crits_mongoengine import CritsActionsDocument, MartiRFIDocument
 from crits.domains.migrate import migrate_domain
 
 class TLD(CritsDocument, Document):
@@ -33,7 +33,7 @@ class EmbeddedWhoIs(DynamicEmbeddedDocument, CritsDocumentFormatter):
     }
 
 class Domain(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
-             Document):
+             Document, MartiRFIDocument):
     """
     Domain Class.
     """

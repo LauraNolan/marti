@@ -76,6 +76,11 @@
             {% with kill_chain=campaign_detail.kill_chain %}
                 {% include "kill_chain_widget.html" %}
             {% endwith %}
+             <tr>
+        {% with sources=campaign_detail.source obj_id=campaign_detail.id obj_type=subscription.type %}
+            {% include "sources_listing_widget.html" %}
+        {% endwith %}
+        </tr>
             <tr>
                 {% with releasability=campaign_detail.releasability %}
                     {% include "releasability_list_widget.html" %}
@@ -133,6 +138,11 @@
     <!--<div>
     {% include 'screenshot_widget.html' %}
     </div>-->
+        <div>
+    {% with rfi=campaign_detail.rfi %}
+            {% include 'rfi_list_widget.html' %}
+        {% endwith %}
+    </div>
     <div>
         {% include "comments_listing_widget.html" %}
     </div>

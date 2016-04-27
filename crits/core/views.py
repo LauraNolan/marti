@@ -29,9 +29,10 @@ from crits.core.data_tools import json_handler
 from crits.core.forms import ActionsForm, NewActionForm
 from crits.core.forms import SourceAccessForm, AddSourceForm, AddUserRoleForm
 from crits.core.forms import SourceForm, DownloadFileForm, AddReleasabilityForm
-from crits.core.forms import TicketForm
+from crits.core.forms import TicketForm, RFIForm
 from crits.core.handlers import add_releasability, add_releasability_instance, set_releasability_flag
 from crits.core.handlers import add_sighting, set_sighting, set_tlp
+from crits.core.handlers import add_rfi_request, add_rfi_response, add_rfi, toggle_rfi_status
 from crits.core.handlers import remove_releasability, remove_releasability_instance
 from crits.core.handlers import add_new_source, generate_counts_jtable
 from crits.core.handlers import source_add_update, source_remove, source_remove_all
@@ -220,8 +221,11 @@ def get_dialog(request):
     :type request: :class:`django.http.HttpRequest`
     :returns: :class:`django.http.HttpResponse`
     """
+    print 'inside of function'
 
     dialog = request.GET.get('dialog', '')
+
+    print dialog
     # Regex in urls.py doesn't seem to be working, should sanity check dialog
     return render_to_response(dialog + ".html",
                               {"error" : 'Dialog not found'},
@@ -517,6 +521,78 @@ def counts_listing(request,option=None):
     """
 
     return generate_counts_jtable(request, option)
+
+@user_passes_test(user_can_view_data)
+def add_rfi_item(request):
+    """
+    Modify a top-level object's sightings. Should be an AJAX POST.
+
+    :param request: Django request.
+    :type request: :class:`django.http.HttpRequest`
+    :returns: :class:`django.http.HttpResponse`
+    """
+
+    if request.method == 'POST' and request.is_ajax():
+        form = RFIForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            print "this is it: ", cleaned_data
+        type_ = request.POST.get('type', None)
+        id_ = request.POST.get('id', None)
+        topic = request.POST.get('topic', None)
+        action = request.POST.get('action', None)
+        user = str(request.user.username)
+        if not type_ or not id_:
+            error = "Modifying rfi requires a type, id"
+            return render_to_response("error.html",
+                                      {"error" : error },
+                                      RequestContext(request))
+
+        if action == 'new':
+            result = add_rfi(type_, id_, topic, user, get_user_organization(user))
+        elif action == 'request':
+            question = request.POST.get('request', None)
+            result = add_rfi_request(type_, id_, topic, question, user, get_user_organization(user))
+            set_releasability_flag(type_, id_, user)
+        elif action == 'response':
+            question = request.POST.get('request', None)
+            response = request.POST.get('response', None)
+            result = add_rfi_response(type_, id_, topic, response, question, user, get_user_organization(user))
+            set_releasability_flag(type_, id_, user)
+        elif action == 'toggle':
+            r_type = request.POST.get('r_type', None)
+            question = request.POST.get('request', None)
+            response = request.POST.get('response', None)
+            if r_type == 'Q':
+                result = toggle_rfi_status(type_, id_, user, topic, question)
+            elif r_type == 'A':
+                result = toggle_rfi_status(type_, id_, user, topic, question, response)
+            else:
+                result = {'success':False, 'message': 'Toggle not valid'}
+        else:
+            result = {'success':False, 'message': 'Action not valid'}
+
+        if result['success']:
+            subscription = {
+                'type': type_,
+                'id': id_
+            }
+            html = render_to_string('rfi_list_widget.html',
+                                    {'rfi': result['obj'],
+                                     'subscription': subscription},
+                                    RequestContext(request))
+            response = {'success': result['success'],
+                        'html': html}
+        else:
+            response = {'success': result['success'],
+                        'error': result['message']}
+        return HttpResponse(json.dumps(response),
+                            mimetype="application/json")
+    else:
+        error = "Expected AJAX POST!"
+        return render_to_response("error.html",
+                                  {"error" : error },
+                                  RequestContext(request))
 
 @user_passes_test(user_can_view_data)
 def source_tlp(request):

@@ -294,6 +294,12 @@ class AddUserRoleForm(forms.Form):
     required_css_class = 'required'
     role = forms.CharField(widget=forms.TextInput, required=True)
 
+class RFIForm(forms.Form):
+
+    error_css_class = 'error'
+    required_css_class = 'required'
+    item = forms.CharField(widget=forms.Textarea(attrs={'rows':6, 'cols':40}))
+
 class DownloadFileForm(forms.Form):
     """
     Django form for downloading a top-level object.

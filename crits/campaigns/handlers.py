@@ -32,6 +32,9 @@ from crits.samples.sample import Sample
 from crits.targets.handlers import get_campaign_targets
 from crits.targets.target import Target
 
+from crits.core.crits_mongoengine import create_embedded_source
+from crits.core.user_tools import get_user_organization
+
 
 # Functions for top level Campaigns.
 def get_campaign_names_list(active):
@@ -320,6 +323,11 @@ def add_campaign(name, description, aliases, analyst, bucket_list=None,
         campaign.add_bucket_list(bucket_list, analyst)
     if ticket:
         campaign.add_ticket(ticket, analyst)
+
+    source = create_embedded_source(name=get_user_organization(analyst),
+                                    analyst=analyst)
+
+    campaign.source = [source]
 
     # Adjust aliases.
     if isinstance(aliases, basestring):

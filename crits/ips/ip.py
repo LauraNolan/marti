@@ -1,11 +1,11 @@
 from mongoengine import Document, StringField
 from django.conf import settings
 
-from crits.core.crits_mongoengine import CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument
+from crits.core.crits_mongoengine import CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument, MartiRFIDocument
 from crits.ips.migrate import migrate_ip
 
 
-class IP(CritsBaseAttributes, CritsActionsDocument, CritsSourceDocument, Document):
+class IP(CritsBaseAttributes, CritsActionsDocument, CritsSourceDocument, Document, MartiRFIDocument):
     """
     IP class.
     """
