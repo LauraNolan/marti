@@ -1231,7 +1231,7 @@ class MartiRFIDocument(BaseDocument):
         for c, rFi in enumerate(self.rfi):
             if rFi.topic == topic:
                 for c, qs in enumerate(rFi.instance):
-                    if qs.request.rfi == rfi:
+                    if qs.request.rfi == rfi.encode('utf-8'):
                         return {'success': False, 'message': 'RFI Request already exists'}
                 rFi.instance.append(question)
                 return {'success': True, 'message': 'Done'}
