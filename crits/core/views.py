@@ -221,11 +221,9 @@ def get_dialog(request):
     :type request: :class:`django.http.HttpRequest`
     :returns: :class:`django.http.HttpResponse`
     """
-    print 'inside of function'
 
     dialog = request.GET.get('dialog', '')
 
-    print dialog
     # Regex in urls.py doesn't seem to be working, should sanity check dialog
     return render_to_response(dialog + ".html",
                               {"error" : 'Dialog not found'},

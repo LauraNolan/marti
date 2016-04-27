@@ -917,6 +917,45 @@ function releasability_add_submit(e) {
         });
 }
 
+function rfi_add(e) {
+    var widget = $(e.currentTarget);
+    var action = widget.attr('data-action');;
+    var me = $('#rfi_list');
+
+    if (action == 'new'){
+        var topic = document.getElementById("rfi_topic").value;
+        var data = {'type': type, 'id': id, 'topic': topic, 'action': action};
+    } else if (action == 'request') {
+        var topic = widget.attr('data-topic');
+        var request = document.getElementById(topic).value;
+        var data = {'type': type, 'id': id, 'topic': topic, 'request': request, 'action': action};
+    } else if (action == 'response'){
+        var topic = widget.attr('data-topic');
+        var request = widget.attr('data-request');
+        var response = document.getElementById(request).value;
+        var data = {'type': type, 'id': id, 'topic': topic, 'request': request, 'response': response, 'action': action};
+    } else if (action == 'toggle'){
+        var topic = widget.attr('data-topic');
+        var request = widget.attr('data-request');
+        var response = widget.attr('data-response');
+        var r_type = widget.attr('data-type')
+        var data = {'type': type, 'id': id, 'topic': topic, 'request': request, 'response': response, 'action': action, 'r_type':r_type};
+    }
+
+    $.ajax({
+            type: "POST",
+        url: widget.attr("action"),
+        data: data,
+        async: false,
+        datatype: 'json',
+        success: function(result) {
+                if (result.success) {
+                    me.html(result.html);
+                }
+            }
+        });
+}
+
 function tlp_set_submit(e) {
     var widget = $(e.currentTarget);
     var color;
@@ -1297,7 +1336,6 @@ var stdDialogs = {
       $('#dialog-comments').find('#id_url_key,#id_subscribable').val(comments_url_key);
       });
 
-
   $("#dialog-new-indicator").on("dialogcreate", new_indicator_dialog);
 
   // Releasability has plus instance and delete buttons that use same callback
@@ -1309,6 +1347,9 @@ var stdDialogs = {
 
     $(document).on('click', '.set_tlp_button',
         tlp_set_submit);
+
+    $(document).on('click', '.rfi_add_button',
+        rfi_add);
 
   // XXX We may want confirmation dialogs on these remove buttons...
   // Perhaps convert these to "deleteClick" style in the future.
