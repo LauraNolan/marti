@@ -312,11 +312,11 @@ def add_campaign(name, description, aliases, analyst, bucket_list=None,
     # Verify the Campaign does not exist.
     campaign = Campaign.objects(name=name).first()
     if campaign:
+        if campaign.check_message_received(id):
+            return {'success': False, 'message': 'dup'}
+
         return {'success': False, 'message': ['Campaign already exists.'],
                 'id': str(campaign.id)}
-
-    if campaign.check_message_received(id):
-        return {'success': False, 'message': 'dup'}
 
     # Create new campaign.
     campaign = Campaign(name=name)

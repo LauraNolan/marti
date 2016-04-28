@@ -1258,7 +1258,6 @@ class MartiRFIDocument(BaseDocument):
                         for e, rs in enumerate(rFi.instance[d].response):
                             if rs.rfi == rfi_response.encode('utf-8'):
                                 return {'success': False, 'message': 'RFI Response already exists'}
-                        rFi.instance[d].request.status = 'OLD'
                         rFi.instance[d].response.append(response)
                         return {'success': True, 'message': 'Done'}
 
