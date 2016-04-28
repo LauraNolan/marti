@@ -531,10 +531,6 @@ def add_rfi_item(request):
     """
 
     if request.method == 'POST' and request.is_ajax():
-        form = RFIForm(request.POST)
-        if form.is_valid():
-            cleaned_data = form.cleaned_data
-            print "this is it: ", cleaned_data
         type_ = request.POST.get('type', None)
         id_ = request.POST.get('id', None)
         topic = request.POST.get('topic', None)
