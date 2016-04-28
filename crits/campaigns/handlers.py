@@ -290,7 +290,7 @@ def generate_campaign_jtable(request, option):
                                   RequestContext(request))
 
 def add_campaign(name, description, aliases, analyst, bucket_list=None,
-                 ticket=None, source=None):
+                 ticket=None, source=None, id=None):
     """
     Add a Campaign.
 
@@ -314,6 +314,9 @@ def add_campaign(name, description, aliases, analyst, bucket_list=None,
     if campaign:
         return {'success': False, 'message': ['Campaign already exists.'],
                 'id': str(campaign.id)}
+
+    if campaign.check_message_received(id):
+        return {'success': False, 'message': 'dup'}
 
     # Create new campaign.
     campaign = Campaign(name=name)
