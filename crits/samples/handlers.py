@@ -724,12 +724,6 @@ def handle_file(filename, data, source, method='Generic', reference='',
         retVal['success'] = False
         retVal['message'] = "At least MD5 hash is required."
         return retVal
-   
-    # MD : Limit file size upload - anything larger than a GB is dropped
-    if data and data_size > 1000000000:
-        retVal['success'] = False
-        retVal['message'] = "File upload cannot exceed 1GB."
-        return retVal
 
     if md5_digest:
         # validate md5
