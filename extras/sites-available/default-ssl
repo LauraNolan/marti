@@ -3,9 +3,9 @@ ExtendedStatus On
 
 WSGIApplicationGroup %{GLOBAL}
 WSGISocketPrefix /var/run/wsgi
-WSGIDaemonProcess marti python-path=/opt/crits/crits:/usr/lib/python2.7/dist-packages
+WSGIDaemonProcess marti python-path=/opt/marti/marti:/usr/lib/python2.7/dist-packages
 WSGIProcessGroup marti
-WSGIScriptAlias / /opt/crits/crits/django.wsgi process-group=marti application-group=%{GLOBAL}
+WSGIScriptAlias / /opt/marti/marti/django.wsgi process-group=marti application-group=%{GLOBAL}
 
 <IfModule mod_ssl.c>
 <VirtualHost _default_:443>
@@ -15,20 +15,20 @@ WSGIScriptAlias / /opt/crits/crits/django.wsgi process-group=marti application-g
     CustomLog /var/log/apache2/ssl_access.log combined
 
     SSLEngine on
-    SSLCertificateFile    /etc/ssl/certs/crits.crt
-    SSLCertificateKeyFile /etc/ssl/private/crits.plain.key
+    SSLCertificateFile    /etc/ssl/certs/marti.crt
+    SSLCertificateKeyFile /etc/ssl/private/marti.plain.key
     SSLProtocol All -SSLv2 -SSLv3
 
-    DocumentRoot "/opt/crits/crits/extras/www"
-    Alias /static/ /opt/crits/crits/extras/www/static/
-    Alias /js/ /opt/crits/crits/extras/www/js/
-    Alias /css/ /opt/crits/crits/extras/www/css/
-    Alias /ext/ /opt/crits/crits/extras/www/ext/
-    Alias /images/ /opt/crits/crits/extras/www/images/
-    Alias /img/ /opt/crits/crits/extras/www/images/
-    Alias /new_images/ /opt/crits/crits/extras/www/new_images/
-    Alias /plugin/ /opt/crits/crits/extras/www/plugin/
-    Alias /favicon.ico /opt/crits/crits/extras/www/favicon.ico
+    DocumentRoot "/opt/marti/marti/extras/www"
+    Alias /static/ /opt/marti/marti/extras/www/static/
+    Alias /js/ /opt/marti/marti/extras/www/js/
+    Alias /css/ /opt/marti/marti/extras/www/css/
+    Alias /ext/ /opt/marti/marti/extras/www/ext/
+    Alias /images/ /opt/marti/marti/extras/www/images/
+    Alias /img/ /opt/marti/marti/extras/www/images/
+    Alias /new_images/ /opt/marti/marti/extras/www/new_images/
+    Alias /plugin/ /opt/marti/marti/extras/www/plugin/
+    Alias /favicon.ico /opt/marti/marti/extras/www/favicon.ico
 
 </VirtualHost>
 </IfModule>
@@ -43,14 +43,14 @@ WSGIScriptAlias / /opt/crits/crits/django.wsgi process-group=marti application-g
     MaxRequestsPerChild   0
 </IfModule>
 
-<Location /server-status>
-SetHandler server-status
+#<Location /server-status>
+#SetHandler server-status
 
-Require all granted
-</Location>
+#Require all granted
+#</Location>
 
-<Location /server-info>
-SetHandler server-info
+#<Location /server-info>
+#SetHandler server-info
 
-Require all granted
-</Location>
+#Require all granted
+#</Location>
