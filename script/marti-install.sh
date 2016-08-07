@@ -27,14 +27,13 @@ TITLE="Installation Menu"
 MENU="Choose one of the following options:"
 DIR=/opt/marti/marti
 
-OPTIONS=(1  "Download MARTI"
-    2  "Install MARTI"
-    3  "Create temporary ssl cert"
-    4    "Setup apache instance"
-    5    "Initialize log file"
-    6     "Adjust TCP for many users"
-    7      "Start Marti server"
-    8      "TO EXIT")
+OPTIONS=(1  "Install MARTI"
+    2  "Create temporary ssl cert"
+    3    "Setup apache instance"
+    4    "Initialize log file"
+    5     "Adjust TCP for many users"
+    6      "Start Marti server"
+    7      "TO EXIT")
 
 ##############################################################################
 #                      Define Functions Here                                 #
@@ -48,29 +47,6 @@ OPTIONS=(1  "Download MARTI"
 deletetempfiles()
 {
     rm -f *.$$
-}
-
-######################## Grab_MARTI function #################################
-
-# Sets up the folders and clones the repo
-
-grab_marti()
-{
-    echo "[*] Making directories and cloning repositories"
-    sudo chmod 777 /opt
-    cd /opt
-    mkdir marti
-    cd marti
-    echo "[*] Cloning marti-services repo"
-    git clone apluser@marti.taxii.jhuapl.edu:/opt/git/marti-services.git
-    cd marti-services
-    git checkout dev
-    cd ../
-    echo "[*] Cloning marti repo"
-    git clone apluser@marti.taxii.jhuapl.edu:/opt/git/marti.git
-    cd marti
-    git checkout dev
-
 }
 
 ######################## adjust_tcp function #################################
@@ -191,14 +167,13 @@ do
 
            0) case $choice in
 
-                  1)    grab_marti ;;
-                  2)    install ;;
-                  3)    temp_cert ;;
-                  4)    apache_setup ;;
-                  5)    init_log ;;
-                  6)    adjust_tcp ;;
-                  7)    start_marti ;;
-                  8)       clear; exit 0;;
+                  1)    install ;;
+                  2)    temp_cert ;;
+                  3)    apache_setup ;;
+                  4)    init_log ;;
+                  5)    adjust_tcp ;;
+                  6)    start_marti ;;
+                  7)       clear; exit 0;;
 
               esac ;;
 

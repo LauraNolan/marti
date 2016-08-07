@@ -16,6 +16,15 @@ If you require the use of a 32-bit OS, you will need to download 32-bit versions
 
 The following instructions assume you are running Ubuntu or RHEL6 64-bit with Python 2.7. If you are on RHEL which does not come with Python 2.7, you will need to install it. If you do, ensure all python library dependencies are installed using Python 2.7. Also, make sure you install mod_wsgi against the Python 2.7 install if you are looking to use Apache. More information on this can be found in the Github wiki at https://github.com/crits/crits/wiki/Common-Questions.
 
+## Apache ssl install
+Assuming you cloned the marti and marti-services into /opt/marti, you can run the [marti-install](script/marti-install.sh) script. 
+
+If you cloned MARTI into a different location you can change the DIR variable before running the script.
+
+This script sets up the environment by installing the python libraries needed to properly run bootstrap and then also sets up the apache ssl options (many of which are done manually in the [production](#production-crits-install) section.
+
+![Marti-Install-Menu](images/marti-install.png)
+
 ## Quick install using bootstrap
 
 CRITs comes with a bootstrap script which will help you:
