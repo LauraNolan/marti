@@ -102,7 +102,7 @@ def forge_relationship(type_=None, id_=None,
                                                 analyst=user,
                                                 rel_confidence=rel_confidence,
                                                 rel_reason=rel_reason)
-                else:
+                else:   #Always check for class from value first
                     rel_item = class_from_value(right_type, right_id)
                     if not rel_item:
                         rel_item = class_from_id(right_type, right_id)
