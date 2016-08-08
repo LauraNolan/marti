@@ -78,6 +78,9 @@ class Campaign(CritsBaseAttributes, CritsActionsDocument, Document, MartiRFIDocu
     ttps = ListField(EmbeddedDocumentField(EmbeddedTTP), default=[])
 
     def get_url_key(self):
+        """
+        Return the identifier for this item
+        """
         return self.name
 
     def migrate(self):
