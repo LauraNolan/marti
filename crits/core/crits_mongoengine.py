@@ -1364,12 +1364,31 @@ class CritsBaseAttributes(CritsDocument, CritsBaseDocument,
     tlp = StringField()
 
     def set_sighting(self, date, value):
+        """
+        Set the organizations sighting to this top-level object.
+
+        :param value: The value of the sighting
+        :type value: T/F
+        :param date: The date of the sighting
+        :type date:  DateTimeField
+        :returns: dict with keys "success" (boolean) and "message" (str)
+        """
+
         self.sightings.sighting = value
         self.sightings.date = date
 
         return {'success': True, 'message': 'Sighting successfully updated!'}
 
     def add_sighting(self, name, date):
+        """
+        Add a sighting to this top-level object.
+
+        :param name: The name of the organization to add.
+        :type name: :class:`crits.core.crits_mongoengine.SightingInstance` or string
+        :param date: The date of the sighting
+        :type date:  DateTimeField
+        :returns: dict with keys "success" (boolean) and "message" (str)
+        """
 
         if settings.COMPANY_NAME == name:
             return {'success': False, 'message': 'Sighting is self'}
