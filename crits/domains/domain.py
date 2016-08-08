@@ -77,6 +77,9 @@ class Domain(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
     analyst = StringField()
 
     def get_url_key(self):
+        """
+        Return the identifier for this item
+        """
         return self.domain
 
     def migrate(self):

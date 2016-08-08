@@ -48,6 +48,9 @@ class IP(CritsBaseAttributes, CritsActionsDocument, CritsSourceDocument, Documen
     ip_type = StringField(default="Address - ipv4-addr", db_field="type")
 
     def get_url_key(self):
+        """
+        Return the identifier for this item
+        """
         return self.ip
 
     def migrate(self):
