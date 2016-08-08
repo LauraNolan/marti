@@ -75,6 +75,9 @@ class Sample(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
     ssdeep = StringField()
 
     def get_url_key(self):
+        """
+        Return the identifier for this item
+        """
         return self.md5
 
     def migrate(self):
