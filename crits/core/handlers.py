@@ -563,7 +563,21 @@ def set_tlp(type_, id_, value, user):
                 'message': "Could not add tlp: %s" % e}
 
 def set_sighting(type_, id_, date, value, user):
+    """
+    Set sighting of a top-level object.
 
+    :param type_: The CRITs type of the top-level object.
+    :type type_: str
+    :param id_: The ObjectId to search for.
+    :type id_: str
+    ;param date: The date of the sighting
+    ;type date:  DateTime
+    :param value: The value of the sighting. (T/F)
+    :type value: boolean
+    :param user: The user adding the sighting.
+    :type user: str
+    :returns: dict with keys "success" (boolean) and "message" (str)
+    """
     obj = class_from_id(type_, id_)
 
     if not obj:
@@ -582,6 +596,21 @@ def set_sighting(type_, id_, date, value, user):
                 'message': "Could not add sighting: %s" % e}
 
 def add_sighting(type_, id_, name, date, user):
+    """
+    Add sighting to a top-level object.
+
+    :param type_: The CRITs type of the top-level object.
+    :type type_: str
+    :param id_: The ObjectId to search for.
+    :type id_: str
+    :param name: The organization to add sighting for.
+    :type name: str
+    ;param date: The date of the sighting
+    ;type date:  DateTime
+    :param user: The user adding the sighting.
+    :type user: str
+    :returns: dict with keys "success" (boolean) and "message" (str)
+    """
 
     obj = class_from_id(type_, id_)
 
