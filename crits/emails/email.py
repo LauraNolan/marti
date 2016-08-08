@@ -119,6 +119,9 @@ class Email(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
     x_mailer = StringField()
 
     def get_url_key(self):
+        """
+        Return the identifier for this item
+        """
         return self.message_id
 
     def migrate(self):
