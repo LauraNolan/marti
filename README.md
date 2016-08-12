@@ -8,6 +8,18 @@ CRITs is a web-based tool which combines an analytic engine with a cyber threat 
 
 Visit our [website](https://crits.github.io) for more information, documentation, and links to community content such as our mailing lists and IRC channel.
 
+# What Is MARTI?
+
+The Mission Analysis and Research of Threat Information (MARTI) is a modification to CRITs that enables the creation of collaborative communities of cyber threat information sharing. MARTI incorporates STIX(TM) and TAXII(TM), standards developed by The MITRE Corporation under funding from the Department of Homeland Security (DHS). MARTI was developed by the Johns Hopkins University Applied Physics Laboratory (JHU/APL) under internal funding in 2016 to enable a concept called the Integrated Threat Analysis Capability (ITAC). The ITAC represents an analysis center, such as a State Fusion Center, Joint Operations Center (JOC), or Information Sharing Analysis Organization (ISAO). The ITAC can also be an analytical capability that can be added to existing environments to coordinate responses to distributed cyber threats. MARTI is based on the Dec 2015 version of CRITs and adds the following features to CRITs:
+- Auto-polling and auto-inboxing for STIX(TM) messages to be shared via the taxii_service
+- Releasability sets an object to auto-inbox and send on the selected feed whenever a field is modified
+- Traffic Light Protocol (TLP) per the DHS standard
+- Sightings based on the STIX(TM) format
+- Cyber Kill Chain based on the Lockheed Martin publication
+- Comments are sent via the STIX(TM) message unless marked private
+- Sample and Email TLOs can be downloaded as an Intelligence Report (INTREP) which puts all fields into a Word or text document
+- Some CRITs Top Level Objects (TLOs) are commented out of MARTI for ease of training new analysts, but can be un-commented for experienced users
+
 # Installation
 
 CRITs is designed to work on a 64-bit architecture of Ubuntu or RHEL6 using Python 2.7. Installation has beta support for OSX using Homebrew. It is also possible to install CRITs on CentOS.
