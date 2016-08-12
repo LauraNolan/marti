@@ -433,6 +433,22 @@ def get_data_for_item(item_type, item_id):
     return response
 
 def add_rfi(type_,id_, topic, analyst, source, date=None):
+    """
+    Adds a new RFI
+
+    :param type_: The CRITs type of the top-level object.
+    :type type_: str
+    :param id_: The ObjectId to search for.
+    :type id_: str
+    :param topic: The topic of the RFI.
+    :type topic: str
+    :param analyst: The user adding this RFI topic.
+    :type analyst: str
+    :param source: The source of the user.
+    :type source: str
+    :param date: The date added.
+    :type date: datetime
+    """
 
     obj = class_from_id(type_, id_)
 
@@ -458,6 +474,26 @@ def add_rfi(type_,id_, topic, analyst, source, date=None):
                 'message': "Could not add new RFI: %s" % e}
 
 def add_rfi_request(type_,id_, topic, rfi, analyst, source, date=None, status=None):
+    """
+    Adds a new RFI response
+
+    :param type_: The CRITs type of the top-level object.
+    :type type_: str
+    :param id_: The ObjectId to search for.
+    :type id_: str
+    :param topic: The topic of the RFI.
+    :type topic: str
+    :param rfi: The response of the RFI.
+    :type rfi: str
+    :param analyst: The user adding this RFI topic.
+    :type analyst: str
+    :param source: The source of the user.
+    :type source: str
+    :param date: The date added.
+    :type date: datetime
+    :param status: The status of the RFI.
+    :type status: str
+    """
 
     obj = class_from_id(type_, id_)
 
@@ -487,6 +523,23 @@ def add_rfi_request(type_,id_, topic, rfi, analyst, source, date=None, status=No
                 'message': "Could not add RFI Question: %s" % e}
 
 def toggle_rfi_status(type_,id_, analyst, topic, question, response=None):
+    """
+    Toggles the RFI status of item (OLD/NEW)
+
+    :param type_: The CRITs type of the top-level object.
+    :type type_: str
+    :param id_: The ObjectId to search for.
+    :type id_: str
+    :param analyst: The user adding this RFI topic.
+    :type analyst: str
+    :param topic: The topic of the RFI.
+    :type topic: str
+    :param question: The request of the RFI.
+    :type question: str
+    :param response: The response of the RFI.
+    :type response: str
+    """
+
     obj = class_from_id(type_, id_)
 
     if not obj:
@@ -511,6 +564,28 @@ def toggle_rfi_status(type_,id_, analyst, topic, question, response=None):
                 'message': "Could not toggle RFI Status: %s" % e}
 
 def add_rfi_response(type_,id_, topic, response, question, analyst, source, date=None, status=None):
+    """
+    Adds a new RFI response
+
+    :param type_: The CRITs type of the top-level object.
+    :type type_: str
+    :param id_: The ObjectId to search for.
+    :type id_: str
+    :param topic: The topic of the RFI.
+    :type topic: str
+    :param response: The response of the RFI.
+    :type response: str
+    :param question: The request of the RFI.
+    :type question: str
+    :param analyst: The user adding this RFI topic.
+    :type analyst: str
+    :param source: The source of the user.
+    :type source: str
+    :param date: The date added.
+    :type date: datetime
+    :param status: The status of the RFI.
+    :type status: str
+    """
 
     obj = class_from_id(type_, id_)
 
@@ -536,6 +611,19 @@ def add_rfi_response(type_,id_, topic, response, question, analyst, source, date
                 'message': "Could not add RFI Answer: %s" % e}
 
 def set_tlp(type_, id_, value, user):
+    """
+    Set tlp of a top-level object.
+
+    :param type_: The CRITs type of the top-level object.
+    :type type_: str
+    :param id_: The ObjectId to search for.
+    :type id_: str
+    :param value: The value of the sighting. (T/F)
+    :type value: boolean
+    :param user: The user adding the sighting.
+    :type user: str
+    :returns: dict with keys "success" (boolean) and "message" (str)
+    """
 
     if value not in ['AMBER', 'RED', 'GREEN', 'WHITE']:
         return {'success': False,

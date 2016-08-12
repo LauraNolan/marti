@@ -10,6 +10,8 @@ Added option for setting comment to private in [forms.py](forms.py) and [comment
 private = forms.BooleanField(required=False, label='private', help_text='Check to keep comment internal')
 ```
 
+![comment_private](../../images/comment_private.gif)
+
 ---
 
 Added in a duplication check for incoming taxii messages. Comments are checked against the edit date as well as the comment text. 
@@ -25,6 +27,8 @@ if not comment.private:
 
 # Bug fix
 Added an option to export comment without converting to html ([handlers.py](handlers.py))
+
+This is what allowed comments to be sent via TAXII.
 
 ```python
 if html:

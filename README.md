@@ -33,7 +33,9 @@ Assuming you cloned the marti and marti-services into /opt/marti, you can run th
 
 If you cloned MARTI into a different location you can change the DIR variable before running the script.
 
-This script sets up the environment by installing the python libraries needed to properly run bootstrap and then also sets up the apache ssl options (many of which are done manually in the [production](#production-crits-install) section.
+This script sets up the environment by installing the python libraries needed to properly run bootstrap and then also sets up the apache ssl options (many of which are done manually in the [production](#production-crits-install) section).
+
+NOTE: Make sure to write down the temporary password during the 'Install MARTI' step. If you forget, you will need to use manage.py to reset it (see crits documentation).
 
 ![Marti-Install-Menu](images/marti-install.png)
 

@@ -1139,11 +1139,15 @@ class EmbeddedLocation(EmbeddedDocument, CritsDocumentFormatter):
     date = DateTimeField(default=datetime.datetime.now)
 
 class RFIItem(EmbeddedDocument, CritsDocumentFormatter):
-        rfi = StringField()
-        status = StringField(required=True, default='NEW')
-        date = DateTimeField(default=datetime.datetime.now)
-        analyst = StringField()
-        source = StringField()
+    """
+    RFIItem class
+    """
+
+    rfi = StringField()
+    status = StringField(required=True, default='NEW')
+    date = DateTimeField(default=datetime.datetime.now)
+    analyst = StringField()
+    source = StringField()
 
 class EmbeddedRFI(EmbeddedDocument, CritsDocumentFormatter):
     """
@@ -1151,6 +1155,9 @@ class EmbeddedRFI(EmbeddedDocument, CritsDocumentFormatter):
     """
 
     class RFIInstance(EmbeddedDocument, CritsDocumentFormatter):
+        """
+        RFIInstance class
+        """
 
         request = EmbeddedDocumentField(RFIItem, default=RFIItem)
         response = ListField(EmbeddedDocumentField(RFIItem, default=RFIItem))
@@ -1169,6 +1176,16 @@ class MartiRFIDocument(BaseDocument):
     rfi = ListField(EmbeddedDocumentField(EmbeddedRFI), required=False)
 
     def toggle_rfi_status(self, topic, request, response=None):
+        """
+        Toggles the RFI status of item (OLD/NEW)
+
+        :param topic: The topic of the RFI.
+        :type topic: str
+        :param request: The request of the RFI.
+        :type request: str
+        :param response: The response of the RFI.
+        :type response: str
+        """
 
         for c, rFi in enumerate(self.rfi):
             if rFi.topic == topic:
@@ -1198,6 +1215,18 @@ class MartiRFIDocument(BaseDocument):
         return {'success': False, 'message': 'Item doesn\'t exist'}
 
     def new_rfi_topic(self, topic, analyst, source, date=None):
+        """
+        Adds a new RFI topic
+
+        :param topic: The topic of the RFI.
+        :type topic: str
+        :param analyst: The user adding this RFI topic.
+        :type analyst: str
+        :param source: The source of the user.
+        :type source: str
+        :param date: The date added.
+        :type date: datetime
+        """
 
         for c, r in enumerate(self.rfi):
             if r.topic == topic:
@@ -1216,6 +1245,22 @@ class MartiRFIDocument(BaseDocument):
         return {'success': True, 'message': 'Done'}
 
     def rfi_request(self, topic, rfi, analyst, source, date=None, status=None):
+        """
+        Adds a new RFI request
+
+        :param topic: The topic of the RFI.
+        :type topic: str
+        :param rfi: The request of the RFI.
+        :type rfi: str
+        :param analyst: The user adding this RFI topic.
+        :type analyst: str
+        :param source: The source of the user.
+        :type source: str
+        :param date: The date added.
+        :type date: datetime
+        :param status: The status of the RFI.
+        :type status: str
+        """
 
         question = EmbeddedRFI.RFIInstance()
 
@@ -1238,7 +1283,25 @@ class MartiRFIDocument(BaseDocument):
 
         return {'success': False, 'message': 'Missing RFI Topic'}
 
-    def rfi_response(self, topic, rfi_response, rfi_question, analyst, source, date=None, status=None):
+    def rfi_response(self, topic, rfi_response, rfi_request, analyst, source, date=None, status=None):
+        """
+        Adds a new RFI response
+
+        :param topic: The topic of the RFI.
+        :type topic: str
+        :param rfi_response: The response of the RFI.
+        :type rfi_response: str
+        :param rfi_request: The request of the RFI.
+        :type rfi_request: str
+        :param analyst: The user adding this RFI topic.
+        :type analyst: str
+        :param source: The source of the user.
+        :type source: str
+        :param date: The date added.
+        :type date: datetime
+        :param status: The status of the RFI.
+        :type status: str
+        """
 
         response = RFIItem()
 
@@ -1254,7 +1317,7 @@ class MartiRFIDocument(BaseDocument):
         for c, rFi in enumerate(self.rfi):
             if rFi.topic == topic:
                 for d, qs in enumerate(rFi.instance):
-                    if qs.request.rfi == rfi_question.encode('utf-8'):
+                    if qs.request.rfi == rfi_request.encode('utf-8'):
                         for e, rs in enumerate(rFi.instance[d].response):
                             if rs.rfi == rfi_response.encode('utf-8'):
                                 return {'success': False, 'message': 'RFI Response already exists'}

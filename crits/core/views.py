@@ -591,7 +591,7 @@ def add_rfi_item(request):
 @user_passes_test(user_can_view_data)
 def source_tlp(request):
     """
-    Modify a top-level object's sightings. Should be an AJAX POST.
+    Modify a top-level object's tlp. Should be an AJAX POST.
 
     :param request: Django request.
     :type request: :class:`django.http.HttpRequest`
