@@ -19,7 +19,7 @@ The function names and descriptions are listed below but I encourage you to look
 
 A sighting is a way for a user to say they saw a TLO. This is important because now that TLO's are shared, one can obtain a TLO that they have yet to see on their network.
 
-Sightings were based off of the way that CRITs implimented Releasability.
+Sightings were based off of the way that CRITs implemented Releasability.
 
 ---
 
@@ -129,7 +129,7 @@ To add to a TLO, add the following to the details page (the exmple below is for 
 
 ### Overview
 
-A TLP is a DHS standard for setting the sensativaty of an indicator (TLO).
+A TLP is a DHS standard for setting the sensitivity of an indicator (TLO).
 
 ---
 

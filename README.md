@@ -39,7 +39,7 @@ NOTE: Make sure to write down the temporary password during the 'Install MARTI' 
 
 ![Marti-Install-Menu](images/marti-install.png)
 
-## Quick install using bootstrap
+## Quick install using bootstrap (non-ssl, useful for development)
 
 CRITs comes with a bootstrap script which will help you:
 
