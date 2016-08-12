@@ -1,10 +1,10 @@
 # New items
 
-A couple new items were added to the core functionality. The function names and descriptions are listed below but I encourage you to look over the entire function in order to better understand how everything works.
+A couple new items were added to the core functionality. 
 
 [crits_mongoengine.py](crits_mongoengine.py) -> [handlers.py](handlers.py) -> [views.py](views.py) -> html templates
 
-Below the function names and descriptions will be listed, but I encourage you to look over the entire function to see how everything works together.
+The function names and descriptions are listed below but I encourage you to look over the entire function in order to better understand how everything works.
 
 * [Sightings](#sightings)
 * [TLP](#tlp)
