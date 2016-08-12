@@ -115,7 +115,7 @@ def source_sighting(request):
 
 ### Adding to TLO
 
-To add to a TLO, add the following to the details page (the exmple below is for a domain, modify accordingly).
+To add to a TLO, add the following to the details page (the example below is for a domain, modify accordingly).
 
 ```html
 {% with sightings=domain.sightings %}
@@ -178,7 +178,7 @@ def source_tlp(request):
 
 ### Adding to TLO
 
-To add to a TLO, add the following to the details page (the exmple below is for a domain, modify accordingly).
+To add to a TLO, add the following to the details page (the example below is for a domain, modify accordingly).
 
 ```html
 {% with tlp=domain.tlp %}
@@ -194,7 +194,7 @@ To add to a TLO, add the following to the details page (the exmple below is for 
 
 A RFI is used when an organization needs more information about a particular item. There is generally an RFI manager who will respond to requests.
 
-RFI was based off of the way that CRITs implimented Sources.
+RFI was based off of the way that CRITs implemented Sources.
 
 ---
 
@@ -362,14 +362,14 @@ def add_rfi_item(request):
 
 RFI is not included by default in a TLO, and therefore, it needs to be imported the same way as sources.
 
-Add the following to the main TLO decloration (the exmple below is for a domain, modify accordingly).
+Add the following to the main TLO declaration (the example below is for a domain, modify accordingly).
 
 ```python
 class Domain(CritsBaseAttributes, CritsSourceDocument, CritsActionsDocument,
              Document, MartiRFIDocument):
 ```
 
-Add the following to the details page (the exmple below is for a domain, modify accordingly).
+Add the following to the details page (the example below is for a domain, modify accordingly).
 
 ```html
 {% with rfi=domain.rfi %}
@@ -385,7 +385,7 @@ Add the following to the details page (the exmple below is for a domain, modify 
 
 A kill chain identifies where in the attack process the TLO is/was.
 
-Kill Chain was based off of the way CRITs implimeted Sectors.
+Kill Chain was based off of the way CRITs implemented Sectors.
 
 ---
 
@@ -437,7 +437,7 @@ def kill_chain_modify(request):
 
 ### Adding to TLO
 
-To add to a TLO, add the following to the details page (the exmple below is for a domain, modify accordingly).
+To add to a TLO, add the following to the details page (the example below is for a domain, modify accordingly).
 
 ```html
 {% with kill_chain=domain.kill_chain %}
@@ -466,7 +466,7 @@ Made email id the message_id ([class_mapper.py](class_mapper.py))
 
 ---
 
-Added urls for killchain, rfi, tlo, and sightings ([urls.py](urls.py))
+Added urls for kill chain, RFI, TLO, and sightings ([urls.py](urls.py))
 
 ---
 
