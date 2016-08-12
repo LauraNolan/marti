@@ -469,8 +469,9 @@ Made email id the message_id ([class_mapper.py](class_mapper.py))
 Added urls for kill chain, RFI, TLO, and sightings ([urls.py](urls.py))
 
 ---
+### INTREP 
 
-Updated dowload options to include intrep ([forms.py](forms.py))
+Updated download options to include INTREP ([forms.py](forms.py))
 
 ![intrep](../../images/intrep.gif)
 

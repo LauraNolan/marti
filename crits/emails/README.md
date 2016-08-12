@@ -51,11 +51,15 @@ def get_url_key(self):
 
 ---
 
-Set the repeatability flag to true when the user updates the header value of the email. ([views.py](views.py))
+Set the releasability flag to true when the user updates the header value of the email. ([views.py](views.py))
 
 ```python
 set_releasability_flag('Email', email_id, analyst)
 ```
+
+---
+
+Added ability to download INTREP in word/pdf format (see core [README](../core/README.md#intrep)).
 
 # Bug Fix
 

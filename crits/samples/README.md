@@ -51,3 +51,7 @@ def get_url_key(self):
     """
     return self.md5
 ```
+
+---
+
+Added ability to download INTREP in word/pdf format (see core [README](../core/README.md#intrep)).
