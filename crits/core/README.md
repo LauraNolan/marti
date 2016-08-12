@@ -1,6 +1,6 @@
 # New items
 
-A couple new items were added to the core functionality. To do this the database (low level) was added to the mongoengine, functions in handlers called those and the views utalized the handlers.
+A couple new items were added to the core functionality. The function names and descriptions are listed below but I encourage you to look over the entire function in order to better understand how everything works.
 
 [crits_mongoengine.py](crits_mongoengine.py) -> [handlers.py](handlers.py) -> [views.py](views.py) -> html templates
 
@@ -31,7 +31,7 @@ Sightings were based off of the way that CRITs implimented Releasability.
 
 ### Code Overview
 
-At it's core a sighting is simple a boolean for the users organization and a list of other organization names and dates that they saw the item.
+At its core a sighting is simply a boolean for the user's organization as well as a list of other organization names and dates who saw the item.
 
 [crits_mongoengine.py](crits_mongoengine.py)
 
@@ -141,7 +141,7 @@ A TLP is a DHS standard for setting the sensativaty of an indicator (TLO).
 
 ### Code Overview
 
-TLP is implemented with a simple string. The string is controlled in the handlers function where the color is checked against a set of valid colors. 
+TLP is implemented with a simple string. The string is controlled by the handlers function which checks the color against a set of valid colors. 
 
 [handlers.py](handlers.py)
 
@@ -192,7 +192,7 @@ To add to a TLO, add the following to the details page (the exmple below is for 
 
 ### Overview
 
-A RFI is used when an organization needs more information on a particular item. There is generally an RFI manager who will respond to requests.
+A RFI is used when an organization needs more information about a particular item. There is generally an RFI manager who will respond to requests.
 
 RFI was based off of the way that CRITs implimented Sources.
 
@@ -212,7 +212,7 @@ RFI was based off of the way that CRITs implimented Sources.
 
 ### Code Overview
 
-An RFI item is a three level deep nested list of lists. Basically for each topic, there is a list of requests, and for each request there is a list of responses.
+An RFI item is a three level deep nested list of lists. For each topic, there is a list of requests, and for each request there is a list of responses.
 
 [crits_mongoengine.py](crits_mongoengine.py)
 
@@ -360,7 +360,7 @@ def add_rfi_item(request):
 
 ### Adding to TLO
 
-RFI is not included by default in a TLO, because of this it needs to be imported the same way as sources.
+RFI is not included by default in a TLO, and therefore, it needs to be imported the same way as sources.
 
 Add the following to the main TLO decloration (the exmple below is for a domain, modify accordingly).
 
@@ -383,7 +383,7 @@ Add the following to the details page (the exmple below is for a domain, modify 
 
 ### Overview
 
-A kill chain is to identify where in the attack process the TLO is/was.
+A kill chain identifies where in the attack process the TLO is/was.
 
 Kill Chain was based off of the way CRITs implimeted Sectors.
 
