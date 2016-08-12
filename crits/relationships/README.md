@@ -29,7 +29,7 @@ Added a TAXII trigger. This is done simply by setting the releasability flag whe
 
 # Bug fix
 
-Capitalized the relationship type, makes it easier to plug into the STIX message. 
+Capitalized the relationship type to make it easier to plug into the STIX message. 
 
 ```python
 if new_confidence not in ('Unknown', 'Low', 'Medium', 'High'):

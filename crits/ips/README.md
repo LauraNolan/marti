@@ -4,7 +4,7 @@ Commented out unused items from the [details page](templates/ip_detail.html), as
 
 ---
 
-Added in a duplication check for incoming taxii messages. This was done by checking to see if the recieved message id is the same as one that was sent.
+Added in a duplication check for incoming TAXII messages. This was done by checking to see if the received message id is the same as one that was sent.
   
 ```python
 if ip_object.check_message_received(id):
@@ -26,7 +26,7 @@ relationship = {
 
 ---
 
-Added RFI item to ip type ([ip.py](ip.py))
+Added RFI item to IP type ([ip.py](ip.py))
 
 ```python
 class IP(CritsBaseAttributes, CritsActionsDocument, CritsSourceDocument, Document, MartiRFIDocument):

@@ -4,7 +4,7 @@ Commented out unused items from the [details page](templates/campaign_detail.htm
 
 ---
 
-Added in a duplication check for incoming taxii messages.  
+Added in a duplication check for incoming TAXII messages.  
 
 ---
 
@@ -41,7 +41,7 @@ def get_url_key(self):
 
 ---
 
-Can now merge ttps ([handlers.py](handlers.py))
+Can now merge TTPS ([handlers.py](handlers.py))
 
 ```python
 def merge_ttp(id, ttp, analyst, date):
@@ -70,7 +70,7 @@ campaign = forms.CharField(widget=forms.TextInput, required=True, validators=[al
 
 ---
 
-Added a date check to ttps ([campaign.py](campaign.py))
+Added a date check to TTPS ([campaign.py](campaign.py))
 
 ```python
 if isinstance(ttp_item, EmbeddedTTP):

@@ -4,7 +4,7 @@ Commented out unused items from the [details page](templates/email_detail.html),
 
 ---
 
-Added in a duplication check for incoming taxii messages.  
+Added in a duplication check for incoming TAXII messages.  
 
 ---
 
@@ -21,7 +21,7 @@ Added url_key to relationship item ([handlers.py](handlers.py))
 
 ---
 
-Updated relationship link to use url_key ([email_listing_mini_widget.html](email_listing_mini_widget.html))
+Updated relationship link to use url_key ([email_listing_mini_widget.html](templates/email_listing_mini_widget.html))
 
 ```html
 {% for rel in rel_list %}

@@ -4,7 +4,7 @@ Commented out unused items from the [details page](templates/domain_detail.html)
 
 ---
 
-Added in a duplication check for incoming taxii messages.  
+Added in a duplication check for incoming TAXII messages.  
 
 ---
 
