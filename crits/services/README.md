@@ -1,5 +1,10 @@
 #Additions
-* Added walkthrough option to service config edit
+
+Added walkthrough option to service config edit.
+
+Used the intro.js library: https://github.com/usablica/intro.js
+
+(See taxii_service readme for example)
 
 ```python
 auto_inbox = forms.BooleanField(required=False,
