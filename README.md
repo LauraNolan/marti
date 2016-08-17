@@ -31,6 +31,8 @@ The following instructions assume you are running Ubuntu or RHEL6 64-bit with Py
 ## Apache ssl install
 Assuming you cloned the marti and marti-services into /opt/marti, you can run the [marti-install](script/marti-install.sh) script. 
 
+This script was developed and tested on a fresh install of ubuntu 16.04 server amd64.
+
 If you cloned MARTI into a different location you can change the DIR variable before running the script.
 
 This script sets up the environment by installing the python libraries needed to properly run bootstrap and then also sets up the apache ssl options (many of which are done manually in the [production](#production-crits-install) section).
