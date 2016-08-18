@@ -1,7 +1,5 @@
 # Welcome to MARTI
 
-![MARTI Logo](extras/www/new_images/marti-logo-FINAL-01.png)
-
 ## What Is MARTI?
 
 The Mission Analysis and Research of Threat Information (MARTI) is a modification to [CRITs](#what-is-crits) that enables the creation of collaborative communities for cyber threat information sharing. MARTI incorporates STIX(TM) and TAXII(TM), standards developed by The MITRE Corporation under funding from the Department of Homeland Security (DHS). MARTI was developed by the Johns Hopkins University Applied Physics Laboratory (JHU/APL) under internal funding in 2016 to support a new type of organization called the Integrated Threat Analysis Capability (ITAC). 
