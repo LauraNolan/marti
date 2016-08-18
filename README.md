@@ -24,12 +24,14 @@ CRITs is a web-based tool developed by MITRE, which combines an analytic engine 
 Visit their [website](https://crits.github.io) for more information, documentation, and links to community content such as their mailing lists and IRC channel.
 
 # Installation
-
+---
 MARTI can be installed manually or automated.
 
 The [manual](#manual) install instructions below are a replica of the CRITs manual install instructions.
 
 The [automated](#automated-install) instructions below were developed by the MARTI team to automate the manual CRITs installation [production](#production-install) process.
+
+---
 
 ## Automated Install
 
@@ -56,6 +58,8 @@ DIR=/opt/marti/marti
 NOTE: Make sure to write down the temporary password during the 'Install MARTI' step. If you forget, you will need to use manage.py to reset it (see crits documentation).
 
 ![Marti-Install-Menu](images/marti-install.png)
+
+---
 
 ## Manual Install
 
