@@ -4,7 +4,7 @@
 
 ## What Is MARTI?
 
-The Mission Analysis and Research of Threat Intelligence (MARTI) is a modification to [CRITs](#what-is-crits) that enables the creation of collaborative communities for cyber threat intelligence sharing. MARTI incorporates STIX(TM) and TAXII(TM), standards developed by The MITRE Corporation under funding from the Department of Homeland Security (DHS). MARTI was developed by the Johns Hopkins University Applied Physics Laboratory (JHU/APL) under internal funding in 2016 to support a new type of organization called the Integrated Threat Analysis Capability (ITAC). 
+The Mission Analysis and Research of Threat Intelligence (MARTI) is a modification to [CRITs](#what-is-crits) that enables the creation of collaborative communities for cyber threat intelligence sharing. MARTI incorporates STIX(TM) and TAXII(TM), standards developed by The MITRE Corporation under funding from the Department of Homeland Security (DHS). MARTI was developed by the Johns Hopkins University Applied Physics Laboratory (JHU/APL) under internal funding in 2016 to support a new concept called the Integrated Threat Analysis Capability (ITAC). 
 
 The ITAC represents an analysis center, such as a State Fusion Center, Joint Operations Center (JOC), or Information Sharing Analysis Organization (ISAO). The ITAC can also be an analytical capability that can be added to existing environments to coordinate responses to distributed cyber threats. MARTI is based on the Dec 2015 version of [CRITs](https://github.com/crits/crits/commit/af358a3e2897f92c13bb2de0bd0c0dd4e9455882) and [CRITs Services](https://github.com/crits/crits_services/commit/f5b92a40240d76d2f3667abebd043c45d85ffae4) and adds the following features to CRITs:
 
@@ -23,6 +23,14 @@ CRITs is a web-based tool developed by MITRE, which combines an analytic engine 
 
 Visit their [website](https://crits.github.io) for more information, documentation, and links to community content such as their mailing lists and IRC channel.
 
+# Dependencies
+---
+MARTI has the following dependencies:
+- Python
+- MongoDB
+- Apache Web Server
+- STIX(TM) and TAXII(TM)
+
 # Installation
 ---
 MARTI can be installed manually or automated.
@@ -35,11 +43,11 @@ The [automated](#automated-install) instructions below were developed by the MAR
 
 ## Automated Install
 
-The automated install script sets up the environment by installing the python libraries needed to properly run bootstrap and then also sets up the apache ssl options (many of which are done manually in the [production](#production-crits-install) section).
+The automated install script sets up the environment by installing the python libraries needed to properly run bootstrap and then also sets up the Apache SSL options (many of which are done manually in the [production](#production-crits-install) section).
 
 This script was developed and verified on a fresh install of ubuntu 16.04 server amd64.
 
-Assuming you cloned the marti and marti-services into /opt/marti/marti and /opt/marti/marti-services respectively. You can run the [marti-install](script/marti-install.sh) script. 
+Assuming you cloned the marti and marti-services into /opt/marti/marti and /opt/marti/marti-services respectively, run the [marti-install](script/marti-install.sh) script. 
 
 ```bash
 /opt/marti/marti/script/marti-install.sh
@@ -78,14 +86,14 @@ CRITs comes with a bootstrap script which will help you:
 * Get MongoDB running with default settings.
 * Use Django's runserver to quickly get you up and running with the CRITs interface.
 
-Just run the following:
+Run the following:
 
 ```bash
 
     sh script/bootstrap
 ```
 
-Once you've run bootstrap once, do not use it again to get the runserver going, you'll be going through the install process again. Instead use the server script:
+Once you've run bootstrap once, do not use it again to get the runserver going, as it would be going through the install process again. Instead use the server script:
 
 ```bash
 
@@ -96,4 +104,3 @@ Once you've run bootstrap once, do not use it again to get the runserver going, 
 
 If you are looking for a more permanent and performant CRITs installation or just interested in tweaking things, read more about setting up CRITs for [production](https://github.com/crits/crits/wiki/Production-grade-CRITs-install).
 
-**Thanks for using MARTI!**
