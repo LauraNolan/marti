@@ -101,12 +101,12 @@ Options 4 and 5 are optional but recommended.
 
 4. Initialize log file
 
-    This was taken from the crits production install (wiki)[https://github.com/crits/crits/wiki/Production-grade-CRITs-install#installing-the-codebase]. It sets up a crits user (so pick a strong password, you will probably NEVER need it after install, but a week password could pose a security threat). The crits user is used for logging and cron jobs.
+    This was taken from the crits production install [wiki](https://github.com/crits/crits/wiki/Production-grade-CRITs-install#installing-the-codebase). It sets up a crits user (so pick a strong password, you will probably NEVER need it after install, but a week password could pose a security threat). The crits user is used for logging and cron jobs.
 
 
 5. Adjust TCP for many users
 
-    This was taken from the crits production install (wiki)[https://github.com/crits/crits/wiki/Production-grade-CRITs-install#adjust-tcp-server-parameters] and will help with the heavy traffic flow typical with production environments. 
+    This was taken from the crits production install [wiki](https://github.com/crits/crits/wiki/Production-grade-CRITs-install#adjust-tcp-server-parameters) and will help with the heavy traffic flow typical with production environments. 
 
 
 6. Start MARTI server
