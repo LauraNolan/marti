@@ -17,6 +17,8 @@ The ITAC represents an analysis center, such as a State Fusion Center, Joint Ope
 - Sample and Email TLOs can be downloaded as an Intelligence Report (INTREP) that puts all fields into a Word or text document
 - Some CRITs Top Level Objects (TLOs) are commented out of MARTI for ease of training new analysts, but can be un-commented for experienced users
 
+Refer to the [MARTI Deployment Guide](documentation/MARTI_Deployment_Guide_v8.pdf) and [MARTI Configuration Guide](documentation/MARTI_Configuration_Guide_v11.pdf) for additional information.
+
 ## What Is CRITs?
 
 CRITs is a web-based tool developed by MITRE, which combines an analytic engine with a cyber threat database that not only serves as a repository for attack data and malware, but also provides analysts with a powerful platform for conducting malware analyses, correlating malware, and for targeting data. These analyses and correlations can also be saved and exploited within CRITs. CRITs employs a simple but very useful hierarchy to structure cyber threat intelligence. This structure gives analysts the power to 'pivot' on metadata to discover previously unknown related content.
@@ -101,7 +103,7 @@ Options 4 and 5 are optional but recommended. The following describes each item 
 
 4. Initialize Log File
 
-    This was taken from the CRITs production install [wiki](https://github.com/crits/crits/wiki/Production-grade-CRITs-install#installing-the-codebase). It sets up a "crits" user (so pick a strong password, you will probably NEVER need it after install, but a weak password could pose a security risk). The crits user is used for logging and cron jobs.
+    This was taken from the CRITs production install [wiki](https://github.com/crits/crits/wiki/Production-grade-CRITs-install#installing-the-codebase). This step was taken from the CRITs production installation wiki. It sets up a "crits" user for logging and cron jobs. Though the administrator will likely not use this account or password, it is advised to select a strong password, because a weak password could pose a security risk.
 
 
 5. Adjust TCP for Many Users
