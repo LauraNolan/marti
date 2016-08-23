@@ -32,7 +32,7 @@ OPTIONS=(1  "Install MARTI"
     3    "Setup apache instance"
     4    "Initialize log file"
     5     "Adjust TCP for many users"
-    6      "Start Marti server"
+    6      "Start MARTI server (apache/ssl)"
     7      "TO EXIT")
 
 ##############################################################################
@@ -76,8 +76,6 @@ install()
     echo "[*] Running marti setup"
     cd $DIR
     ./script/bootstrap
-    echo "[*] Installing apache"
-    sudo apt-get install -y apache2 libapache2-mod-wsgi
 
     mkdir /opt/certs
     cp $DIR-services/taxii_service/certs/* /opt/certs/
@@ -101,6 +99,8 @@ init_log()
 # Setup the apache server
 apache_setup()
 {
+    echo "[*] Installing apache"
+    sudo apt-get install -y apache2 libapache2-mod-wsgi
     echo "[*] Apache server setup"
     sudo service apache2 stop
     sudo rm -rf /etc/apache2/sites-available

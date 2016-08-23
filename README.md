@@ -67,6 +67,43 @@ NOTE: Make sure to write down the temporary password during the 'Install MARTI' 
 
 ![Marti-Install-Menu](images/marti-install.png)
 
+Running ONLY option 1 and then exiting will setup the machine as in the section [quick install using bootstrap](#quick-install-using-bootstrap-non-ssl-useful-for-development). You can then user the server script (described in that section) to start the server.
+
+To setup the machine for production use (apache and ssl), you MUST run options 1->2->3 (IN ORDER). 
+
+Options 4 and 5 are optional but recommended.
+
+
+1. Install Marti
+    This option installs any dependencies needed to run the bootstrap script from the [quick install using bootstrap](#quick-install-using-bootstrap-non-ssl-useful-for-development) section. It then runs that bootstrap script to finish the install.
+    When asked to create/start the databse, select 'Y'.
+    You will be presented with another menu, select 'a' for "add admin user". 
+    
+    ![Bootstrap Menu](images/bootstrap_menu.png)
+    
+    Make sure you leave the orginization name BLANK, as an organization doesn't currently exist and entering a name will cause the admin to not be created. Don't forget to write down the temp password, you will need this to log into the MARTI console after the installation is finished.
+
+    ![Add User](images/add_user.png)
+
+    Once you are done with adding a user, select 'q' to quite and continue with the installation. DO NOT START THE SERVER!
+       
+2. Create temporary ssl cert
+    This option sets up a temporary ssl cert to be used with the apache setup. 
+
+3. Setup apache instance
+    This option is dependent on option 2 and option 1. This will install apache and set the appropriate files to allow MARTI to run via apache with ssl.
+
+4. Initialize log file
+    This was taken from the crits production install (wiki)[https://github.com/crits/crits/wiki/Production-grade-CRITs-install#installing-the-codebase]. It sets up a crits user (so pick a strong password, you will probably NEVER need it after install, but a week password could pose a security threat). The crits user is used for logging and cron jobs.
+
+5. Adjust TCP for many users
+    This was taken from the crits production install (wiki)[https://github.com/crits/crits/wiki/Production-grade-CRITs-install#adjust-tcp-server-parameters] and will help with the heavy traffic flow typical with production environments. 
+
+6. Start MARTI server
+    This option will start the apache server. IT WILL ONLY WORK IF THE APACHE/SSL VERSION WAS INSTALLED.
+
+If you have any more questions, I recommend you take a look at the install script to see how things work.
+
 ---
 
 ## Manual Install
