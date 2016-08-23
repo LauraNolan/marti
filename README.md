@@ -75,6 +75,7 @@ Options 4 and 5 are optional but recommended.
 
 
 1. Install Marti
+
     This option installs any dependencies needed to run the bootstrap script from the [quick install using bootstrap](#quick-install-using-bootstrap-non-ssl-useful-for-development) section. It then runs that bootstrap script to finish the install.
     When asked to create/start the databse, select 'Y'.
     You will be presented with another menu, select 'a' for "add admin user". 
@@ -88,18 +89,23 @@ Options 4 and 5 are optional but recommended.
     Once you are done with adding a user, select 'q' to quite and continue with the installation. DO NOT START THE SERVER!
        
 2. Create temporary ssl cert
+
     This option sets up a temporary ssl cert to be used with the apache setup. 
 
 3. Setup apache instance
+
     This option is dependent on option 2 and option 1. This will install apache and set the appropriate files to allow MARTI to run via apache with ssl.
 
 4. Initialize log file
+
     This was taken from the crits production install (wiki)[https://github.com/crits/crits/wiki/Production-grade-CRITs-install#installing-the-codebase]. It sets up a crits user (so pick a strong password, you will probably NEVER need it after install, but a week password could pose a security threat). The crits user is used for logging and cron jobs.
 
 5. Adjust TCP for many users
+
     This was taken from the crits production install (wiki)[https://github.com/crits/crits/wiki/Production-grade-CRITs-install#adjust-tcp-server-parameters] and will help with the heavy traffic flow typical with production environments. 
 
 6. Start MARTI server
+
     This option will start the apache server. IT WILL ONLY WORK IF THE APACHE/SSL VERSION WAS INSTALLED.
 
 If you have any more questions, I recommend you take a look at the install script to see how things work.
