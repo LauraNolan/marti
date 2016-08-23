@@ -86,7 +86,7 @@ Options 4 and 5 are optional but recommended. The following describes each item 
     
    Leave the organization name BLANK, as an organization doesn't currently exist and entering a name will cause the admin to not be created. Write down the temporary password because you will need this to log into the MARTI console after the installation is finished.
 
-    ![Add User](images/add_user.png)
+   ![Add User](images/add_user.png)
 
     Once the user is added, select 'q' to quit and continue with the installation. IMPORTANT: Do Not Start the Server!
 
