@@ -17,7 +17,7 @@ The ITAC represents an analysis center, such as a State Fusion Center, Joint Ope
 - Sample and Email TLOs can be downloaded as an Intelligence Report (INTREP) that puts all fields into a Word or text document
 - Some CRITs Top Level Objects (TLOs) are commented out of MARTI for ease of training new analysts, but can be un-commented for experienced users
 
-Refer to the [MARTI Deployment Guide](documentation/MARTI_Deployment_Guide_v8.pdf) and [MARTI Configuration Guide](documentation/MARTI_Configuration_Guide_v11.pdf) for additional information.
+Refer to the MARTI Deployment Guide and MARTI Configuration Guide the documentation folder for additional information.
 
 ## What Is CRITs?
 
